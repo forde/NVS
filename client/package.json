@@ -8,15 +8,25 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sanity/block-content-to-html": "^2.0.0",
+    "@sanity/block-content-to-react": "^3.0.0",
+    "@sanity/client": "^2.11.0",
+    "@sanity/image-url": "^0.140.22",
+    "groq": "^2.2.6",
     "next": "^11.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@next/bundle-analyzer": "^11.0.1",
+    "next-pwa": "^5.2.23",
+    "next-sitemap": "^1.6.140"
+  }
 }
