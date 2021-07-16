@@ -92,9 +92,10 @@ export const headingSizes = [
 
 const headingClasses = () => headingSizes.map(size => `
     ${size.tags} .h-${size.name} {
-        font-family: 'Frank Ruhl Libre', serif;
+        font-family: "Source Sans Pro", sans-serif;
         margin: 0;
         color: ${colors.black};
+        font-weight: 700;
         position:relative;
         font-size: ${size.sizes[0]}px;
         line-height: ${lh(size.sizes[0])}px;
@@ -110,9 +111,9 @@ const headingClasses = () => headingSizes.map(size => `
 `).join(' ')
 
 export const paragraphSizes = [
-    {   name: 'large', sizes: [24,18,16] },
-    {   name: 'medium', tags: 'p,', sizes: [20, 18, 16] },
-    {   name: 'small', sizes: [16,14,14] },
+    {   name: 'large', sizes: [24,18,18] },
+    {   name: 'medium', tags: 'p,', sizes: [20, 18, 18] },
+    {   name: 'small', sizes: [16,16,16] },
 ]
 
 const paragraphClasses = () => paragraphSizes.map(size => `
@@ -123,6 +124,8 @@ const paragraphClasses = () => paragraphSizes.map(size => `
         font-family: "Georgia", "Cambria", "Times New Roman", Times, serif;
         font-size: ${size.sizes[0]}px;
         line-height: ${lh(size.sizes[0])}px;
+        letter-spacing: .5px;
+        -webkit-font-smoothing: antialiased;
         @media (min-width: 768px) and (max-width: 1024px) {
             font-size: ${size.sizes[1]}px;
             line-height: ${lh(size.sizes[1])}px;
