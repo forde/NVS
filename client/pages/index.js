@@ -31,8 +31,8 @@ export default function Home() {
                     </Col>
                 </Row>
                 <div className="mb-24">
-                    <button onClick={() => success('message')} style={{background:'#4caf50', color: 'black'}}>success message</button>
-                    <button onClick={() => error('message')} style={{background:'#f44336', color: '#fff'}}>error message</button>
+                    <button onClick={() => success('Success mssage')} style={{background:'#4caf50', color: 'black'}}>success</button>
+                    <button onClick={() => error('Error mssage')} style={{background:'#f44336', color: '#fff'}}>error</button>
                 </div>
                 <div className="mb-24">
                     <Switch on={demo.switch} onChange={change('switch')} />
