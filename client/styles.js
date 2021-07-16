@@ -1,6 +1,17 @@
 import { normalize } from 'polished'
 import { css } from 'linaria'
+import { styled } from 'linaria/react'
 
+/*
+    test = css`color: tomato;` => classname={test}
+    const H1 = styled.h1`color: tomato;` => <H1>...</H1>
+*/
+
+/*
+|--------------------------------------------------------------------------
+|  Colors
+|--------------------------------------------------------------------------
+*/
 export const colors = {
     main: '#F97A66',
     mainLight: '#F8AA9E',
@@ -12,6 +23,11 @@ export const colors = {
     lighterGray: '#F9F9F9',
 }
 
+/*
+|--------------------------------------------------------------------------
+|  Distances
+|--------------------------------------------------------------------------
+*/
 const distanceProps = [
     { class: 'mb', prop: 'margin-bottom'},
     { class: 'mt', prop: 'margin-top'},
@@ -50,6 +66,12 @@ const distanceClasses = () => distanceProps.map(set =>
     `).join(' ')
 ).join(' ')
 
+
+/*
+|--------------------------------------------------------------------------
+|  Typography
+|--------------------------------------------------------------------------
+*/
 const lh = fs => Math.round(fs * 1.618)
 
 export const headingSizes = [
@@ -88,7 +110,7 @@ const paragraphClasses = () => paragraphSizes.map(size => `
         margin: 0;
         color: ${colors.black};
         position:relative;
-        font-family: 'Georgia', serif;
+        font-family: "Georgia", "Cambria", "Times New Roman", Times, serif;
         font-size: ${size.sizes[0]}px;
         line-height: ${lh(size.sizes[0])}px;
         @media (min-width: 768px) and (max-width: 1024px) {
@@ -102,6 +124,60 @@ const paragraphClasses = () => paragraphSizes.map(size => `
     }
 `).join(' ')
 
+
+/*
+|--------------------------------------------------------------------------
+|  Grid
+|--------------------------------------------------------------------------
+*/
+const colNum = 12
+
+const colGap = 16 // px
+
+const trim2 = val =>  parseInt(val * 100)/100
+
+export const Row = styled.div`
+    display: flex;
+    width: calc(100% + ${colGap}px);
+    margin-left: -${trim2(colGap/2)}px;
+    margin-right: -${trim2(colGap/2)}px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+`
+const getWidth = (width, index) => {
+    const cols = Array.isArray(width) ? (width[index] || width) : width
+    return trim2((100/colNum)*cols)
+}
+
+export const Col = styled.div`
+    margin-left: ${trim2(colGap/2)}px;
+    margin-right: ${trim2(colGap/2)}px;
+    width: calc(${props => getWidth(props.width, 0)}% - 16px);
+    margin-bottom: 16px;
+    @media (min-width: 768px) and (max-width: 1024px) {
+        width: calc(${props => getWidth(props.width, 1)}% - 16px);
+    }
+    @media(max-width: 767px) {
+        width: calc(${props => getWidth(props.width, 2)}% - 16px);
+    }
+`
+
+/**
+ * Example:
+ * <Row>
+ *      <Col width={[3,6,12]}> 3 col. on desktop / 6 on tablet / 12 on mobile </Col>
+ *      <Col width={[3,6,12]}> 3 col. on desktop / 6 on tablet / 12 on mobile </Col>
+ *      <Col width={[6,12,12]}> 6 col. on desktop / 12 on tablet / 12 on mobile </Col>
+ * </Row>
+ */
+
+
+/*
+|--------------------------------------------------------------------------
+|  Global styles
+|--------------------------------------------------------------------------
+*/
 css`
     :global() {
 
@@ -123,6 +199,13 @@ css`
             font-size:18px;
             line-height: 1.4;
             max-width:100%;
+        }
+
+        #__next {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         ${distanceClasses()}

@@ -1,18 +1,18 @@
-/client/node_modules
+/client/node_modules/
 /client/.pnp
 /client.pnp.js
 /client/.next/
 /client/out/
-/client/build
+/client/build/
 /client/.linaria-cache/
-/client/.now
+/client/.now/
 
-/cms/node_modules
-/cms/dist
-/cms/.next
-/cms/out
+/cms/node_modules/
+/cms/dist/
+/cms/.next/
+/cms/out/
 /cms/.DS_Store
-/cms/sanitytutorialblog
+/cms/sanitytutorialblog/
 
 # misc
 .DS_Store
