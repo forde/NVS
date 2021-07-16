@@ -2,9 +2,7 @@ const withPWA = require('next-pwa')
 
 const runtimeCaching = require('next-pwa/cache')
 
-//const { BugsnagSourceMapUploaderPlugin } = require('webpack-bugsnag-plugins')
-
-//const withSourceMaps = require('@zeit/next-source-maps')
+const withLinaria = require('next-linaria')
 
 const config = {
 
@@ -42,4 +40,4 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
     enabled: process.env.ANALYZE === 'true',
 })
 
-module.exports = withBundleAnalyzer(withPWA(config))
+module.exports = withBundleAnalyzer(withPWA(withLinaria(config)))
