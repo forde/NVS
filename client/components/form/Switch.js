@@ -15,7 +15,7 @@ export default function Switch ({ on, style, onChange }) {
 
 const Wrapper = styled.div`
     display: inline-block;
-    background: rgba(0,0,0,.3);
+    background: rgba(0,0,0,.2);
     border-radius: 26px;
     height:26px;
     position: relative;
@@ -42,7 +42,7 @@ const Wrapper = styled.div`
     }
 
     &.on {
-        background: ${colors.green};
+        background: ${colors.main};
         box-shadow: none;
         &:after {
             left: 38px;

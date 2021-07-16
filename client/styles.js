@@ -13,17 +13,25 @@ import { styled } from 'linaria/react'
 |--------------------------------------------------------------------------
 */
 export const colors = {
-    main: '#F97A66',
-    mainLight: '#F8AA9E',
-    mainLighter: '#FACDC0',
+    main: '#2196f3',
+    mainDarker: '#1565c0',
+    mainLighter: '#90caf9',
     black: '#141414',
     darkGray: '#3E3E3E',
     gray: '#787777',
-    lightGray: '#E5E3E3',
+    lightGray: '#F1F1F3',
     lighterGray: '#F9F9F9',
-    red: '#f44336',
-    green: '#8bc34a',
+    red: '#EC5B54',
+    green: '#80CF5B',
 }
+
+export const fonts = {
+    main: '"Source Sans Pro", sans-serif;', // 300 | 400 | 700
+    serif: '"Frank Ruhl Libre", serif;', // 300 | 700
+}
+
+export const shadow = 'box-shadow: 0 6px 24px rgba(0,0,0,.06), 0 2px 6px rgba(31,26,34,.06);'
+export const shadowHover = 'box-shadow: 0 6px 24px rgba(0,0,0,.12), 0 2px 6px rgba(31,26,34,.06);'
 
 /*
 |--------------------------------------------------------------------------
@@ -228,6 +236,10 @@ css`
 
         img {max-width: 100%;}
 
+        button {
+            cursor: pointer;
+        }
+
         .container {
             width: 100%;
             max-width: 1180px;
@@ -251,7 +263,7 @@ css`
 
         .card {
             background: white;
-            border-radius: 12px;
+            border-radius: 10px;
             padding: 32px 32px;
             box-shadow: 0 6px 24px rgba(0,0,0,.06), 0 2px 6px rgba(31,26,34,.06);
         }
@@ -321,6 +333,53 @@ css`
         .content a {
             color: ${colors.main};
             text-decoration: underline;
+        }
+
+        .editable {
+            transition: outline .2s ease-in-out;
+            outline: 1px dashed transparent;
+            &:hover {
+                outline: 1px dashed #95939F;
+            }
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px 12px;
+            height: 36px;
+            font-size:14px;
+            background: rgba(255,255,255,.6);
+            outline: none;
+            box-shadow: none;
+            border: 1px solid #D8DCE2;
+            color: ${colors.black};
+            border-radius: 5px;
+            line-height: 1;
+            transition: all .2s ease-in-out;
+            font-family: 'gellix-medium';
+
+            background-image:-webkit-linear-gradient(hsla(0,0%,100%,0), hsla(0,0%,100%,0))!important;
+
+            @media(pointer: fine) {
+                &:hover {
+                    border-color: ${colors.gray};
+                }
+            }
+
+            &:-webkit-autofill, &:-webkit-autofill:hover, &:-webkit-autofill:focus, &:-webkit-autofill, &:-webkit-autofill-strong-password, &:-webkit-autofill-strong-password-viewable {
+                box-shadow: 0 6px 24px rgba(0,0,0,.06), 0 2px 6px rgba(31,26,34,.06), 0 0 0 50px white inset!important;
+                background-image:-webkit-linear-gradient(hsla(0,0%,100%,0), hsla(0,0%,100%,0))!important;
+            }
+        }
+
+        input[type="text"], textarea {
+            &:read-only {
+                opacity: .6;
+            }
+        }
+
+        textarea {
+            min-height: 100px;
         }
 
     }
