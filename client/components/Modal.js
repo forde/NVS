@@ -4,7 +4,7 @@ import { MdCancel } from 'react-icons/md'
 
 import Button from '~/components/form/Button'
 
-export default function Modal ({ children, onClose, width, className, white, style }) {
+export default function Modal ({ children, onClose, width, height, className, white, style }) {
 
     useEffect(() => {
         const onKeyup = e => e.key === 'Escape' ? onClose() : null
@@ -15,7 +15,7 @@ export default function Modal ({ children, onClose, width, className, white, sty
     return (
         <Wrapper id="modal" onClick={e => onClose && e.target.id === 'modal' ? onClose() : null} white={white}>
             <div>
-                <ModalEl className={className} id="modal-window" width={width} white={white} style={style} >
+                <ModalEl className={className} id="modal-window" width={width} height={height} white={white} style={style} >
                     {children}
                 </ModalEl>
                 <Button className="close-icon" tertiary small icon={MdCancel} onClick={onClose} />
@@ -52,6 +52,7 @@ const ModalEl = styled.div`
     background: #fff;
     width:${props => props.width || '660px'};
     max-width: ${props => props.width || '90vw'};
+    height:${props => props.height || 'auto'};
     max-height:90vh;
     min-height: 200px;
     cursor:default;

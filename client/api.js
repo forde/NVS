@@ -1,7 +1,7 @@
 const sanityClient = require('@sanity/client')
 
 const sanityClientConfig = {
-    projectId: process.env.SANITY_PROJECT_ID,
+    projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
     dataset: 'production',
     apiVersion: '2021-03-25',
     token: '', // or leave blank to be anonymous user
@@ -106,6 +106,19 @@ export const getBySlug = slug => {
 export const getSlugsForTypes = types => {
     const query = `*[_type in [${types.map(t => `"${t}"`).join(',')}]]{
         "slug": slug.current
+    }`
+    return client.fetch(query)
+}
+
+export const getImages = ({ search, from=0, to=12 }) => {
+    const query = `*[_type == 'sanity.imageAsset']
+    [${from}..${to}]
+    | order(_createdAt desc) {
+        _id,
+        assetId,
+        size,
+        url,
+        mimeType,
     }`
     return client.fetch(query)
 }

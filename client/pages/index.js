@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { curry } from 'ramda'
-import { MdAddCircle } from 'react-icons/md'
+import { MdAddCircle, MdSearch } from 'react-icons/md'
 
 import { Row, Col, colors } from '~/styles'
 import Layout from '~/components/Layout'
@@ -10,6 +10,8 @@ import Button from '~/components/form/Button'
 import Editable from '~/components/form/Editable'
 import Select from '~/components/form/Select'
 import RichTextEditor from '~/components/form/RichTextEditor'
+import MediaBrowser from '~/components/form/MediaBrowser'
+import Input from '~/components/form/Input'
 import Modal from '~/components/Modal'
 
 export default function Home() {
@@ -21,6 +23,8 @@ export default function Home() {
         select: '',
         multiSelect: [],
         richText: '',
+        mediaBrowser: false,
+        input: '',
     })
 
     const change = curry((key, val) => {
@@ -64,8 +68,8 @@ export default function Home() {
                 <div className="mb-24">
                     <Select {...selectProps} />
                     <Select {...selectProps} small />
-                    <Select {...selectProps} disabled />
-                    <Select {...selectProps} disabled small />
+                    <Select {...selectProps} disabled label="Label"/>
+                    <Select {...selectProps} disabled small label="Label"/>
                 </div>
                 <div className="mb-24">
                     <Select {...multiselectProps} multiple />
@@ -137,6 +141,36 @@ export default function Home() {
                 <div className="mb-24">
                     <RichTextEditor />
                 </div>
+                <div className="mb-24">
+                    <Button tertiary small onClick={() => change('mediaBrowser')(!demo.mediaBrowser)}>Media browser</Button>
+                    {demo.mediaBrowser && <MediaBrowser onClose={() => change('mediaBrowser')(false)} />}
+                </div>
+                <Row className="mb-24">
+                    <Col width={3}>
+                        <Input value={demo.input} placeholder="Type something" onChange={change('input')} />
+                    </Col>
+                    <Col width={3}>
+                        <Input value={demo.input} placeholder="Type something" onChange={change('input')} small />
+                    </Col>
+                    <Col width={3}>
+                        <Input value={demo.input} onChange={change('input')} disabled label="Label" placeholder="Disabled" />
+                    </Col>
+                    <Col width={3}>
+                        <Input value={demo.input} onChange={change('input')} small disabled label="Label" placeholder="Disabled" />
+                    </Col>
+                    <Col width={3}>
+                        <Input value={demo.input} onChange={change('input')} icon={MdSearch} placeholder="Search"/>
+                    </Col>
+                    <Col width={3}>
+                        <Input value={demo.input} onChange={change('input')} small icon={MdSearch} placeholder="Search" />
+                    </Col>
+                    <Col width={3}>
+                        <Input value={demo.input} placeholder="Type something" onChange={change('input')} multiline/>
+                    </Col>
+                    <Col width={3}>
+                        <Input value={demo.input} placeholder="Type something" onChange={change('input')} small multiline/>
+                    </Col>
+                </Row>
             </div>
         </Layout>
     )

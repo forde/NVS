@@ -2,8 +2,9 @@ import { useState, useRef, useEffect } from 'react'
 import { styled } from 'linaria/react'
 import { MdCancel, MdArrowDropDown } from 'react-icons/md'
 
-import { colors, shadow, shadowHover } from './../../styles'
+import { colors, shadow, shadowHover } from '~/styles'
 import { onClickOutside, isObject } from '~/lib/helpers'
+import Label from './Label'
 
 export default function Select ({
     value,
@@ -113,7 +114,7 @@ export default function Select ({
 
     return (
         <>
-            {label && <Label style={{marginBottom: '8px'}}>{label}</Label>}
+            {label && <Label style={{marginBottom: '4px'}}>{label}</Label>}
 
             <Wrapper
                 ref={selectWrapperRef}
@@ -303,6 +304,7 @@ const Wrapper = styled.div`
             cursor: default;
             opacity: .6;
             @media(pointer: fine) { &:hover {
+                ${shadow};
                 border: 3px solid transparent;
             }}
         }

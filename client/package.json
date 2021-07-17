@@ -36,7 +36,9 @@
     "react-draft-wysiwyg": "^1.14.7",
     "react-hot-toast": "^2.0.0",
     "react-icons": "^4.2.0",
-    "styled-components": "^5.3.0"
+    "react-image-crop": "^8.6.12",
+    "styled-components": "^5.3.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",

@@ -31,7 +31,7 @@ export default function Button ({
     if(tertiary) {
         background = '#fff'
         color = colors.black
-        border = 'rgba(76,71,108,.08)'
+        border = colors.gray
     }
 
     return(

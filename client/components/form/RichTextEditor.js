@@ -32,7 +32,7 @@ export default function RichTextEditor() {
                 onEditorStateChange={setEditorState}
                 // toolbarOnFocus
                 toolbar={{
-                    options: ['blockType', 'inline', 'list', 'textAlign', 'link', 'embedded', 'emoji', 'image', 'history'],
+                    options: ['blockType', 'inline', 'list', 'textAlign', 'link', 'embedded', 'emoji', 'image', 'remove', 'history'],
                     blockType: { options: ['Normal', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'Blockquote'] },
                     inline: { options: ['bold', 'italic', 'underline', 'strikethrough'] },
                     list: { options: ['unordered', 'ordered'] },
@@ -60,7 +60,7 @@ const Wrapper = styled.div`
             border: 2px solid ${colors.gray};
             border-radius: 5px;
             box-shadow: none;
-            &:hover {
+            &:hover, &.rdw-option-active {
                 box-shadow: none;
                 border: 2px solid ${colors.main};
             }

@@ -1,4 +1,4 @@
-import styled from 'linaria/react'
+import { styled } from 'linaria/react'
 
 export default function Label ({ className, children, ...rest }) {
     return (
@@ -7,7 +7,7 @@ export default function Label ({ className, children, ...rest }) {
 }
 
 const StyledLabel = styled.label`
-    font-size:17px;
+    font-size:16px;
     font-weight: 400;
     display:block;
 `

@@ -242,3 +242,15 @@ export const trim1 = val =>  parseInt(val * 10)/10
 export const percentOf = (x, y) => Math.ceil((x / (y || 1)) * 100)
 
 export const percentToNum = (per, max) => Math.ceil((max / 100) * per)
+
+export const getPixelRatio = () => {
+    const ctx = document.createElement("canvas").getContext("2d"),
+        dpr = window.devicePixelRatio || 1,
+        bsr = ctx.webkitBackingStorePixelRatio ||
+              ctx.mozBackingStorePixelRatio ||
+              ctx.msBackingStorePixelRatio ||
+              ctx.oBackingStorePixelRatio ||
+              ctx.backingStorePixelRatio || 1
+
+    return dpr / bsr
+}

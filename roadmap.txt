@@ -1,0 +1,5 @@
+~ create media browser / selector (with ability to add / edit / remove images to / from sanity cdn)
+- add possibility to embed videos youtube / vimeo to rich text editor
+- add possibility to add images (from media browser) to rich text editor
+- add checkbox component
+- add radio component
