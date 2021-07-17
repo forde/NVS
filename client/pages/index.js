@@ -9,6 +9,7 @@ import Switch from '~/components/form/Switch'
 import Button from '~/components/form/Button'
 import Editable from '~/components/form/Editable'
 import Select from '~/components/form/Select'
+import RichTextEditor from '~/components/form/RichTextEditor'
 import Modal from '~/components/Modal'
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
         editable: '',
         select: '',
         multiSelect: [],
+        richText: '',
     })
 
     const change = curry((key, val) => {
@@ -131,6 +133,9 @@ export default function Home() {
                         placeholder="Editable text"
                         className="h-medium"
                     />
+                </div>
+                <div className="mb-24">
+                    <RichTextEditor />
                 </div>
             </div>
         </Layout>

@@ -1,3 +1,17 @@
 {
-    "presets": ["next/babel", "linaria/babel"]
+    "presets": ["next/babel", "linaria/babel"],
+    "plugins": [
+        ["ramda"],
+        ["babel-plugin-root-import", {
+            "paths": [
+                {
+                    "rootPathSuffix": "./",
+                    "rootPathPrefix": "/"
+                }, {
+                    "rootPathSuffix": "./",
+                    "rootPathPrefix": "~/"
+                }
+            ]
+        }]
+    ]
 }

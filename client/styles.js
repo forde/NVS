@@ -18,7 +18,7 @@ export const colors = {
     mainLighter: '#90caf9',
     black: '#141414',
     darkGray: '#3E3E3E',
-    gray: '#787777',
+    gray: '#F1F1F3',
     lightGray: '#F1F1F3',
     lighterGray: '#F9F9F9',
     red: '#EC5B54',
@@ -124,7 +124,7 @@ const paragraphClasses = () => paragraphSizes.map(size => `
         font-family: "Georgia", "Cambria", "Times New Roman", Times, serif;
         font-size: ${size.sizes[0]}px;
         line-height: ${lh(size.sizes[0])}px;
-        letter-spacing: .5px;
+        letter-spacing: .3px;
         -webkit-font-smoothing: antialiased;
         @media (min-width: 768px) and (max-width: 1024px) {
             font-size: ${size.sizes[1]}px;
@@ -319,23 +319,34 @@ css`
             align-items: center;
         }
 
-        .content * {
-            margin-bottom: 16px;
-            line-height:1.4;
-        }
-        .content strong { font-weight: bold; }
-        .content em { font-style: italic; }
-        .content ul {
-            padding-left: 16px;
-            margin-left: 16px;;
-        }
-        .content li {
-            list-style: disc;
-            margin-bottom: 6px;
-        }
-        .content a {
-            color: ${colors.main};
-            text-decoration: underline;
+        .content {
+            font-family: ${fonts.serif};
+            letter-spacing: .3px;
+            font-size: 20px;
+            h1,h2,h3,h4,h5,h6 {
+                font-family: ${fonts.main};
+            }
+            p, ul, ol, h1, h2, h3, h4, h5, h6, .public-DraftEditor-content > div > div {
+                margin-bottom: 16px!important;
+                line-height: 1.4;
+            }
+            strong { font-weight: bold; }
+            em { font-style: italic; }
+            ul, ol {
+                padding: 0 0 0 16px;
+                margin: 0 0 16px 0;
+            }
+            li {
+                list-style: disc;
+                margin-bottom: 6px;
+            }
+            ol li {
+                list-style: none;
+            }
+            a {
+                color: ${colors.main};
+                text-decoration: underline;
+            }
         }
 
         .editable {
