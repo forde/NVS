@@ -142,7 +142,7 @@ export default function Home() {
                     <RichTextEditor />
                 </div>
                 <div className="mb-24">
-                    <Button tertiary small onClick={() => change('mediaBrowser')(!demo.mediaBrowser)}>Media browser</Button>
+                    <Button secondary small onClick={() => change('mediaBrowser')(!demo.mediaBrowser)}>Media browser</Button>
                     {demo.mediaBrowser && <MediaBrowser onClose={() => change('mediaBrowser')(false)} />}
                 </div>
                 <Row className="mb-24">

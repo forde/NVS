@@ -296,6 +296,14 @@ css`
             transform: translateY(-50%);
         }
 
+        .flex {
+            display: flex;
+        }
+
+        .wrap {
+            flex-wrap: wrap;
+        }
+
         .flex-center {
             display: flex;
             flex-direction: column;

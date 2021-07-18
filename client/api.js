@@ -4,7 +4,7 @@ const sanityClientConfig = {
     projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
     dataset: 'production',
     apiVersion: '2021-03-25',
-    token: '', // or leave blank to be anonymous user
+    token: process.env.NEXT_PUBLIC_SANITY_TOKEN, // or leave blank to be anonymous user
     useCdn: process.env.NODE_ENV === 'production'
     // useCdn == true gives fast, cheap responses using a globally distributed cache.
     // Set this to false if your application require the freshest possible
@@ -12,13 +12,6 @@ const sanityClientConfig = {
 }
 
 export const client = sanityClient(sanityClientConfig)
-
-export const previewClient = sanityClient({
-    ...sanityClientConfig,
-    useCdn: false,
-    token: process.env.SANITY_TOKEN,
-    withCredentials: true
-})
 
 export const getSettings = async () => {
     return client.fetch(`
@@ -112,6 +105,7 @@ export const getSlugsForTypes = types => {
 
 export const getImages = ({ search, from=0, to=12 }) => {
     const query = `*[_type == 'sanity.imageAsset']
+    ${search && `[[originalFilename] match ["*${search}*"]]`}
     [${from}..${to}]
     | order(_createdAt desc) {
         _id,

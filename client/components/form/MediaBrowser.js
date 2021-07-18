@@ -33,23 +33,42 @@ export default function MediaBrowser ({ onClose }) {
     const croppedImageRef = useRef(null)
     const previewCanvasRef = useRef(null)
     const imageContainerRef = useRef(null)
+    const fileInputRef = useRef(null)
 
     const windowWidth = useWindowWidth()
 
     const debug = false
+
+    const imageUrl = source => imageUrlBuilder(client).image(source)
+
+    const updateImageMeta = curry((key, val) => setSelectedImageMeta({ ...selectedImageMeta, [key]: val }))
+
+    useEffect(() => {
+        (async () => {
+            const resp = await getImages({ search })
+            setLoading(false)
+            if(Array.isArray(resp)) setImages(resp)
+        })()
+    }, [search])
 
     const onImageReadyToCrop = useCallback(img => {
         img.crossOrigin = 'Anonymous'
         croppedImageRef.current = img
     }, [])
 
-    console.log(selectedImage);
-
     useEffect(() => {
         if(!selectedImage || !imageContainerRef.current) return
         const imageWidth = imageContainerRef.current.offsetHeight * selectedImage.metadata.dimensions.aspectRatio
         setImageEditorMaxWidth(`${imageWidth}px`)
     }, [selectedImage, windowWidth])
+
+    useEffect(() => {
+        if(debug && croppedImageRef.current && previewCanvasRef.current && completedCrop?.width) getCroppedImg()
+    }, [completedCrop])
+
+    useEffect(() => {
+        setCrop({ aspect: ratioLock })
+    }, [ratioLock])
 
     const getCroppedImg = () => {
         const image = croppedImageRef.current
@@ -81,31 +100,7 @@ export default function MediaBrowser ({ onClose }) {
         })
     }
 
-    useEffect(() => {
-        if(debug && croppedImageRef.current && previewCanvasRef.current && completedCrop?.width) getCroppedImg()
-    }, [completedCrop])
-
-    useEffect(() => {
-        setCrop({ aspect: ratioLock })
-    }, [ratioLock])
-
-    const builder = imageUrlBuilder(client)
-
-    const imageUrl = source => builder.image(source)
-
-    const updateImageMeta = curry((key, val) => setSelectedImageMeta({ ...selectedImageMeta, [key]: val }))
-
-    useEffect(() => {
-        (async () => {
-            const resp = await getImages({
-                search
-            })
-            setLoading(false)
-            if(Array.isArray(resp)) setImages(resp)
-        })()
-    }, [])
-
-    const saveImage = async () => {
+    const saveCroppedImage = async () => {
 
         if(saving) return
 
@@ -131,19 +126,51 @@ export default function MediaBrowser ({ onClose }) {
         setCompletedCrop(null)
     }
 
+    const onFileSelected = async e => {
+
+        const file = e.target.files[0]
+
+        if(!file) return
+
+        const resp = await client.assets.upload('image', file, { filename: file.name })
+
+        console.log(resp);
+
+    }
+
+    const useImage = () => {
+
+    }
+
+    const deleteImage = () => {
+
+    }
+
     return(
         <Modal onClose={onClose} width="90vw" height="90vh">
             <Wrapper>
-                <div className="top-bar">
+                <div className="top-bar flex">
                     {!selectedImage ?
                         <>
                             <Input
                                 icon={MdSearch}
                                 small
-                                className="search-input"
+                                className="search-input mr-16"
                                 placeholder="Search"
                                 value={search}
                                 onChange={setSearch}
+                            />
+                            <Button
+                                small
+                                onClick={() => fileInputRef.current.click()}
+                                className="mr-16"
+                            >Upload image</Button>
+                            <input
+                                ref={fileInputRef}
+                                style={{ position: 'fixed', top: '-100em'}}
+                                type="file"
+                                onChange={onFileSelected}
+                                accept="image/jpeg, image/jpg, image/png, image/heif, image/heic"
                             />
                         </> : <>
                             <Button tertiary small icon={MdKeyboardBackspace} onClick={backToImageGrid}/>
@@ -202,6 +229,14 @@ export default function MediaBrowser ({ onClose }) {
                                         { name: '1:1', value: 1 }
                                     ]}
                                 />
+                                <Button
+                                    tertiary
+                                    small
+                                    busy={saving}
+                                    disabled={!(completedCrop?.width > 0)}
+                                    onClick={saveCroppedImage}
+                                    className="w-100 mb-24"
+                                >Crop & save</Button>
                                 <Input
                                     small
                                     className="mb-24"
@@ -217,13 +252,16 @@ export default function MediaBrowser ({ onClose }) {
                                     onChange={updateImageMeta('alt')}
                                 />
                                 <Button
-                                    tertiary
                                     small
-                                    busy={saving}
-                                    disabled={!(completedCrop?.width > 0)}
-                                    onClick={saveImage}
+                                    onClick={useImage}
+                                    className="w-100 mb-24"
+                                >Use image</Button>
+                                <Button
+                                    small
+                                    secondary
+                                    onClick={deleteImage}
                                     className="w-100"
-                                >Crop & save</Button>
+                                >Delete image</Button>
                             </div>
                         </div>
                     </div>

@@ -3,3 +3,4 @@
 - add possibility to add images (from media browser) to rich text editor
 - add checkbox component
 - add radio component
+- create client authentication and only use sanity client with token from next api layer when logged in
