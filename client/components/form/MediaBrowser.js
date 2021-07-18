@@ -12,7 +12,7 @@ import { getImages, client } from '~/api'
 import Input from './Input'
 import Button from './Button'
 import Select from './Select'
-import { getPixelRatio, percentOf, percentToNum } from '~/lib/helpers'
+import { getPixelRatio, percentOf, percentToNum, truncate, bytesToSize } from '~/lib/helpers'
 import useWindowWidth from '~/hooks/useWindowWidth'
 import { colors } from '~/styles'
 
@@ -42,6 +42,8 @@ export default function MediaBrowser ({ onClose }) {
         img.crossOrigin = 'Anonymous'
         croppedImageRef.current = img
     }, [])
+
+    console.log(selectedImage);
 
     useEffect(() => {
         if(!selectedImage || !imageContainerRef.current) return
@@ -180,6 +182,11 @@ export default function MediaBrowser ({ onClose }) {
                         </div>
                         <div className="details-container">
                             <div>
+                                <span>
+                                    {truncate(selectedImage.originalFilename, 35)}<br/>
+                                    {selectedImage.metadata.dimensions.width} / {selectedImage.metadata.dimensions.height} px<br/>
+                                    {bytesToSize(selectedImage.size)}
+                                </span>
                                 <Select
                                     small
                                     className="mb-24"
@@ -281,15 +288,23 @@ const Wrapper = styled.div`
             position:relative;
         }
         .details-container {
+            width: 30%;
+            padding-left:16px;
+            height: 100%;
             > div {
                 background: ${colors.lighterGray};
                 border-radius: 10px;
                 border: 1px solid ${colors.lightGray};
                 padding: 16px;
+                > span {
+                    font-size: 16px;
+                    color: gray;
+                    line-height: 1.3;
+                    margin-bottom: 20px;
+                    display: block;
+                    -webkit-font-smoothing: antialiased;
+                }
             }
-            width: 30%;
-            padding-left:16px;
-            height: 100%;
         }
     }
 `
