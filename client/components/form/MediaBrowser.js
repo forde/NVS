@@ -13,6 +13,7 @@ import Input from './Input'
 import Button from './Button'
 import Select from './Select'
 import { getPixelRatio, percentOf, percentToNum } from '~/lib/helpers'
+import useWindowWidth from '~/hooks/useWindowWidth'
 import { colors } from '~/styles'
 
 export default function MediaBrowser ({ onClose }) {
@@ -23,6 +24,7 @@ export default function MediaBrowser ({ onClose }) {
     const [ selectedImage, setSelectedImage ] = useState(null)
     const [ selectedImageMeta, setSelectedImageMeta ] = useState({ title: '', alt: ''})
     const [ ratioLock, setRatioLock ] = useState(16 / 9)
+    const [ imageEditorMaxWidth, setImageEditorMaxWidth ] = useState('100%')
 
     const [ crop, setCrop ] = useState({ aspect: 16 / 9 })
     const [ completedCrop, setCompletedCrop ] = useState(null)
@@ -30,6 +32,9 @@ export default function MediaBrowser ({ onClose }) {
 
     const croppedImageRef = useRef(null)
     const previewCanvasRef = useRef(null)
+    const imageContainerRef = useRef(null)
+
+    const windowWidth = useWindowWidth()
 
     const debug = false
 
@@ -37,6 +42,12 @@ export default function MediaBrowser ({ onClose }) {
         img.crossOrigin = 'Anonymous'
         croppedImageRef.current = img
     }, [])
+
+    useEffect(() => {
+        if(!selectedImage || !imageContainerRef.current) return
+        const imageWidth = imageContainerRef.current.offsetHeight * selectedImage.metadata.dimensions.aspectRatio
+        setImageEditorMaxWidth(`${imageWidth}px`)
+    }, [selectedImage, windowWidth])
 
     const getCroppedImg = () => {
         const image = croppedImageRef.current
@@ -111,6 +122,13 @@ export default function MediaBrowser ({ onClose }) {
         }
     }
 
+    const backToImageGrid = () => {
+        setSelectedImage(null)
+        setSelectedImageMeta({ title: '', alt: ''})
+        setCrop({ aspect: ratioLock })
+        setCompletedCrop(null)
+    }
+
     return(
         <Modal onClose={onClose} width="90vw" height="90vh">
             <Wrapper>
@@ -126,7 +144,7 @@ export default function MediaBrowser ({ onClose }) {
                                 onChange={setSearch}
                             />
                         </> : <>
-                            <Button tertiary small icon={MdKeyboardBackspace} onClick={() => setSelectedImage(null)}/>
+                            <Button tertiary small icon={MdKeyboardBackspace} onClick={backToImageGrid}/>
                         </>
                     }
                 </div>
@@ -145,10 +163,10 @@ export default function MediaBrowser ({ onClose }) {
                     </ul>
                     :
                     <div className="image-details">
-                        <div className="image-container">
-                            <ImageEditor debug={debug}>
+                        <div className="image-container" ref={imageContainerRef}>
+                            <ImageEditor debug={debug} style={{maxWidth:imageEditorMaxWidth}}>
                                 <ReactCrop
-                                    src={imageUrl(selectedImage).url()}
+                                    src={imageUrl(selectedImage).width(800).url()}
                                     crop={crop}
                                     onChange={setCrop}
                                     onImageLoaded={onImageReadyToCrop}
@@ -161,42 +179,45 @@ export default function MediaBrowser ({ onClose }) {
                             </ImageEditor>
                         </div>
                         <div className="details-container">
-                            <Select
-                                small
-                                className="mb-24"
-                                label="Crop ration"
-                                value={ratioLock}
-                                onChange={setRatioLock}
-                                style={{minWidth:'100px', width:'100px'}}
-                                options={[
-                                    { name: '16:9', value: 16/9 },
-                                    { name: '4:3', value: 4/3 },
-                                    { name: '3:4', value: 3/4 },
-                                    { name: '9:16', value: 9/16 },
-                                    { name: '1:1', value: 1 }
-                                ]}
-                            />
-                            <Input
-                                small
-                                className="mb-24"
-                                label="Image title"
-                                value={selectedImageMeta.title}
-                                onChange={updateImageMeta('title')}
-                            />
-                            <Input
-                                small
-                                className="mb-24"
-                                label="Image alt text"
-                                value={selectedImageMeta.alt}
-                                onChange={updateImageMeta('alt')}
-                            />
-                            <Button
-                                tertiary
-                                small
-                                busy={saving}
-                                disabled={!(completedCrop?.width > 0)}
-                                onClick={saveImage}
-                            >Crop & save</Button>
+                            <div>
+                                <Select
+                                    small
+                                    className="mb-24"
+                                    label="Crop ratio"
+                                    value={ratioLock}
+                                    onChange={setRatioLock}
+                                    style={{minWidth:'100%', width:'100%'}}
+                                    options={[
+                                        { name: '16:9', value: 16/9 },
+                                        { name: '4:3', value: 4/3 },
+                                        { name: '3:4', value: 3/4 },
+                                        { name: '9:16', value: 9/16 },
+                                        { name: '1:1', value: 1 }
+                                    ]}
+                                />
+                                <Input
+                                    small
+                                    className="mb-24"
+                                    label="Image title"
+                                    value={selectedImageMeta.title}
+                                    onChange={updateImageMeta('title')}
+                                />
+                                <Input
+                                    small
+                                    className="mb-24"
+                                    label="Image alt text"
+                                    value={selectedImageMeta.alt}
+                                    onChange={updateImageMeta('alt')}
+                                />
+                                <Button
+                                    tertiary
+                                    small
+                                    busy={saving}
+                                    disabled={!(completedCrop?.width > 0)}
+                                    onClick={saveImage}
+                                    className="w-100"
+                                >Crop & save</Button>
+                            </div>
                         </div>
                     </div>
                 }
@@ -228,15 +249,23 @@ const Wrapper = styled.div`
             list-style: none;
             margin: 0 8px 16px 8px;
             width: calc(16.66% - 16px);
-            border: 3px solid transparent;
+            border: 1px dotted red;
+            position: relative;
             transition: border .2s ease-in-out;
-            cursor: pointer;
-            &:hover {
-                border: 3px solid ${colors.main};
-            }
+            height: 140px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             img {
                 display: block;
                 margin: 0;
+                max-width: 100%;
+                max-height: 100%;
+                border: 3px solid transparent;
+                cursor: pointer;
+                &:hover {
+                    border: 3px solid ${colors.main};
+                }
             }
         }
     }
@@ -252,6 +281,12 @@ const Wrapper = styled.div`
             position:relative;
         }
         .details-container {
+            > div {
+                background: ${colors.lighterGray};
+                border-radius: 10px;
+                border: 1px solid ${colors.lightGray};
+                padding: 16px;
+            }
             width: 30%;
             padding-left:16px;
             height: 100%;
@@ -263,7 +298,17 @@ const ImageEditor = styled.div`
     position: relative;
     display: flex;
     margin: auto;
-    width: fit-content;
+    max-height: 100%;
+    .ReactCrop {
+        max-height:100%;
+        > div {
+            height: 100%;
+            width: fit-content;
+            img {
+                max-height: 100%;
+            }
+        }
+    }
     .ReactCrop__drag-elements,
     .ReactCrop__rule-of-thirds-hz,
     .ReactCrop__rule-of-thirds-vt {

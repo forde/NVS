@@ -99,7 +99,7 @@ const ButtonComponent = styled.button`
     padding: ${props => props.padding};
     @supports (-moz-appearance:none) { padding: ${props => props.padding}; }
     @media(pointer: fine) { &:hover, &:active {
-        background: ${props => darken(.05, props.background)};
+        background: ${props => darken(.02, props.background)};
         color: ${props => props.color};
         border: 3px solid ${props => props.border}!important;
     }}

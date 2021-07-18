@@ -119,6 +119,7 @@ export const getImages = ({ search, from=0, to=12 }) => {
         size,
         url,
         mimeType,
+        metadata,
     }`
     return client.fetch(query)
 }

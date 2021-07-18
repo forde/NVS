@@ -276,7 +276,7 @@ css`
         }
 
         .w-100 {
-            width: 100%;
+            width: 100%!important;
         }
 
         .relative {
