@@ -62,7 +62,7 @@ const Wrapper = styled.div`
             box-shadow: none;
             &:hover, &.rdw-option-active {
                 box-shadow: none;
-                border: 2px solid ${colors.main};
+                border: 2px solid ${colors.ui};
             }
         }
         .rdw-dropdown-wrapper {

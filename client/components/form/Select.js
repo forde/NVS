@@ -179,7 +179,7 @@ const Wrapper = styled.div`
         opacity: 1;
         @media(pointer: fine) { &:hover {
             box-shadow: none;
-            border: 3px solid ${colors.main};
+            border: 3px solid ${colors.ui};
         }}
 
         .arrow-icon {
@@ -265,11 +265,11 @@ const Wrapper = styled.div`
             &:hover {
                 @media(pointer: fine) {
                     background: ${colors.lightGray};
-                    color: ${colors.main};
+                    color: ${colors.ui};
                 }
             }
             &.selected {
-                color: ${colors.main}!important;
+                color: ${colors.ui}!important;
             }
         }
     }

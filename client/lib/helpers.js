@@ -241,6 +241,8 @@ export const trim1 = val =>  parseInt(val * 10)/10
 
 export const percentOf = (x, y) => Math.ceil((x / (y || 1)) * 100)
 
+export const percentOfPrecise = (x, y) => (x / (y || 1)) * 100
+
 export const percentToNum = (per, max) => Math.ceil((max / 100) * per)
 
 export const getPixelRatio = () => {

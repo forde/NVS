@@ -42,7 +42,7 @@ const Wrapper = styled.div`
     }
 
     &.on {
-        background: ${colors.main};
+        background: ${colors.ui};
         box-shadow: none;
         &:after {
             left: 38px;

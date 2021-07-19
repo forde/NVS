@@ -21,7 +21,7 @@ export default function Button ({
     ...rest
 }) {
     let color = 'white'
-    let background = colors.main
+    let background = colors.ui
     let border = 'transparent'
 
     if(secondary) {

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { curry } from 'ramda'
 import { MdAddCircle, MdSearch } from 'react-icons/md'
+import imageUrlBuilder from '@sanity/image-url'
 
 import { Row, Col, colors } from '~/styles'
 import Layout from '~/components/Layout'
@@ -13,6 +14,9 @@ import RichTextEditor from '~/components/form/RichTextEditor'
 import MediaBrowser from '~/components/form/MediaBrowser'
 import Input from '~/components/form/Input'
 import Modal from '~/components/Modal'
+import { client } from '~/api'
+
+const imageUrl = source => imageUrlBuilder(client).image(source)
 
 export default function Home() {
 
@@ -25,6 +29,7 @@ export default function Home() {
         richText: '',
         mediaBrowser: false,
         input: '',
+        usedImage: null,
     })
 
     const change = curry((key, val) => {
@@ -143,7 +148,14 @@ export default function Home() {
                 </div>
                 <div className="mb-24">
                     <Button secondary small onClick={() => change('mediaBrowser')(!demo.mediaBrowser)}>Media browser</Button>
-                    {demo.mediaBrowser && <MediaBrowser onClose={() => change('mediaBrowser')(false)} />}
+                    {demo.mediaBrowser && <MediaBrowser
+                        onClose={() => change('mediaBrowser')(false)}
+                        onUse={image => {
+                            setDemo({...demo, usedImage: image, mediaBrowser: false })
+                            // image url builder docs: https://www.sanity.io/docs/image-url
+                        }
+                    } />}
+                    {demo.usedImage && <img src={imageUrl(demo.usedImage).width(400).auto('format').url()} title={demo.usedImage.title} alt={demo.usedImage.alt} />}
                 </div>
                 <Row className="mb-24">
                     <Col width={3}>

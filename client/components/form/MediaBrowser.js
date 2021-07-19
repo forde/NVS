@@ -5,20 +5,19 @@ import { MdSearch, MdKeyboardBackspace } from 'react-icons/md'
 import { curry } from 'ramda'
 import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
-import { v4 as uuid } from 'uuid'
 
 import Modal from '~/components/Modal'
 import { getImages, client } from '~/api'
 import Input from './Input'
 import Button from './Button'
 import Select from './Select'
-import { getPixelRatio, percentOf, percentToNum, truncate, bytesToSize } from '~/lib/helpers'
+import { percentOfPrecise, truncate, bytesToSize } from '~/lib/helpers'
 import useWindowWidth from '~/hooks/useWindowWidth'
 import { colors } from '~/styles'
 import Loader from './Loader'
 import ConfirmButton from './ConfirmButton'
 
-export default function MediaBrowser ({ onClose }) {
+export default function MediaBrowser ({ onClose, onUse }) {
 
     const [ search, setSearch ] = useState('')
     const [ images, setImages ] = useState([])
@@ -32,10 +31,8 @@ export default function MediaBrowser ({ onClose }) {
 
     const [ crop, setCrop ] = useState({ aspect: 16 / 9 })
     const [ completedCrop, setCompletedCrop ] = useState(null)
-    const [ saving, setSaving ] = useState(false)
 
     const croppedImageRef = useRef(null)
-    const previewCanvasRef = useRef(null)
     const imageContainerRef = useRef(null)
     const fileInputRef = useRef(null)
     const uploadsStateRef = useRef()
@@ -81,60 +78,13 @@ export default function MediaBrowser ({ onClose }) {
     }, [selectedImage, windowWidth])
 
     useEffect(() => {
-        if(debug && croppedImageRef.current && previewCanvasRef.current && completedCrop?.width) getCroppedImg()
-    }, [completedCrop])
-
-    useEffect(() => {
         setCrop({ aspect: ratioLock })
     }, [ratioLock])
 
-    const getCroppedImg = () => {
-        const image = croppedImageRef.current
-        const canvas = previewCanvasRef.current
-        const crop = completedCrop
+    const onImageClick = image => {
+        if(!image._id) return null
 
-        const ctx = canvas.getContext('2d')
-        const pixelRatio = getPixelRatio()
-
-        const x1 = Math.round(percentToNum( percentOf(crop.x, image.width), image.naturalWidth ))
-        const y1 = Math.round(percentToNum( percentOf(crop.y, image.height), image.naturalHeight ))
-        const w1 = Math.round(percentToNum( percentOf(crop.width, image.width), image.naturalWidth ))
-        const h1 = Math.round(percentToNum( percentOf(crop.height, image.height), image.naturalHeight ))
-
-        canvas.width = Math.round(w1 * pixelRatio)
-        canvas.height = Math.round(h1 * pixelRatio)
-
-        ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0)
-        ctx.imageSmoothingQuality = 'high'
-
-        ctx.drawImage(image, x1, y1, w1, h1, 0, 0, w1, h1)
-
-        return new Promise((resolve, reject) => {
-            canvas.toBlob(blob => {
-                if(!blob) return
-                blob.name = 'image-'+uuid()
-                resolve(blob)
-            }, selectedImage.mimeType, 1)
-        })
-    }
-
-    const saveCroppedImage = async () => {
-
-        if(saving) return
-
-        setSaving(true)
-
-        const newImage = await getCroppedImg()
-        if(newImage) {
-            /*const upload = await api.media.customerUpload(newImage)
-            setSaving(false)
-            if(upload?.id) {
-                onChange(images.map((file, i) => i === current ? { url: upload.url, name: upload.fileName } : file))
-                setEditedImage(null)
-                setCrop({ aspect: 16 / 9 })
-            }*/
-            console.log(newImage);
-        }
+        setSelectedImage(image)
     }
 
     const backToImageGrid = () => {
@@ -171,17 +121,43 @@ export default function MediaBrowser ({ onClose }) {
         })
     }
 
-    const useImage = () => {
+    const useImage = async () => {
 
+        const left = percentOfPrecise(completedCrop.x, croppedImageRef.current.width) / 100
+        const top = percentOfPrecise(completedCrop.y, croppedImageRef.current.height) / 100
+        const right = ((100 - percentOfPrecise(completedCrop.width, croppedImageRef.current.width)) / 100) - left
+        const bottom = ((100 - percentOfPrecise(completedCrop.height, croppedImageRef.current.height)) / 100) - top
+
+        const height = percentOfPrecise(completedCrop.height, croppedImageRef.current.height) / 100
+        const width = percentOfPrecise(completedCrop.width, croppedImageRef.current.width) / 100
+        const x = width / 2
+        const y = height / 2
+
+        const data = {
+            _type: 'image',
+            asset: {
+                _ref: selectedImage._id,
+                _type: 'reference'
+            },
+            crop: { _type: 'sanity.imageCrop', top, left, bottom, right },
+            hotspot: { _type: 'sanity.imageHotspot', x, y, width, height },
+            ...selectedImageMeta,
+        }
+
+        onUse(data)
     }
 
-    const deleteImage = async image => {
+    const deleteImage = async () => {
 
         setDeleting(true)
 
         await (await fetch('/api/sanity/image', {
             method: 'DELETE',
-            body: formData({ id:  image._id })
+            body: formData({
+                id:  selectedImage._id,
+                title: selectedImageMeta.title,
+                alt: selectedImageMeta.alt,
+            })
         })).json()
 
         await getData()
@@ -232,7 +208,7 @@ export default function MediaBrowser ({ onClose }) {
                                 <li
                                     key={i}
                                     className={!image._id ? 'upload' : ''}
-                                    onClick={() => image._id ? setSelectedImage(image) : null}
+                                    onClick={() => onImageClick(image)}
                                 >
                                     {image._id && <img src={imageUrl(image).width(300).url()} />}
                                     {!image._id && <Loader color="black"/>}
@@ -254,7 +230,6 @@ export default function MediaBrowser ({ onClose }) {
                                     crossorigin="Anonymous"
                                     ruleOfThirds={true}
                                 />
-                                <canvas ref={previewCanvasRef} />
                             </ImageEditor>
                         </div>
                         <div className="details-container">
@@ -279,14 +254,6 @@ export default function MediaBrowser ({ onClose }) {
                                         { name: '1:1', value: 1 }
                                     ]}
                                 />
-                                <Button
-                                    tertiary
-                                    small
-                                    busy={saving}
-                                    disabled={!(completedCrop?.width > 0)}
-                                    onClick={saveCroppedImage}
-                                    className="w-100 mb-24"
-                                >Crop & save</Button>
                                 <Input
                                     small
                                     className="mb-24"
@@ -309,7 +276,7 @@ export default function MediaBrowser ({ onClose }) {
                                 <ConfirmButton
                                     small
                                     secondary
-                                    onConfirm={() => deleteImage(selectedImage)}
+                                    onConfirm={deleteImage}
                                     fullWidth
                                     busy={deleting}
                                 >Delete image</ConfirmButton>
@@ -365,7 +332,7 @@ const Wrapper = styled.div`
                 border: 3px solid transparent;
                 cursor: pointer;
                 &:hover {
-                    border: 3px solid ${colors.main};
+                    border: 3px solid ${colors.ui};
                 }
             }
         }
@@ -374,15 +341,22 @@ const Wrapper = styled.div`
         display: flex;
         height: 100%;
         .image-container {
-            width: 70%;
+            width: calc(100% - 316px);
             display: flex;
             align-items: center;
             justify-content: center;
             height:100%;
             position:relative;
+            background-color: #e6e8ec;
+            background-image: linear-gradient(45deg, #fafafa 25%, transparent 25%),
+                              linear-gradient(-45deg, #fafafa 25%, transparent 25%),
+                              linear-gradient(45deg, transparent 75%, #fafafa 75%),
+                              linear-gradient(-45deg, transparent 75%, #fafafa 75%);
+            background-size: 16px 16px;
+            background-position: 0 0,0 8px,8px -8px,-8px 0;
         }
         .details-container {
-            width: 30%;
+            width: 300px;
             padding-left:16px;
             height: 100%;
             > div {

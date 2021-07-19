@@ -16,6 +16,7 @@ export const colors = {
     main: '#2196f3',
     mainDarker: '#1565c0',
     mainLighter: '#90caf9',
+    ui: '#3977F3',
     black: '#141414',
     gray: '#efeff1',
     darkGray: '#bcbfc5',
@@ -363,7 +364,7 @@ css`
                 list-style: none;
             }
             a {
-                color: ${colors.main};
+                color: ${colors.ui};
                 text-decoration: underline;
             }
         }
