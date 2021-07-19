@@ -15,12 +15,16 @@ import Select from './Select'
 import { getPixelRatio, percentOf, percentToNum, truncate, bytesToSize } from '~/lib/helpers'
 import useWindowWidth from '~/hooks/useWindowWidth'
 import { colors } from '~/styles'
+import Loader from './Loader'
+import ConfirmButton from './ConfirmButton'
 
 export default function MediaBrowser ({ onClose }) {
 
     const [ search, setSearch ] = useState('')
     const [ images, setImages ] = useState([])
     const [ loading, setLoading ] = useState(true)
+    const [ deleting, setDeleting ] = useState(false)
+    const [ uploads, setUploads ] = useState([])
     const [ selectedImage, setSelectedImage ] = useState(null)
     const [ selectedImageMeta, setSelectedImageMeta ] = useState({ title: '', alt: ''})
     const [ ratioLock, setRatioLock ] = useState(16 / 9)
@@ -34,6 +38,9 @@ export default function MediaBrowser ({ onClose }) {
     const previewCanvasRef = useRef(null)
     const imageContainerRef = useRef(null)
     const fileInputRef = useRef(null)
+    const uploadsStateRef = useRef()
+
+    uploadsStateRef.current = uploads
 
     const windowWidth = useWindowWidth()
 
@@ -43,13 +50,24 @@ export default function MediaBrowser ({ onClose }) {
 
     const updateImageMeta = curry((key, val) => setSelectedImageMeta({ ...selectedImageMeta, [key]: val }))
 
+    const getData = async () => {
+        const resp = await getImages({ search })
+        setLoading(false)
+        if(Array.isArray(resp)) setImages(resp)
+    }
+
     useEffect(() => {
-        (async () => {
-            const resp = await getImages({ search })
-            setLoading(false)
-            if(Array.isArray(resp)) setImages(resp)
-        })()
+        getData()
     }, [search])
+
+    useEffect(() => {
+        if(uploads.length && uploads.every(u => u._id)) {
+            setTimeout(async () => {
+                await getData()
+                setUploads([])
+            }, 1000)
+        }
+    }, [uploads])
 
     const onImageReadyToCrop = useCallback(img => {
         img.crossOrigin = 'Anonymous'
@@ -126,24 +144,50 @@ export default function MediaBrowser ({ onClose }) {
         setCompletedCrop(null)
     }
 
+    const formData = data => {
+        const formData = new FormData()
+        Object.keys(data).forEach(key => formData.append(key, data[key]))
+        return formData
+    }
+
     const onFileSelected = async e => {
 
-        const file = e.target.files[0]
+        if(!e.target.files.length) return
 
-        if(!file) return
+        const files = Array.from(e.target.files)
 
-        const resp = await client.assets.upload('image', file, { filename: file.name })
+        setUploads(files)
 
-        console.log(resp);
-
+        files.forEach((file, i) => {
+            fetch('/api/sanity/image', {
+                method: 'PUT',
+                body: formData({ file, filename: file.name })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const replaceUploaded = upload => upload.name === data?.originalFilename ? data : upload
+                    setUploads(uploadsStateRef.current.map(replaceUploaded))
+                })
+        })
     }
 
     const useImage = () => {
 
     }
 
-    const deleteImage = () => {
+    const deleteImage = async image => {
 
+        setDeleting(true)
+
+        await (await fetch('/api/sanity/image', {
+            method: 'DELETE',
+            body: formData({ id:  image._id })
+        })).json()
+
+        await getData()
+
+        setDeleting(false)
+        backToImageGrid()
     }
 
     return(
@@ -169,6 +213,7 @@ export default function MediaBrowser ({ onClose }) {
                                 ref={fileInputRef}
                                 style={{ position: 'fixed', top: '-100em'}}
                                 type="file"
+                                multiple
                                 onChange={onFileSelected}
                                 accept="image/jpeg, image/jpg, image/png, image/heif, image/heic"
                             />
@@ -182,10 +227,15 @@ export default function MediaBrowser ({ onClose }) {
 
                 {!selectedImage ?
                     <ul className="image-grid">
-                        {images.map(image => {
+                        {[...uploads, ...images].map((image, i) => {
                             return(
-                                <li width={[2,4,6]} key={image._id} onClick={() => setSelectedImage(image)}>
-                                    <img src={imageUrl(image).width(300).url()} />
+                                <li
+                                    key={i}
+                                    className={!image._id ? 'upload' : ''}
+                                    onClick={() => image._id ? setSelectedImage(image) : null}
+                                >
+                                    {image._id && <img src={imageUrl(image).width(300).url()} />}
+                                    {!image._id && <Loader color="black"/>}
                                 </li>
                             )
                         })}
@@ -256,12 +306,13 @@ export default function MediaBrowser ({ onClose }) {
                                     onClick={useImage}
                                     className="w-100 mb-24"
                                 >Use image</Button>
-                                <Button
+                                <ConfirmButton
                                     small
                                     secondary
-                                    onClick={deleteImage}
-                                    className="w-100"
-                                >Delete image</Button>
+                                    onConfirm={() => deleteImage(selectedImage)}
+                                    fullWidth
+                                    busy={deleting}
+                                >Delete image</ConfirmButton>
                             </div>
                         </div>
                     </div>
@@ -294,13 +345,18 @@ const Wrapper = styled.div`
             list-style: none;
             margin: 0 8px 16px 8px;
             width: calc(16.66% - 16px);
-            border: 1px dotted red;
             position: relative;
             transition: border .2s ease-in-out;
             height: 140px;
             display: flex;
             justify-content: center;
             align-items: center;
+            @media(max-width: 767px) {
+                width: calc(33.33% - 16px);
+            }
+            &.upload {
+                background: ${colors.lightGray}
+            }
             img {
                 display: block;
                 margin: 0;

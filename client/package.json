@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@auth0/nextjs-auth0": "^1.5.0",
     "@linaria/babel-preset": "^3.0.0-beta.4",
     "@linaria/core": "^3.0.0-beta.4",
     "@linaria/react": "^3.0.0-beta.7",
@@ -24,6 +25,7 @@
     "@sanity/client": "^2.11.0",
     "@sanity/image-url": "^0.140.22",
     "draft-js": "^0.11.7",
+    "formidable": "^1.2.2",
     "groq": "^2.2.6",
     "linaria": "^2.1.0",
     "lodash.debounce": "^4.0.8",

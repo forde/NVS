@@ -316,6 +316,12 @@ css`
             flex-direction: column;
             justify-content: center;
         }
+
+        .flex-spread-x {
+            display: flex;
+            justify-content: space-between;
+        }
+
         .flex-center-x {
             display: flex;
             justify-content: center;
@@ -324,6 +330,11 @@ css`
         .flex-center-y-row {
             display: flex;
             flex-direction: row;
+            align-items: center;
+        }
+
+        .align-center {
+            display: flex;
             align-items: center;
         }
 
