@@ -1,7 +1,7 @@
 import { useRef, useState, useCallback, useEffect } from 'react'
 import { styled } from 'linaria/react'
 import imageUrlBuilder from '@sanity/image-url'
-import { MdSearch, MdKeyboardBackspace } from 'react-icons/md'
+import { MdSearch, MdKeyboardBackspace, MdDesktopMac, MdPhoneIphone } from 'react-icons/md'
 import { curry } from 'ramda'
 import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
@@ -17,7 +17,13 @@ import { colors } from '~/styles'
 import Loader from './Loader'
 import ConfirmButton from './ConfirmButton'
 
-export default function MediaBrowser ({ onClose, onUse, image }) {
+export default function MediaBrowser ({ onClose, onUse, image, withSizeSettings }) {
+
+    const defaultImageMeta = {
+        title: image?.title || '',
+        alt: image?.alt || '',
+        preferredWidth: image?.preferredWidth || '800',
+    }
 
     const [ search, setSearch ] = useState('')
     const [ images, setImages ] = useState([])
@@ -25,7 +31,7 @@ export default function MediaBrowser ({ onClose, onUse, image }) {
     const [ deleting, setDeleting ] = useState(false)
     const [ uploads, setUploads ] = useState([])
     const [ selectedImage, setSelectedImage ] = useState(image?.asset || null)
-    const [ selectedImageMeta, setSelectedImageMeta ] = useState({ title: image?.title || '', alt: image?.alt || ''})
+    const [ selectedImageMeta, setSelectedImageMeta ] = useState(defaultImageMeta)
     const [ ratioLock, setRatioLock ] = useState(trim2(16/9))
     const [ imageEditorMaxWidth, setImageEditorMaxWidth ] = useState('100%')
 
@@ -72,8 +78,6 @@ export default function MediaBrowser ({ onClose, onUse, image }) {
 
     }, [croppedImageRef.current])
 
-    console.log('-',crop, completedCrop);
-
     useEffect(() => {
         getData()
     }, [search])
@@ -86,7 +90,6 @@ export default function MediaBrowser ({ onClose, onUse, image }) {
             }, 1000)
         }
     }, [uploads])
-    console.log(completedCrop);
 
     const onImageReadyToCrop = useCallback(img => {
         img.crossOrigin = 'Anonymous'
@@ -110,7 +113,7 @@ export default function MediaBrowser ({ onClose, onUse, image }) {
 
     const backToImageGrid = () => {
         setSelectedImage(null)
-        setSelectedImageMeta({ title: '', alt: ''})
+        setSelectedImageMeta(defaultImageMeta)
         setCrop({ aspect: ratioLock })
         setCompletedCrop(null)
     }
@@ -144,24 +147,27 @@ export default function MediaBrowser ({ onClose, onUse, image }) {
 
     const useImage = async () => {
 
-        const left = percentOfPrecise(completedCrop.x, croppedImageRef.current.width) / 100
-        const top = percentOfPrecise(completedCrop.y, croppedImageRef.current.height) / 100
-        const right = ((100 - percentOfPrecise(completedCrop.width, croppedImageRef.current.width)) / 100) - left
-        const bottom = ((100 - percentOfPrecise(completedCrop.height, croppedImageRef.current.height)) / 100) - top
-
-        const height = percentOfPrecise(completedCrop.height, croppedImageRef.current.height) / 100
-        const width = percentOfPrecise(completedCrop.width, croppedImageRef.current.width) / 100
-        const x = width / 2
-        const y = height / 2
-
-        const data = {
+        let data = {
             _type: 'image',
             asset: {
                 ...selectedImage
             },
-            crop: { _type: 'sanity.imageCrop', top, left, bottom, right },
-            hotspot: { _type: 'sanity.imageHotspot', x, y, width, height },
             ...selectedImageMeta,
+        }
+
+        if(completedCrop?.width && completedCrop?.height) {
+            const left = percentOfPrecise(completedCrop.x, croppedImageRef.current.width) / 100
+            const top = percentOfPrecise(completedCrop.y, croppedImageRef.current.height) / 100
+            const right = ((100 - percentOfPrecise(completedCrop.width, croppedImageRef.current.width)) / 100) - left
+            const bottom = ((100 - percentOfPrecise(completedCrop.height, croppedImageRef.current.height)) / 100) - top
+
+            const height = percentOfPrecise(completedCrop.height, croppedImageRef.current.height) / 100
+            const width = percentOfPrecise(completedCrop.width, croppedImageRef.current.width) / 100
+            const x = width / 2
+            const y = height / 2
+
+            data.crop = { _type: 'sanity.imageCrop', top, left, bottom, right }
+            data.hotspot = { _type: 'sanity.imageHotspot', x, y, width, height }
         }
 
         onUse(data)
@@ -288,6 +294,18 @@ export default function MediaBrowser ({ onClose, onUse, image }) {
                                     value={selectedImageMeta.alt}
                                     onChange={updateImageMeta('alt')}
                                 />
+                                {withSizeSettings &&
+                                    <div className="size-settings mb-24 flex">
+                                        <div className="flex align-center">
+                                            <MdDesktopMac style={{minWidth:'24px', marginRight: '4px'}}/>
+                                            <Input small suffix="px" value={selectedImageMeta.preferredWidth} onChange={updateImageMeta('preferredWidth')} />
+                                        </div>
+                                        <div className="flex align-center">
+                                            <MdPhoneIphone style={{minWidth:'24px', marginLeft: '4px'}}/>
+                                            <Input small suffix="%" disabled value="100" onChange={_=>null} />
+                                        </div>
+                                    </div>
+                                }
                                 <Button
                                     small
                                     onClick={useImage}

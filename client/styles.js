@@ -20,6 +20,7 @@ export const colors = {
     black: '#141414',
     gray: '#efeff1',
     darkGray: '#bcbfc5',
+    darkerGray: '#898e98',
     lightGray: '#F1F1F3',
     lighterGray: '#F9F9F9',
     red: '#EC5B54',
@@ -366,6 +367,24 @@ css`
             a {
                 color: ${colors.ui};
                 text-decoration: underline;
+            }
+            figure {
+                margin: 0;
+            }
+            img {
+                max-width:100%none;
+                height:auto;
+                display: block;
+                margin-bottom: 16px;
+            }
+            .rdw-image-alignment {
+                width: 100%;
+            }
+            @media(max-width: 767px) {
+                .rdw-image-alignment, .rdw-image-imagewrapper img {
+                    width: 100%;
+                    display: block;
+                }
             }
         }
 

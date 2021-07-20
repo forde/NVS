@@ -14,6 +14,7 @@ export default function Input ({
     placeholder,
     label,
     multiline,
+    suffix,
     ...rest
 }) {
 
@@ -39,6 +40,8 @@ export default function Input ({
                     onChange={e => onChange(e.target.value)}
                     {...rest}
                 />
+
+                {suffix && <span className="suffix">{suffix}</span>}
 
                 {Icon && <Icon className="icon" />}
 
@@ -141,5 +144,15 @@ const InputWrapper = styled.div`
         }
     }
 
+    .suffix {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        color: ${colors.black};
+        font-size:16px;
+        line-height: 1;
+        transform: translateY(-50%);
+        -webkit-font-smoothing: antialiased;
+    }
 
 `
