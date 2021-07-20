@@ -30,6 +30,7 @@ export default function Home() {
         mediaBrowser: false,
         input: '',
         usedImage: null,
+        editedImage: null,
     })
 
     const change = curry((key, val) => {
@@ -147,15 +148,29 @@ export default function Home() {
                     <RichTextEditor />
                 </div>
                 <div className="mb-24">
-                    <Button secondary small onClick={() => change('mediaBrowser')(!demo.mediaBrowser)}>Media browser</Button>
+                    <Button
+                        secondary
+                        small
+                        onClick={() => {
+                            setDemo({...demo, mediaBrowser: true })
+                    }}>Media browser</Button>
                     {demo.mediaBrowser && <MediaBrowser
-                        onClose={() => change('mediaBrowser')(false)}
+                        onClose={() => {
+                            setDemo({...demo, mediaBrowser: false, editedImage: null })
+                        }}
+                        image={demo.editedImage}
                         onUse={image => {
                             setDemo({...demo, usedImage: image, mediaBrowser: false })
                             // image url builder docs: https://www.sanity.io/docs/image-url
                         }
                     } />}
-                    {demo.usedImage && <img src={imageUrl(demo.usedImage).width(400).auto('format').url()} title={demo.usedImage.title} alt={demo.usedImage.alt} />}
+                    {demo.usedImage && <img
+                        className="block mt-24 clickable"
+                        onClick={() => setDemo({...demo, editedImage: demo.usedImage, mediaBrowser: true })}
+                        src={imageUrl(demo.usedImage).width(400).auto('format').url()}
+                        title={demo.usedImage.title}
+                        alt={demo.usedImage.alt}
+                    />}
                 </div>
                 <Row className="mb-24">
                     <Col width={3}>

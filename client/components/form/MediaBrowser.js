@@ -11,25 +11,25 @@ import { getImages, client } from '~/api'
 import Input from './Input'
 import Button from './Button'
 import Select from './Select'
-import { percentOfPrecise, truncate, bytesToSize } from '~/lib/helpers'
+import { percentOfPrecise, percentToNumPrecise, truncate, bytesToSize, trim2 } from '~/lib/helpers'
 import useWindowWidth from '~/hooks/useWindowWidth'
 import { colors } from '~/styles'
 import Loader from './Loader'
 import ConfirmButton from './ConfirmButton'
 
-export default function MediaBrowser ({ onClose, onUse }) {
+export default function MediaBrowser ({ onClose, onUse, image }) {
 
     const [ search, setSearch ] = useState('')
     const [ images, setImages ] = useState([])
     const [ loading, setLoading ] = useState(true)
     const [ deleting, setDeleting ] = useState(false)
     const [ uploads, setUploads ] = useState([])
-    const [ selectedImage, setSelectedImage ] = useState(null)
-    const [ selectedImageMeta, setSelectedImageMeta ] = useState({ title: '', alt: ''})
-    const [ ratioLock, setRatioLock ] = useState(16 / 9)
+    const [ selectedImage, setSelectedImage ] = useState(image?.asset || null)
+    const [ selectedImageMeta, setSelectedImageMeta ] = useState({ title: image?.title || '', alt: image?.alt || ''})
+    const [ ratioLock, setRatioLock ] = useState(trim2(16/9))
     const [ imageEditorMaxWidth, setImageEditorMaxWidth ] = useState('100%')
 
-    const [ crop, setCrop ] = useState({ aspect: 16 / 9 })
+    const [ crop, setCrop ] = useState({ aspect: trim2(16/9) })
     const [ completedCrop, setCompletedCrop ] = useState(null)
 
     const croppedImageRef = useRef(null)
@@ -48,10 +48,31 @@ export default function MediaBrowser ({ onClose, onUse }) {
     const updateImageMeta = curry((key, val) => setSelectedImageMeta({ ...selectedImageMeta, [key]: val }))
 
     const getData = async () => {
+        if(image) return // dont load assets when dealing with edited image only
         const resp = await getImages({ search })
         setLoading(false)
         if(Array.isArray(resp)) setImages(resp)
     }
+
+    useEffect(() => {
+        if(!image || !croppedImageRef.current) return
+        const { top, left, bottom, right } = image.crop
+        const x = percentToNumPrecise((left*100), croppedImageRef.current.width)
+        const y = percentToNumPrecise((top*100), croppedImageRef.current.height)
+        const width = croppedImageRef.current.width - x - percentToNumPrecise((right*100), croppedImageRef.current.width)
+        const height = croppedImageRef.current.height - y - percentToNumPrecise((bottom*100), croppedImageRef.current.height)
+        const unit = 'px'
+        const ratio = trim2(width/height)
+        const c = { x, y, width, height, unit, ratio}
+
+        setRatioLock(ratio)
+        setCrop({ x, y, width, height, unit, ratio })
+        setCompletedCrop({ x, y, width, height, unit, ratio })
+        console.log(image.crop, c);
+
+    }, [croppedImageRef.current])
+
+    console.log('-',crop, completedCrop);
 
     useEffect(() => {
         getData()
@@ -65,6 +86,7 @@ export default function MediaBrowser ({ onClose, onUse }) {
             }, 1000)
         }
     }, [uploads])
+    console.log(completedCrop);
 
     const onImageReadyToCrop = useCallback(img => {
         img.crossOrigin = 'Anonymous'
@@ -78,12 +100,11 @@ export default function MediaBrowser ({ onClose, onUse }) {
     }, [selectedImage, windowWidth])
 
     useEffect(() => {
-        setCrop({ aspect: ratioLock })
+        setCrop({ ...crop, aspect: ratioLock })
     }, [ratioLock])
 
     const onImageClick = image => {
         if(!image._id) return null
-
         setSelectedImage(image)
     }
 
@@ -136,8 +157,7 @@ export default function MediaBrowser ({ onClose, onUse }) {
         const data = {
             _type: 'image',
             asset: {
-                _ref: selectedImage._id,
-                _type: 'reference'
+                ...selectedImage
             },
             crop: { _type: 'sanity.imageCrop', top, left, bottom, right },
             hotspot: { _type: 'sanity.imageHotspot', x, y, width, height },
@@ -194,12 +214,12 @@ export default function MediaBrowser ({ onClose, onUse }) {
                                 accept="image/jpeg, image/jpg, image/png, image/heif, image/heic"
                             />
                         </> : <>
-                            <Button tertiary small icon={MdKeyboardBackspace} onClick={backToImageGrid}/>
+                            {!image && <Button tertiary small icon={MdKeyboardBackspace} onClick={backToImageGrid}/>}
                         </>
                     }
                 </div>
 
-                {loading && 'Loading...'}
+                {!image && loading && 'Loading...'}
 
                 {!selectedImage ?
                     <ul className="image-grid">
@@ -221,7 +241,7 @@ export default function MediaBrowser ({ onClose, onUse }) {
                         <div className="image-container" ref={imageContainerRef}>
                             <ImageEditor debug={debug} style={{maxWidth:imageEditorMaxWidth}}>
                                 <ReactCrop
-                                    src={imageUrl(selectedImage).width(800).url()}
+                                    src={imageUrl(selectedImage).width(1000).url()}
                                     crop={crop}
                                     onChange={setCrop}
                                     onImageLoaded={onImageReadyToCrop}
@@ -247,10 +267,10 @@ export default function MediaBrowser ({ onClose, onUse }) {
                                     onChange={setRatioLock}
                                     style={{minWidth:'100%', width:'100%'}}
                                     options={[
-                                        { name: '16:9', value: 16/9 },
-                                        { name: '4:3', value: 4/3 },
-                                        { name: '3:4', value: 3/4 },
-                                        { name: '9:16', value: 9/16 },
+                                        { name: '16:9', value: trim2(16/9) },
+                                        { name: '4:3', value: trim2(4/3) },
+                                        { name: '3:4', value: trim2(3/4) },
+                                        { name: '9:16', value: trim2(9/16) },
                                         { name: '1:1', value: 1 }
                                     ]}
                                 />
@@ -296,6 +316,7 @@ const Wrapper = styled.div`
     height: calc(100% - 36px - 16px);
     .top-bar {
         margin-bottom:16px;
+        height: 36px;
         .search-input {
             width: 200px;
         }

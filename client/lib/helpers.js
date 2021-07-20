@@ -245,6 +245,8 @@ export const percentOfPrecise = (x, y) => (x / (y || 1)) * 100
 
 export const percentToNum = (per, max) => Math.ceil((max / 100) * per)
 
+export const percentToNumPrecise = (per, max) => (max / 100) * per
+
 export const getPixelRatio = () => {
     const ctx = document.createElement("canvas").getContext("2d"),
         dpr = window.devicePixelRatio || 1,
