@@ -41,7 +41,7 @@ export default function Button ({
             border={border}
             width={width}
             padding={(Icon && !children && small) ? '0 8px' : '0 16px'}
-            onClick={e => (disabled || busy) ? null : onClick(e)}
+            onClick={e => (!onClick || disabled || busy) ? null : onClick(e)}
             className={[
                 className,
                 small && 'small',
