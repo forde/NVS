@@ -20,31 +20,17 @@ export default function Button ({
     className,
     ...rest
 }) {
-    let color = 'white'
-    let background = colors.ui
-    let border = 'transparent'
-
-    if(secondary) {
-        background = colors.black
-    }
-
-    if(tertiary) {
-        background = '#fff'
-        color = colors.black
-        border = colors.gray
-    }
 
     return(
         <ButtonComponent
-            color={color}
-            background={background}
-            border={border}
             width={width}
             padding={(Icon && !children && small) ? '0 8px' : '0 16px'}
             onClick={e => (!onClick || disabled || busy) ? null : onClick(e)}
             className={[
                 className,
                 small && 'small',
+                secondary && 'secondary',
+                tertiary && 'tertiary',
                 (disabled || busy) && 'disabled',
             ].filter(c=>c).join(' ')}
             {...rest}
@@ -75,7 +61,6 @@ const ButtonComponent = styled.button`
     outline: 0;
     box-shadow: none;
     background: transparent;
-    border: none;
     line-height: 1;
     cursor: pointer;
     opacity: 1;
@@ -90,19 +75,31 @@ const ButtonComponent = styled.button`
     white-space: nowrap;
     transition: all .2s ease-in-out;
     line-height: 1;
-    color: ${props => props.color};
-    background: ${props => props.background};
-    border: 3px solid ${props => props.border}!important;
+    color: #fff;
+    background: ${colors.ui};
+    border: 3px solid transparent;
     height: 50px;
     min-height: 50px;
     font-size: 18px;
     padding: ${props => props.padding};
     @supports (-moz-appearance:none) { padding: ${props => props.padding}; }
     @media(pointer: fine) { &:hover, &:active {
-        background: ${props => darken(.02, props.background)};
-        color: ${props => props.color};
-        border: 3px solid ${props => props.border}!important;
+
     }}
+
+    &.secondary {
+        background: ${colors.black};
+    }
+
+    &.tertiary {
+        color: ${colors.black};
+        border-color: ${colors.gray};
+        background: #fff;
+        &:hover {
+            border-color: ${colors.ui};
+            z-index: 20;
+        }
+    }
 
     &.small {
         height: 36px;
@@ -112,10 +109,8 @@ const ButtonComponent = styled.button`
 
     &.disabled {
         cursor: default;
+        pointer-events: none;
         opacity: .6;
-        @media(pointer: fine) { &:hover, &:active {
-            background: ${props => props.background};
-        }}
     }
 
     .badge {
