@@ -6,19 +6,19 @@ import xor from 'lodash.xor'
 
 import { Row, Col, colors } from '~/styles'
 import Layout from '~/components/Layout'
-import { success, error } from '~/components/form/Toast'
-import Switch from '~/components/form/Switch'
-import Button from '~/components/form/Button'
-import Editable from '~/components/form/Editable'
-import Select from '~/components/form/Select'
-import RichTextEditor from '~/components/form/RichTextEditor'
-import MediaBrowser from '~/components/form/MediaBrowser'
-import Input from '~/components/form/Input'
-import Tabs from '~/components/form/Tabs'
-import Modal from '~/components/form/Modal'
-import Radio from '~/components/form/Radio'
-import Checkbox from '~/components/form/Checkbox'
-import Actions from '~/components/form/Actions'
+import { success, error } from '~/components/editor/Toast'
+import Switch from '~/components/editor/Switch'
+import Button from '~/components/editor/Button'
+import Editable from '~/components/editor/Editable'
+import Select from '~/components/editor/Select'
+import RichTextEditor from '~/components/editor/RichTextEditor'
+import MediaBrowser from '~/components/editor/MediaBrowser'
+import Input from '~/components/editor/Input'
+import Tabs from '~/components/editor/Tabs'
+import Modal from '~/components/editor/Modal'
+import Radio from '~/components/editor/Radio'
+import Checkbox from '~/components/editor/Checkbox'
+import Actions from '~/components/editor/Actions'
 import { client } from '~/api'
 
 const imageUrl = source => imageUrlBuilder(client).image(source)
@@ -60,8 +60,6 @@ export default function Home() {
         options: ['One','Two','Three'],
         style: {width:'240px',marginRight:'16px'}
     }
-
-    console.log(demo.checkbox);
 
     return(
         <Layout>
@@ -288,7 +286,7 @@ export default function Home() {
                         style={{width: '200px'}}
                     />
                 </div>
-                <div className="mb-24 flex mt-48 has-actions" has-actions>
+                <div className="mb-24 flex mt-48 has-actions">
                     <div className="flex-center p-24" style={{background: '#EFEFF1', width: '100%'}}>
                         Actions preview on hover
                     </div>
@@ -311,6 +309,7 @@ export default function Home() {
                         onPhone={_=>null}
                         onDesktop={_=>null}
                         onColor={_=>null}
+                        onAddPage={_=>null}
                     />
                 </div>
             </div>

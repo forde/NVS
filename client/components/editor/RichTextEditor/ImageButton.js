@@ -4,7 +4,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import { styled } from 'linaria/react'
 import { MdImage, MdFormatAlignLeft, MdFormatAlignCenter, MdFormatAlignRight } from 'react-icons/md'
 
-import MediaBrowser from '~/components/form/MediaBrowser'
+import MediaBrowser from '~/components/editor/MediaBrowser'
 import Button from './../Button'
 import { imageUrl } from '~/lib/helpers'
 

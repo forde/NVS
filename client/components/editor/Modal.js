@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { styled } from 'linaria/react'
 import { MdCancel } from 'react-icons/md'
 
-import Button from '~/components/form/Button'
+import Button from '~/components/editor/Button'
 
 export default function Modal ({ children, onClose, width, height, className, white, style }) {
 

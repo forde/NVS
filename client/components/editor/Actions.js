@@ -6,6 +6,7 @@ import {
     MdHelpOutline,
     MdHighlightOff,
     MdClear,
+    MdNoteAdd,
     MdLaunch,
     MdSettings,
     MdSearch,
@@ -20,7 +21,7 @@ import {
     MdColorLens,
 } from 'react-icons/md'
 
-import Button from '~/components/form/Button'
+import Button from '~/components/editor/Button'
 
 export default function Actions ({
     align='top',
@@ -47,6 +48,7 @@ export default function Actions ({
         onPhone: MdPhoneIphone,
         onDesktop: MdLaptop,
         onColor: MdColorLens,
+        onAddPage: MdNoteAdd,
     }
 
     return(
@@ -55,7 +57,7 @@ export default function Actions ({
                 .filter(k => !k.indexOf('on'))
                 .filter(k => typeof rest[k] === 'function')
                 .map(k => <Button
-                    ket={k}
+                    key={k}
                     tertiary
                     small
                     icon={iconMap[k]}

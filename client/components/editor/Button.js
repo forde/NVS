@@ -21,7 +21,7 @@ export default function Button ({
     ...rest
 }) {
 
-    return(
+    return( 
         <ButtonComponent
             width={width}
             padding={(Icon && !children && small) ? '0 8px' : '0 16px'}
@@ -35,7 +35,6 @@ export default function Button ({
             ].filter(c=>c).join(' ')}
             {...rest}
         >
-
             {(() => {
                 if(busy) return <Loader
                     color={tertiary ? 'black' : 'white'}

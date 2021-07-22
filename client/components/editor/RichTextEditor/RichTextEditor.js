@@ -50,7 +50,7 @@ export default function RichTextEditor() {
                 //toolbarOnFocus
                 ref={editorRef}
                 toolbar={{
-                    options: ['blockType', 'inline', 'list', 'textAlign', 'link', 'emoji', 'remove'],
+                    options: ['blockType', 'inline', 'list', 'textAlign', 'emoji', 'remove', 'link'],
                     blockType: { options: ['Normal', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'Blockquote'] },
                     inline: { options: ['bold', 'italic', 'underline', 'strikethrough'] },
                     list: { options: ['unordered', 'ordered'] },
