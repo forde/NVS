@@ -1,14 +1,21 @@
 import { css } from 'linaria'
+import Link from 'next/link'
 
 import { colors } from '~/styles'
 import AuthStatus from '~/components/AuthStatus'
+import Menu from './Menu'
 
 export default function Header () {
     return(
         <div className={`${header} flex-center-y`}>
             <div className="container flex-spread-x align-center">
-                <div>
-                    Header
+                <div className="flex-center-y-row">
+                    <Link href="/">
+                        <a>
+                            <img src="/logo.svg" alt="logo" style={{height: '24px', display: 'block', marginRight: '24px'}}/>
+                        </a>
+                    </Link>
+                    <Menu />
                 </div>
                 <div>
                     <AuthStatus />

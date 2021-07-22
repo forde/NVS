@@ -245,6 +245,12 @@ css`
             cursor: pointer;
         }
 
+        ul, ol, li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
         .container {
             width: 100%;
             max-width: 1180px;
