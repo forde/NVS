@@ -7,23 +7,14 @@ import xor from 'lodash.xor'
 import { Row, Col, colors } from '~/styles'
 import Layout from '~/components/Layout'
 import { success, error } from '~/components/editor/Toast'
-import Switch from '~/components/editor/Switch'
-import Button from '~/components/editor/Button'
-import Editable from '~/components/editor/Editable'
-import Select from '~/components/editor/Select'
-import RichTextEditor from '~/components/editor/RichTextEditor'
-import MediaBrowser from '~/components/editor/MediaBrowser'
-import Input from '~/components/editor/Input'
-import Tabs from '~/components/editor/Tabs'
-import Modal from '~/components/editor/Modal'
-import Radio from '~/components/editor/Radio'
-import Checkbox from '~/components/editor/Checkbox'
-import Actions from '~/components/editor/Actions'
 import { client } from '~/api'
+import editor from '~/components/editor'
 
 const imageUrl = source => imageUrlBuilder(client).image(source)
 
 export default function Home() {
+
+    const { editMode, ..._ } = editor()
 
     const [ demo, setDemo ] = useState({
         switch: false,
@@ -68,8 +59,8 @@ export default function Home() {
                 <h2 className="mb-24">Heading 2</h2>
                 <h3 className="mb-24">Heading 3</h3>
                 <div className="mb-24">
-                    <Button tertiary small onClick={() => change('modal')(true)}>Open modal</Button>
-                    {demo.modal && <Modal onClose={() => change('modal')(false)} className="modal"><h3>Modal</h3>Modal content...</Modal>}
+                    <_.Button tertiary small onClick={() => change('modal')(true)}>Open modal</_.Button>
+                    {demo.modal && <_.Modal onClose={() => change('modal')(false)} className="modal"><h3>Modal</h3>Modal content...</_.Modal>}
                 </div>
                 <Row>
                     <Col width={[6,6,12]}>
@@ -80,72 +71,72 @@ export default function Home() {
                     </Col>
                 </Row>
                 <div className="mb-24">
-                    <Select {...selectProps} />
-                    <Select {...selectProps} small />
-                    <Select {...selectProps} disabled label="Label"/>
-                    <Select {...selectProps} disabled small label="Label"/>
+                    <_.Select {...selectProps} />
+                    <_.Select {...selectProps} small />
+                    <_.Select {...selectProps} disabled label="Label"/>
+                    <_.Select {...selectProps} disabled small label="Label"/>
                 </div>
                 <div className="mb-24">
-                    <Select {...multiselectProps} multiple />
-                    <Select {...multiselectProps} small multiple />
+                    <_.Select {...multiselectProps} multiple />
+                    <_.Select {...multiselectProps} small multiple />
                 </div>
                 <div className="mb-24">
-                    <Select {...selectProps} searchable />
-                    <Select {...selectProps} small searchable />
+                    <_.Select {...selectProps} searchable />
+                    <_.Select {...selectProps} small searchable />
                 </div>
                 <div className="mb-24">
-                    <Select {...selectProps} invalid />
-                    <Select {...selectProps} small invalid />
+                    <_.Select {...selectProps} invalid />
+                    <_.Select {...selectProps} small invalid />
                 </div>
                 <div className="mb-24">
                     <button onClick={() => success('Success mssage')} style={{background:colors.green, color: 'black', border: 'none'}}>toast</button>
                     <button onClick={() => error('Error mssage')} style={{background:colors.red, color: '#fff', border: 'none'}}>toast</button>
                 </div>
                 <div className="mb-24">
-                    <Switch on={demo.switch} onChange={change('switch')} />
+                    <_.Switch on={demo.switch} onChange={change('switch')} />
                 </div>
                 <div className="mb-24">
-                    <Button className="mr-16" onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" secondary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" tertiary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" small onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" small secondary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" small tertiary onClick={() => console.log('click')}>button</Button>
+                    <_.Button className="mr-16" onClick={() => console.log('click')}>button</_.Button>
+                    <_.Button className="mr-16" secondary onClick={() => console.log('click')}>button</_.Button>
+                    <_.Button className="mr-16" tertiary onClick={() => console.log('click')}>button</_.Button>
+                    <_.Button className="mr-16" small onClick={() => console.log('click')}>button</_.Button>
+                    <_.Button className="mr-16" small secondary onClick={() => console.log('click')}>button</_.Button>
+                    <_.Button className="mr-16" small tertiary onClick={() => console.log('click')}>button</_.Button>
                 </div>
                 <div className="mb-24">
-                    <Button className="mr-16" busy width="88px" onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" busy width="88px" secondary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" busy width="88px" tertiary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" busy width="88px" small onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" busy width="88px" small secondary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" busy width="88px" small tertiary onClick={() => console.log('click')}>button</Button>
+                    <_.Button className="mr-16" busy width="88px" onClick={() => console.log('click')}>button</_.Button>
+                    <_.Button className="mr-16" busy width="88px" secondary onClick={() => console.log('click')}>button</_.Button>
+                    <_.Button className="mr-16" busy width="88px" tertiary onClick={() => console.log('click')}>button</_.Button>
+                    <_.Button className="mr-16" busy width="88px" small onClick={() => console.log('click')}>button</_.Button>
+                    <_.Button className="mr-16" busy width="88px" small secondary onClick={() => console.log('click')}>button</_.Button>
+                    <_.Button className="mr-16" busy width="88px" small tertiary onClick={() => console.log('click')}>button</_.Button>
                 </div>
                 <div className="mb-24">
-                    <Button className="mr-16" disabled onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" disabled secondary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" disabled tertiary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" disabled small onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" disabled small secondary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" disabled small tertiary onClick={() => console.log('click')}>button</Button>
+                    <_.Button className="mr-16" disabled onClick={() => console.log('click')}>button</_.Button>
+                    <_.Button className="mr-16" disabled secondary onClick={() => console.log('click')}>button</_.Button>
+                    <_.Button className="mr-16" disabled tertiary onClick={() => console.log('click')}>button</_.Button>
+                    <_.Button className="mr-16" disabled small onClick={() => console.log('click')}>button</_.Button>
+                    <_.Button className="mr-16" disabled small secondary onClick={() => console.log('click')}>button</_.Button>
+                    <_.Button className="mr-16" disabled small tertiary onClick={() => console.log('click')}>button</_.Button>
                 </div>
                 <div className="mb-24">
-                    <Button className="mr-16" icon={MdAddCircle} onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" icon={MdAddCircle} secondary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" icon={MdAddCircle} tertiary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" icon={MdAddCircle} small onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" icon={MdAddCircle} small secondary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" icon={MdAddCircle} small tertiary onClick={() => console.log('click')}>button</Button>
+                    <_.Button className="mr-16" icon={MdAddCircle} onClick={() => console.log('click')}>button</_.Button>
+                    <_.Button className="mr-16" icon={MdAddCircle} secondary onClick={() => console.log('click')}>button</_.Button>
+                    <_.Button className="mr-16" icon={MdAddCircle} tertiary onClick={() => console.log('click')}>button</_.Button>
+                    <_.Button className="mr-16" icon={MdAddCircle} small onClick={() => console.log('click')}>button</_.Button>
+                    <_.Button className="mr-16" icon={MdAddCircle} small secondary onClick={() => console.log('click')}>button</_.Button>
+                    <_.Button className="mr-16" icon={MdAddCircle} small tertiary onClick={() => console.log('click')}>button</_.Button>
                 </div>
                 <div className="mb-24">
-                    <Button className="mr-16" icon={MdAddCircle} onClick={() => console.log('click')}/>
-                    <Button className="mr-16" icon={MdAddCircle} secondary onClick={() => console.log('click')}/>
-                    <Button className="mr-16" icon={MdAddCircle} tertiary onClick={() => console.log('click')}/>
-                    <Button className="mr-16" icon={MdAddCircle} small onClick={() => console.log('click')}/>
-                    <Button className="mr-16" icon={MdAddCircle} small secondary onClick={() => console.log('click')}/>
-                    <Button className="mr-16" icon={MdAddCircle} small tertiary onClick={() => console.log('click')}/>
+                    <_.Button className="mr-16" icon={MdAddCircle} onClick={() => console.log('click')}/>
+                    <_.Button className="mr-16" icon={MdAddCircle} secondary onClick={() => console.log('click')}/>
+                    <_.Button className="mr-16" icon={MdAddCircle} tertiary onClick={() => console.log('click')}/>
+                    <_.Button className="mr-16" icon={MdAddCircle} small onClick={() => console.log('click')}/>
+                    <_.Button className="mr-16" icon={MdAddCircle} small secondary onClick={() => console.log('click')}/>
+                    <_.Button className="mr-16" icon={MdAddCircle} small tertiary onClick={() => console.log('click')}/>
                 </div>
                 <div className="mb-24">
-                    <Tabs
+                    <_.Tabs
                         tabs={[
                             { name: 'One', value: 'one' },
                             { name: 'Two', value: 'two' },
@@ -157,7 +148,7 @@ export default function Home() {
                     />
                 </div>
                 <div className="mb-24">
-                    <Editable
+                    <_.Editable
                         value={demo.editable}
                         onChange={change('editable')}
                         placeholder="Editable text"
@@ -165,16 +156,16 @@ export default function Home() {
                     />
                 </div>
                 <div className="mb-24">
-                    <RichTextEditor />
+                    <_.RichTextEditor />
                 </div>
                 <div className="mb-24">
-                    <Button
+                    <_.Button
                         secondary
                         small
                         onClick={() => {
                             setDemo({...demo, mediaBrowser: true })
-                    }}>Media browser</Button>
-                    {demo.mediaBrowser && <MediaBrowser
+                    }}>Media browser</_.Button>
+                    {demo.mediaBrowser && <_.MediaBrowser
                         onClose={() => {
                             setDemo({...demo, mediaBrowser: false, editedImage: null })
                         }}
@@ -194,32 +185,32 @@ export default function Home() {
                 </div>
                 <Row className="mb-24">
                     <Col width={3}>
-                        <Input value={demo.input} placeholder="Type something" onChange={change('input')} />
+                        <_.Input value={demo.input} placeholder="Type something" onChange={change('input')} />
                     </Col>
                     <Col width={3}>
-                        <Input value={demo.input} placeholder="Type something" onChange={change('input')} small />
+                        <_.Input value={demo.input} placeholder="Type something" onChange={change('input')} small />
                     </Col>
                     <Col width={3}>
-                        <Input value={demo.input} onChange={change('input')} disabled label="Label" placeholder="Disabled" />
+                        <_.Input value={demo.input} onChange={change('input')} disabled label="Label" placeholder="Disabled" />
                     </Col>
                     <Col width={3}>
-                        <Input value={demo.input} onChange={change('input')} small disabled label="Label" placeholder="Disabled" />
+                        <_.Input value={demo.input} onChange={change('input')} small disabled label="Label" placeholder="Disabled" />
                     </Col>
                     <Col width={3}>
-                        <Input value={demo.input} onChange={change('input')} icon={MdSearch} placeholder="Search"/>
+                        <_.Input value={demo.input} onChange={change('input')} icon={MdSearch} placeholder="Search"/>
                     </Col>
                     <Col width={3}>
-                        <Input value={demo.input} onChange={change('input')} small icon={MdSearch} placeholder="Search" />
+                        <_.Input value={demo.input} onChange={change('input')} small icon={MdSearch} placeholder="Search" />
                     </Col>
                     <Col width={3}>
-                        <Input value={demo.input} placeholder="Type something" onChange={change('input')} multiline/>
+                        <_.Input value={demo.input} placeholder="Type something" onChange={change('input')} multiline/>
                     </Col>
                     <Col width={3}>
-                        <Input value={demo.input} placeholder="Type something" onChange={change('input')} small multiline/>
+                        <_.Input value={demo.input} placeholder="Type something" onChange={change('input')} small multiline/>
                     </Col>
                 </Row>
                 <div className="mb-24 flex">
-                    <Radio
+                    <_.Radio
                         value="one"
                         onChange={change('radio')}
                         checked={demo.radio === 'one'}
@@ -227,7 +218,7 @@ export default function Home() {
                         description="First choice"
                         style={{width: '200px', marginRight: '16px'}}
                     />
-                    <Radio
+                    <_.Radio
                         value="two"
                         onChange={change('radio')}
                         checked={demo.radio === 'two'}
@@ -235,14 +226,14 @@ export default function Home() {
                         description="Second choice"
                         style={{width: '200px', marginRight: '16px'}}
                     />
-                    <Radio
+                    <_.Radio
                         value="three"
                         onChange={change('radio')}
                         checked={demo.radio === 'three'}
                         label="Three"
                         style={{width: '200px', marginRight: '16px'}}
                     />
-                    <Radio
+                    <_.Radio
                         value="four"
                         onChange={change('radio')}
                         checked={demo.radio === 'four'}
@@ -253,7 +244,7 @@ export default function Home() {
                     />
                 </div>
                 <div className="mb-24 flex">
-                    <Checkbox
+                    <_.Checkbox
                         value="one"
                         onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
                         checked={demo.checkbox.includes('one')}
@@ -261,7 +252,7 @@ export default function Home() {
                         description="First choice"
                         style={{width: '200px', marginRight: '16px'}}
                     />
-                    <Checkbox
+                    <_.Checkbox
                         value="two"
                         onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
                         checked={demo.checkbox.includes('two')}
@@ -269,14 +260,14 @@ export default function Home() {
                         description="Second choice"
                         style={{width: '200px', marginRight: '16px'}}
                     />
-                    <Checkbox
+                    <_.Checkbox
                         value="three"
                         onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
                         checked={demo.checkbox.includes('three')}
                         label="Three"
                         style={{width: '200px', marginRight: '16px'}}
                     />
-                    <Checkbox
+                    <_.Checkbox
                         value="four"
                         onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
                         checked={demo.checkbox.includes('four')}
@@ -290,7 +281,7 @@ export default function Home() {
                     <div className="flex-center p-24" style={{background: '#EFEFF1', width: '100%'}}>
                         Actions preview on hover
                     </div>
-                    <Actions
+                    <_.Actions
                         align="top"
                         onrefresh={_=>null}
                         onBild={_=>null}

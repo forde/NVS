@@ -1,8 +1,8 @@
 {
-  "name": "nextsanitywebsitecms",
+  "name": "nvs-cms",
   "private": true,
   "version": "1.0.0",
-  "description": "",
+  "description": "NVS Sanity CMS",
   "main": "package.json",
   "author": "Konrad Węgrzyniak <konrad@forde.pl>",
   "license": "UNLICENSED",

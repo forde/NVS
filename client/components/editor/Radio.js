@@ -22,7 +22,7 @@ export default function Radio ({
     zIndex
 }) {
 
-    const id = type+'-'+name
+    const id = (type+'-'+value+'-'+name).replace(' ', '')
 
     return (
         <Wrapper className={[

@@ -25,6 +25,7 @@ import Button from '~/components/editor/Button'
 
 export default function Actions ({
     align='top',
+    offset='0',
     fixed,
     className,
     ...rest
@@ -52,7 +53,7 @@ export default function Actions ({
     }
 
     return(
-        <Wrapper className={`actions ${className || ''} align-${align} ${fixed ? 'fixed' : ''}`} >
+        <Wrapper offset={offset} className={`actions ${className || ''} align-${align} ${fixed ? 'fixed' : ''}`} >
             {Object.keys(rest)
                 .filter(k => !k.indexOf('on'))
                 .filter(k => typeof rest[k] === 'function')
@@ -72,7 +73,7 @@ const Wrapper = styled.div`
     overflow: visible;
     display: flex;
     position: absolute;
-    top: 0;
+    top: ${props => props.offset}px;
     left: calc(50% + 4px);
     transform: translateX(-50%) translateY(-50%);
     width: auto;
@@ -87,7 +88,7 @@ const Wrapper = styled.div`
         flex-direction: column;
         top: calc(50% + 4px);
         left: auto;
-        right: 0;
+        right: ${props => props.offset}px;
         transform: translateX(50%) translateY(-50%);
         button {
             margin: 0 0 8px 0;
@@ -99,14 +100,14 @@ const Wrapper = styled.div`
     }
     &.align-bottom {
         top: auto;
-        bottom: 0;
+        bottom: ${props => props.offset}px;
         left: calc(50% + 4px);
         transform: translateX(-50%) translateY(50%);
     }
     &.align-left {
         flex-direction: column;
         top: calc(50% + 4px);
-        left: 0;
+        left: ${props => props.offset}px;
         transform: translateX(-50%) translateY(-50%);
         button {
             margin: 0 0 8px 0;
@@ -115,5 +116,8 @@ const Wrapper = styled.div`
                 margin: none;
             }
         }
+    }
+    &.fixed {
+        position: fixed;
     }
 `
