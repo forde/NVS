@@ -1,11 +1,13 @@
 import { useState, useRef } from 'react'
 import { EditorState } from 'draft-js'
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import 'draft-js/dist/Draft.css'
 import dynamic from 'next/dynamic'
 import { styled } from 'linaria/react'
 
 import { colors } from '~/styles'
 import ImageButton, { ImageBlock } from './ImageButton'
+import LinkButton from './LinkButton'
+import VideoButton, { VideoBlock } from './VideoButton'
 
 const Editor = dynamic(
     () => import('react-draft-wysiwyg').then(mod => mod.Editor),
@@ -29,10 +31,11 @@ export default function RichTextEditor() {
                 const type = entity.getType()
                 switch(type) {
                     case '_IMAGE' : return <ImageBlock data={data} {...props} />
+                    case '_VIDEO' : return <VideoBlock data={data} />
                     default : return <div>{type} {JSON.stringify(data)}</div>
                 }
             },
-            editable: false,
+            editable: true,
         }
     }
 
@@ -47,14 +50,20 @@ export default function RichTextEditor() {
                 //toolbarOnFocus
                 ref={editorRef}
                 toolbar={{
-                    options: ['blockType', 'inline', 'list', 'textAlign', 'image', 'emoji', 'remove', 'history'],
+                    options: ['blockType', 'inline', 'list', 'textAlign', 'link', 'emoji', 'remove'],
                     blockType: { options: ['Normal', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'Blockquote'] },
                     inline: { options: ['bold', 'italic', 'underline', 'strikethrough'] },
                     list: { options: ['unordered', 'ordered'] },
                     textAlign: { options: ['left', 'center', 'right'] },
+                    link: {
+                        component: LinkButton,
+                        defaultTargetOption: '_self',
+                        options: ['link'],
+                    },
                 }}
                 toolbarCustomButtons={[
-                    <ImageButton />
+                    <ImageButton />,
+                    <VideoButton />,
                 ]}
                 blockRendererFn={customBlockRenderer}
             />

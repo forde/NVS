@@ -435,5 +435,14 @@ css`
             min-height: 100px;
         }
 
+        .modal {
+            padding: 20px;
+            > h3 {
+                font-size: 26px;
+                line-height: 1;
+                margin-bottom: 20px;
+            }
+        }
+
     }
 `

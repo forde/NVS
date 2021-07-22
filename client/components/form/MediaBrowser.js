@@ -61,7 +61,7 @@ export default function MediaBrowser ({ onClose, onUse, image, withSizeSettings 
     }
 
     useEffect(() => {
-        if(!image || !croppedImageRef.current) return
+        if(!image || !image.crop || !croppedImageRef.current) return
         const { top, left, bottom, right } = image.crop
         const x = percentToNumPrecise((left*100), croppedImageRef.current.width)
         const y = percentToNumPrecise((top*100), croppedImageRef.current.height)
@@ -69,12 +69,10 @@ export default function MediaBrowser ({ onClose, onUse, image, withSizeSettings 
         const height = croppedImageRef.current.height - y - percentToNumPrecise((bottom*100), croppedImageRef.current.height)
         const unit = 'px'
         const ratio = trim2(width/height)
-        const c = { x, y, width, height, unit, ratio}
 
         setRatioLock(ratio)
         setCrop({ x, y, width, height, unit, ratio })
         setCompletedCrop({ x, y, width, height, unit, ratio })
-        console.log(image.crop, c);
 
     }, [croppedImageRef.current])
 

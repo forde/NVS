@@ -13,6 +13,7 @@ import Select from '~/components/form/Select'
 import RichTextEditor from '~/components/form/RichTextEditor'
 import MediaBrowser from '~/components/form/MediaBrowser'
 import Input from '~/components/form/Input'
+import Tabs from '~/components/form/Tabs'
 import Modal from '~/components/Modal'
 import { client } from '~/api'
 
@@ -31,6 +32,7 @@ export default function Home() {
         input: '',
         usedImage: null,
         editedImage: null,
+        tab: 'one',
     })
 
     const change = curry((key, val) => {
@@ -135,6 +137,18 @@ export default function Home() {
                     <Button className="mr-16" icon={MdAddCircle} small onClick={() => console.log('click')}/>
                     <Button className="mr-16" icon={MdAddCircle} small secondary onClick={() => console.log('click')}/>
                     <Button className="mr-16" icon={MdAddCircle} small tertiary onClick={() => console.log('click')}/>
+                </div>
+                <div className="mb-24">
+                    <Tabs
+                        tabs={[
+                            { name: 'One', value: 'one' },
+                            { name: 'Two', value: 'two' },
+                            { name: 'Three', value: 'three' },
+                        ]}
+                        className="mb-24"
+                        active={demo.tab}
+                        onChange={change('tab')}
+                    />
                 </div>
                 <div className="mb-24">
                     <Editable

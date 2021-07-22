@@ -121,3 +121,16 @@ export const getImages = ({ search, from=0, to=12 }) => {
     }`
     return client.fetch(query)
 }
+
+export const findPageByTitle = search => {
+    const query = `*[_type in ['post','page']]
+    [[title] match ["*${search}*"]]
+    [0..5]
+    | order(_createdAt desc) {
+        _id,
+        _type,
+        title,
+        "slug": slug.current,
+    }`
+    return client.fetch(query)
+}

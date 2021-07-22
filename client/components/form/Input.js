@@ -15,6 +15,7 @@ export default function Input ({
     label,
     multiline,
     suffix,
+    style,
     ...rest
 }) {
 
@@ -24,7 +25,7 @@ export default function Input ({
         <>
             {label && <Label style={{marginBottom: '4px'}}>{label}</Label>}
             <InputWrapper
-
+                style={style}
                 className={[
                     className,
                     small && 'small',
