@@ -18,6 +18,7 @@ import Tabs from '~/components/form/Tabs'
 import Modal from '~/components/form/Modal'
 import Radio from '~/components/form/Radio'
 import Checkbox from '~/components/form/Checkbox'
+import Actions from '~/components/form/Actions'
 import { client } from '~/api'
 
 const imageUrl = source => imageUrlBuilder(client).image(source)
@@ -219,76 +220,100 @@ export default function Home() {
                         <Input value={demo.input} placeholder="Type something" onChange={change('input')} small multiline/>
                     </Col>
                 </Row>
+                <div className="mb-24 flex">
+                    <Radio
+                        value="one"
+                        onChange={change('radio')}
+                        checked={demo.radio === 'one'}
+                        label="One"
+                        description="First choice"
+                        style={{width: '200px', marginRight: '16px'}}
+                    />
+                    <Radio
+                        value="two"
+                        onChange={change('radio')}
+                        checked={demo.radio === 'two'}
+                        label="Two"
+                        description="Second choice"
+                        style={{width: '200px', marginRight: '16px'}}
+                    />
+                    <Radio
+                        value="three"
+                        onChange={change('radio')}
+                        checked={demo.radio === 'three'}
+                        label="Three"
+                        style={{width: '200px', marginRight: '16px'}}
+                    />
+                    <Radio
+                        value="four"
+                        onChange={change('radio')}
+                        checked={demo.radio === 'four'}
+                        label="Four"
+                        disabled
+                        description="I'm disabled"
+                        style={{width: '200px'}}
+                    />
+                </div>
+                <div className="mb-24 flex">
+                    <Checkbox
+                        value="one"
+                        onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
+                        checked={demo.checkbox.includes('one')}
+                        label="One"
+                        description="First choice"
+                        style={{width: '200px', marginRight: '16px'}}
+                    />
+                    <Checkbox
+                        value="two"
+                        onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
+                        checked={demo.checkbox.includes('two')}
+                        label="Two"
+                        description="Second choice"
+                        style={{width: '200px', marginRight: '16px'}}
+                    />
+                    <Checkbox
+                        value="three"
+                        onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
+                        checked={demo.checkbox.includes('three')}
+                        label="Three"
+                        style={{width: '200px', marginRight: '16px'}}
+                    />
+                    <Checkbox
+                        value="four"
+                        onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
+                        checked={demo.checkbox.includes('four')}
+                        label="Four"
+                        disabled
+                        description="I'm disabled"
+                        style={{width: '200px'}}
+                    />
+                </div>
+                <div className="mb-24 flex mt-48 has-actions" has-actions>
+                    <div className="flex-center p-24" style={{background: '#EFEFF1', width: '100%'}}>
+                        Actions preview on hover
+                    </div>
+                    <Actions
+                        align="top"
+                        onrefresh={_=>null}
+                        onBild={_=>null}
+                        onDelete={_=>null}
+                        onHelp={_=>null}
+                        onClear={_=>null}
+                        onExternal={_=>null}
+                        onEdit={_=>null}
+                        onSearch={_=>null}
+                        onList={_=>null}
+                        onPreview={_=>null}
+                        onAdd={_=>null}
+                        onCopy={_=>null}
+                        onAtach={_=>null}
+                        onLink={_=>null}
+                        onPhone={_=>null}
+                        onDesktop={_=>null}
+                        onColor={_=>null}
+                    />
+                </div>
             </div>
-            <div className="mb-24 flex">
-                <Radio
-                    value="one"
-                    onChange={change('radio')}
-                    checked={demo.radio === 'one'}
-                    label="One"
-                    description="First choice"
-                    style={{width: '200px', marginRight: '16px'}}
-                />
-                <Radio
-                    value="two"
-                    onChange={change('radio')}
-                    checked={demo.radio === 'two'}
-                    label="Two"
-                    description="Second choice"
-                    style={{width: '200px', marginRight: '16px'}}
-                />
-                <Radio
-                    value="three"
-                    onChange={change('radio')}
-                    checked={demo.radio === 'three'}
-                    label="Three"
-                    style={{width: '200px', marginRight: '16px'}}
-                />
-                <Radio
-                    value="four"
-                    onChange={change('radio')}
-                    checked={demo.radio === 'four'}
-                    label="Four"
-                    disabled
-                    description="I'm disabled"
-                    style={{width: '200px'}}
-                />
-            </div>
-            <div className="mb-24 flex">
-                <Checkbox
-                    value="one"
-                    onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
-                    checked={demo.checkbox.includes('one')}
-                    label="One"
-                    description="First choice"
-                    style={{width: '200px', marginRight: '16px'}}
-                />
-                <Checkbox
-                    value="two"
-                    onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
-                    checked={demo.checkbox.includes('two')}
-                    label="Two"
-                    description="Second choice"
-                    style={{width: '200px', marginRight: '16px'}}
-                />
-                <Checkbox
-                    value="three"
-                    onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
-                    checked={demo.checkbox.includes('three')}
-                    label="Three"
-                    style={{width: '200px', marginRight: '16px'}}
-                />
-                <Checkbox
-                    value="four"
-                    onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
-                    checked={demo.checkbox.includes('four')}
-                    label="Four"
-                    disabled
-                    description="I'm disabled"
-                    style={{width: '200px'}}
-                />
-            </div>
-
         </Layout>
     )
 }

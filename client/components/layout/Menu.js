@@ -1,6 +1,8 @@
 import { styled } from 'linaria/react'
 import Link from 'next/link'
 
+import Actions from '~/components/form/Actions'
+
 export default function Menu () {
 
     const links = [
@@ -8,7 +10,7 @@ export default function Menu () {
     ]
 
     return(
-        <Nav>
+        <Nav className="has-actions">
             <ul>
                 {links.map((link, i) => <li key={i}>
                     <Link href={link.url}>
@@ -16,11 +18,16 @@ export default function Menu () {
                     </Link>
                 </li>)}
             </ul>
+            <Actions
+                align="right"
+                onEdit={()=>null}
+            />
         </Nav>
     )
 }
 
 const Nav = styled.nav`
+    position: relative;
     ul  {
         li {
             margin-right: 16px;
