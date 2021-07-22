@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { curry } from 'ramda'
 import { MdAddCircle, MdSearch } from 'react-icons/md'
 import imageUrlBuilder from '@sanity/image-url'
+import xor from 'lodash.xor'
 
 import { Row, Col, colors } from '~/styles'
 import Layout from '~/components/Layout'
@@ -14,7 +15,9 @@ import RichTextEditor from '~/components/form/RichTextEditor'
 import MediaBrowser from '~/components/form/MediaBrowser'
 import Input from '~/components/form/Input'
 import Tabs from '~/components/form/Tabs'
-import Modal from '~/components/Modal'
+import Modal from '~/components/form/Modal'
+import Radio from '~/components/form/Radio'
+import Checkbox from '~/components/form/Checkbox'
 import { client } from '~/api'
 
 const imageUrl = source => imageUrlBuilder(client).image(source)
@@ -33,6 +36,8 @@ export default function Home() {
         usedImage: null,
         editedImage: null,
         tab: 'one',
+        radio: 'one',
+        checkbox: [],
     })
 
     const change = curry((key, val) => {
@@ -55,6 +60,8 @@ export default function Home() {
         style: {width:'240px',marginRight:'16px'}
     }
 
+    console.log(demo.checkbox);
+
     return(
         <Layout>
             <div className="container">
@@ -63,7 +70,7 @@ export default function Home() {
                 <h3 className="mb-24">Heading 3</h3>
                 <div className="mb-24">
                     <Button tertiary small onClick={() => change('modal')(true)}>Open modal</Button>
-                    {demo.modal && <Modal onClose={() => change('modal')(false)} className="p-32">Modal content...</Modal>}
+                    {demo.modal && <Modal onClose={() => change('modal')(false)} className="modal"><h3>Modal</h3>Modal content...</Modal>}
                 </div>
                 <Row>
                     <Col width={[6,6,12]}>
@@ -213,6 +220,75 @@ export default function Home() {
                     </Col>
                 </Row>
             </div>
+            <div className="mb-24 flex">
+                <Radio
+                    value="one"
+                    onChange={change('radio')}
+                    checked={demo.radio === 'one'}
+                    label="One"
+                    description="First choice"
+                    style={{width: '200px', marginRight: '16px'}}
+                />
+                <Radio
+                    value="two"
+                    onChange={change('radio')}
+                    checked={demo.radio === 'two'}
+                    label="Two"
+                    description="Second choice"
+                    style={{width: '200px', marginRight: '16px'}}
+                />
+                <Radio
+                    value="three"
+                    onChange={change('radio')}
+                    checked={demo.radio === 'three'}
+                    label="Three"
+                    style={{width: '200px', marginRight: '16px'}}
+                />
+                <Radio
+                    value="four"
+                    onChange={change('radio')}
+                    checked={demo.radio === 'four'}
+                    label="Four"
+                    disabled
+                    description="I'm disabled"
+                    style={{width: '200px'}}
+                />
+            </div>
+            <div className="mb-24 flex">
+                <Checkbox
+                    value="one"
+                    onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
+                    checked={demo.checkbox.includes('one')}
+                    label="One"
+                    description="First choice"
+                    style={{width: '200px', marginRight: '16px'}}
+                />
+                <Checkbox
+                    value="two"
+                    onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
+                    checked={demo.checkbox.includes('two')}
+                    label="Two"
+                    description="Second choice"
+                    style={{width: '200px', marginRight: '16px'}}
+                />
+                <Checkbox
+                    value="three"
+                    onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
+                    checked={demo.checkbox.includes('three')}
+                    label="Three"
+                    style={{width: '200px', marginRight: '16px'}}
+                />
+                <Checkbox
+                    value="four"
+                    onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
+                    checked={demo.checkbox.includes('four')}
+                    label="Four"
+                    disabled
+                    description="I'm disabled"
+                    style={{width: '200px'}}
+                />
+            </div>
+
         </Layout>
     )
 }

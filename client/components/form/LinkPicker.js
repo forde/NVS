@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { MdSearch } from 'react-icons/md'
 import { styled } from 'linaria/react'
 
-import Modal from '~/components/Modal'
+import Modal from '~/components/form/Modal'
 import Button from '~/components/form/Button'
 import Input from '~/components/form/Input'
 import Switch from '~/components/form/Switch'

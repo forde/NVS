@@ -6,7 +6,7 @@ import { MdPlayCircleFilled } from 'react-icons/md'
 
 import Button from './../Button'
 import Input from './../Input'
-import Modal from '~/components/Modal'
+import Modal from '~/components/form/Modal'
 
 export default function LinkButton ({ editorState, onChange }) {
 
