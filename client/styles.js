@@ -251,6 +251,17 @@ css`
             list-style: none;
         }
 
+        pre {
+            font-size: 14px;
+            background: #F6F6F6;
+            padding: 16px;
+            line-height: 1;
+            border-top: 1px solid #E8E8E8;
+            border-left: 1px solid #E8E8E8;
+            max-height: 600px;
+            overflow: auto;
+        }
+
         .container {
             width: 100%;
             max-width: 1180px;

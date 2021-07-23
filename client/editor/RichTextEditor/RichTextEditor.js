@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { EditorState } from 'draft-js'
+import { EditorState, convertToRaw } from 'draft-js'
 import 'draft-js/dist/Draft.css'
 import dynamic from 'next/dynamic'
 import { styled } from 'linaria/react'
@@ -17,6 +17,8 @@ const Editor = dynamic(
 export default function RichTextEditor() {
 
     const [ editorState, setEditorState ] = useState(() => EditorState.createEmpty())
+
+    console.log(convertToRaw(editorState.getCurrentContent()));
 
     const editorRef = useRef(null)
 

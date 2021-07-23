@@ -6,7 +6,7 @@ import Actions from '~/editor/Actions'
 export default function Menu () {
 
     const links = [
-        { name: 'Home', url: '/' }
+        { name: 'Home', url: '/home' }
     ]
 
     return(

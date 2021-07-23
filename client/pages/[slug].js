@@ -1,21 +1,15 @@
 import { useEffect, useState } from 'react'
 
 import { getSlugsForTypes, getBySlug, getPosts } from '~/api'
+import Layout from '~/components/Layout'
 
-export default function Slug ({ post }) {
-
-    console.log('[slug].js',post);
-
-    const [data, setData] = useState(post)
-
-    useEffect(() => {
-        setData(post)
-    }, [post])
-
+export default function Slug ({ page }) {
     return (
-        <div>
-            See console for page data
-        </div>
+        <Layout>
+            <div className="container">
+                <pre>{JSON.stringify(page, null, 4)}</pre>
+            </div>
+        </Layout>
     )
 }
 
@@ -31,15 +25,15 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 
-    const post = await getBySlug(params.slug)
-    console.log('API', post);
+    const page = await getBySlug(params.slug)
+    //console.log('API', page);
 
     // attach blog posts to "blogPosts" section if it't there
-    const sectionsRequireBlogPosts = (post.sections || []).reduce((acc, s) => s._type === 'blogPosts' ? true : acc, false)
+    const sectionsRequireBlogPosts = (page.sections || []).reduce((acc, s) => s._type === 'blogPosts' ? true : acc, false)
     if(sectionsRequireBlogPosts) {
         const posts = await getPosts()
-        post.sections = post.sections.map(s => s._type === 'blogPosts' ? {...s, posts} : s)
+        page.sections = page.sections.map(s => s._type === 'blogPosts' ? {...s, posts} : s)
     }
 
-    return { props: { post } }
+    return { props: { page } }
 }
