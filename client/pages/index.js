@@ -6,9 +6,9 @@ import xor from 'lodash.xor'
 
 import { Row, Col, colors } from '~/styles'
 import Layout from '~/components/Layout'
-import { success, error } from '~/components/editor/Toast'
+import { success, error } from '~/editor/Toast'
 import { client } from '~/api'
-import editor from '~/components/editor'
+import editor from '~/editor'
 
 const imageUrl = source => imageUrlBuilder(client).image(source)
 

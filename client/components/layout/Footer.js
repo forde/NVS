@@ -1,6 +1,6 @@
 import { css } from 'linaria'
 
-import { colors } from './../../styles'
+import { colors } from '~/styles'
 
 export default function Footer () {
     return(

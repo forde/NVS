@@ -21,7 +21,7 @@ import {
     MdColorLens,
 } from 'react-icons/md'
 
-import Button from '~/components/editor/Button'
+import Button from './Button'
 
 export default function Actions ({
     align='top',

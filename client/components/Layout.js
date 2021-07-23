@@ -2,7 +2,7 @@ import Header from '~/components/layout/Header'
 import Footer from '~/components/layout/Footer'
 
 import { goTo } from '~/lib/helpers'
-import editor from '~/components/editor'
+import editor from '~/editor'
 
 export default function Layout({ style={}, children }) {
 

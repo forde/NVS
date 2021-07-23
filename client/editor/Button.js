@@ -4,7 +4,7 @@ import { styled } from 'linaria/react'
 // test = css`color: tomato;` => classname={test}
 //const H1 = styled.h1`color: tomato;` => <H1>...</H1>
 
-import { fonts, colors } from './../../styles'
+import { fonts, colors } from '~/styles'
 import Loader from './Loader'
 
 export default function Button ({
@@ -94,10 +94,10 @@ const ButtonComponent = styled.button`
         color: ${colors.black};
         border-color: ${colors.gray};
         background: #fff;
-        &:hover {
+        @media(pointer: fine) { &:hover {
             border-color: ${colors.ui};
             z-index: 20;
-        }
+        }}
     }
 
     &.small {

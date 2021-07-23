@@ -1,7 +1,7 @@
 import { styled } from 'linaria/react'
 import Link from 'next/link'
 
-import Actions from '~/components/editor/Actions'
+import Actions from '~/editor/Actions'
 
 export default function Menu () {
 

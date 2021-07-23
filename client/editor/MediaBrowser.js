@@ -6,7 +6,7 @@ import { curry } from 'ramda'
 import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 
-import Modal from '~/components/editor/Modal'
+import Modal from './Modal'
 import { getImages, client } from '~/api'
 import Input from './Input'
 import Button from './Button'
