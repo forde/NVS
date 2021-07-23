@@ -6,14 +6,14 @@ import editor from '~/editor'
 
 export default function Layout({ style={}, children }) {
 
-    const { editMode, ..._ } = editor()
+    const { editMode, Actions } = editor()
 
     return (
         <>
             <div style={{ flex: 1, ...style }}>
                 <Header/>
                 {children}
-                {editMode && <_.Actions
+                {editMode && <Actions
                     fixed
                     offset="30"
                     align="left"
