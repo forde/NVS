@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
-export default function Editable({ value, placeholder, onChange, style, className, ref, ...rest }) {
+export default function Editable({ value, placeholder, onChange, style, className, tag, ref, multiline=false, ...rest }) {
 
     const state = useRef({ value, prevValue: null, key: null })
 
@@ -43,6 +43,12 @@ export default function Editable({ value, placeholder, onChange, style, classNam
 
     const placeholderStyle = { ...style, position:'absolute', top:'0', left:'0', zIndex: 0, opacity: .3 }
 
+    if(!onChange) {
+        // read only mode
+        const Tag = tag || 'div'
+        return <Tag style={style} className={className} children={value} {...rest} />
+    }
+
     return (
         <div
             style={{position:'relative'}}
@@ -58,6 +64,9 @@ export default function Editable({ value, placeholder, onChange, style, classNam
                 onPaste={onPaste}
                 style={editableStyle}
                 className={`editable ${className}`}
+                onKeyDown={e => {
+                    if(!multiline && e.keyCode === 13) e.preventDefault()
+                }}
                 {...rest}
             />
             {!value && <div children={placeholder} className={className} {...rest} style={placeholderStyle} />}

@@ -2,10 +2,21 @@ import { useEffect, useState } from 'react'
 
 import { getSlugsForTypes, getBySlug, getPosts } from '~/api'
 import Layout from '~/components/Layout'
+import Modules from '~/components/modules'
 
 export default function Slug ({ page }) {
     return (
         <Layout>
+            <Modules
+                page={page}
+                data={[
+                    {
+                        _key: 'a01c686af67a',
+                        _type: 'pageTitle',
+                        content: '',
+                    },
+                ]}
+            />
             <div className="container">
                 <pre>{JSON.stringify(page, null, 4)}</pre>
             </div>

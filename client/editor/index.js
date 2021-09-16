@@ -29,23 +29,3 @@ export default function importer () {
         Tabs:           !user ? _ : dynamic(() => import('./Tabs'),           { ssr: false }),
     }), [user])
 }
-
-/*
-RichTextEditor,
-Actions,
-Button,
-Checkbox,
-ConfirmButton,
-Editable,
-Input,
-Label,
-LinkPicker,
-Loader,
-MediaBrowser,
-Modal,
-OverlayLock,
-Radio,
-Select,
-Switch,
-Tabs,
-*/
