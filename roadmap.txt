@@ -2,6 +2,6 @@
 + add possibility to embed videos youtube / vimeo to rich text editor
 + add possibility to add images (from media browser) to rich text editor
 + add possibility to add a link to sanity  document (or external) to rich text editor
-- add checkbox component
-- add radio component
++ add checkbox component
++ add radio component
 + create client authentication and only use sanity client with token from next api layer when logged in

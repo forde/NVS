@@ -3,6 +3,7 @@ import Footer from '~/components/layout/Footer'
 
 import { goTo } from '~/lib/helpers'
 import editor from '~/editor'
+import AdminBar from '~/editor/AdminBar'
 
 export default function Layout({ style={}, children }) {
 
@@ -22,6 +23,7 @@ export default function Layout({ style={}, children }) {
                 />}
             </div>
             <Footer/>
+            <AdminBar/>
         </>
     )
 }

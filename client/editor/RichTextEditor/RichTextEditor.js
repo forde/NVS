@@ -18,7 +18,7 @@ export default function RichTextEditor() {
 
     const [ editorState, setEditorState ] = useState(() => EditorState.createEmpty())
 
-    console.log(convertToRaw(editorState.getCurrentContent()));
+    //console.log(convertToRaw(editorState.getCurrentContent()));
 
     const editorRef = useRef(null)
 
