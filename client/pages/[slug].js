@@ -15,6 +15,11 @@ export default function Slug ({ page }) {
                         _type: 'pageTitle',
                         content: '',
                     },
+                    {
+                        _key: 'e41c63eff67b',
+                        _type: 'pageTitle',
+                        content: 'Second',
+                    },
                 ]}
             />
             <div className="container">

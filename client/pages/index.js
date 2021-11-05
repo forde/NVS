@@ -320,6 +320,10 @@ export default function Home() {
                         onDesktop={_=>null}
                         onColor={_=>null}
                         onAddPage={_=>null}
+                        onMoveLeft={_=>null}
+                        onMoveRight={_=>null}
+                        onMoveUp={_=>null}
+                        onMoveDown={_=>null}
                     />
                 </div>
             </div>

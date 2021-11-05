@@ -263,3 +263,15 @@ export const getPixelRatio = () => {
 }
 
 export const imageUrl = source => imageUrlBuilder(client).image(source)
+
+export const clone = object => JSON.parse(JSON.stringify(object))
+
+export const changeArrayItemPosition = (array, currentIndex, newIndex) => {
+    let _array = [...array]
+    const a = _array[currentIndex]
+    const b = _array[newIndex]
+    if(!a || !b) return array
+    _array[currentIndex] = b
+    _array[newIndex] = a
+    return _array
+}

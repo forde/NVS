@@ -19,6 +19,10 @@ import {
     MdPhoneIphone,
     MdLaptop,
     MdColorLens,
+    MdKeyboardArrowDown,
+    MdKeyboardArrowLeft,
+    MdKeyboardArrowRight,
+    MdKeyboardArrowUp,
 } from 'react-icons/md'
 
 import Button from './Button'
@@ -50,6 +54,10 @@ export default function Actions ({
         onDesktop: MdLaptop,
         onColor: MdColorLens,
         onAddPage: MdNoteAdd,
+        onMoveDown: MdKeyboardArrowDown,
+        onMoveLeft: MdKeyboardArrowLeft,
+        onMoveRight: MdKeyboardArrowRight,
+        onMoveUp: MdKeyboardArrowUp,
     }
 
     return(
