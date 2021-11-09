@@ -265,7 +265,8 @@ css`
         .container {
             width: 100%;
             max-width: 1180px;
-            margin: 0 auto;
+            margin-left: auto;
+            margin-right: auto;
         }
         @media (max-width: 1180px) {
             .container { padding-left: 20px; padding-right: 20px; }

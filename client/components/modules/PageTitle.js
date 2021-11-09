@@ -13,7 +13,7 @@ export default function PageTitle ({ data, page, onChange, onMove, onRemove }) {
     const title = data.content || page.title
 
     return(
-        <div className="container has-actions">
+        <div className="container has-actions mb-60">
             {editMode ? <Editable
                 value={title}
                 onChange={val => onChange({ ...data, content: val })}
