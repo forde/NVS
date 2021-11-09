@@ -13,7 +13,7 @@ export default function PageInfo () {
 
     return (
         <PageContext.Consumer>
-            {({ page }) => (
+            {({ page={} }) => (
                 <>
                     <Wrapper onClick={() => setModalVisible(true)}>
                         <div className="primary">{page.title}</div>
