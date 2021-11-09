@@ -255,10 +255,10 @@ css`
             font-size: 14px;
             background: #F6F6F6;
             padding: 16px;
+            color: ${colors.black};
             line-height: 1;
             border-top: 1px solid #E8E8E8;
             border-left: 1px solid #E8E8E8;
-            max-height: 600px;
             overflow: auto;
         }
 

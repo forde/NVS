@@ -8,7 +8,7 @@ export default function Footer () {
     const { user } = useUser()
 
     return(
-        <div className={`${footer} flex-center-y`} style={user ? { marginBottom: '38px' } : null}>
+        <div className={`${footer} flex-center-y`} style={user ? { marginBottom: '42px' } : null}>
             <div className="container">Footer</div>
         </div>
     )

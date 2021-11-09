@@ -1,30 +1,39 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { getSlugsForTypes, getBySlug, getPosts } from '~/api'
 import Layout from '~/components/Layout'
 import Modules from '~/components/modules'
+import { PageContext } from '~/context'
 
 export default function Slug ({ page }) {
+
+    const [ pageContext, setPageContext ] = useState({
+        page,
+        deletePage: () => null,
+        changePage: page => setPageContext({ ...pageContext, page }),
+        savePage: () => null,
+        refresh: () => null,
+    })
+
     return (
-        <Layout>
-            <Modules
-                data={[
-                    {
-                        _key: 'a01c686af67a',
-                        _type: 'pageTitle',
-                        content: '',
-                    },
-                    {
-                        _key: 'e41c63eff67b',
-                        _type: 'pageTitle',
-                        content: 'Second',
-                    },
-                ]}
-            />
-            <div className="container">
-                <pre>{JSON.stringify(page, null, 4)}</pre>
-            </div>
-        </Layout>
+        <PageContext.Provider value={pageContext}>
+            <Layout>
+                <Modules
+                    data={[
+                        {
+                            _key: 'a01c686af67a',
+                            _type: 'pageTitle',
+                            content: '',
+                        },
+                        {
+                            _key: 'e41c63eff67b',
+                            _type: 'pageTitle',
+                            content: 'Second',
+                        },
+                    ]}
+                />
+            </Layout>
+        </PageContext.Provider>
     )
 }
 

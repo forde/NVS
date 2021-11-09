@@ -1,8 +1,9 @@
 import { useUser } from '@auth0/nextjs-auth0'
 import { styled } from 'linaria/react'
-import { MdOutlineAddBox, MdSettings } from 'react-icons/md'
+import { MdArrowBack, MdOutlineAddBox, MdSettings } from 'react-icons/md'
 
 import { colors } from '~/styles'
+import PageInfo from './PageInfo'
 
 export default function AdminBar () {
 
@@ -10,9 +11,11 @@ export default function AdminBar () {
 
     if(!user) return null
 
-    return(
+    return (
         <Wrapper>
             <ul>
+                <li className="back"><MdArrowBack /></li>
+                <PageInfo />
                 <li><MdOutlineAddBox />Add module</li>
                 <li><MdSettings />Page settings</li>
             </ul>
@@ -23,10 +26,9 @@ export default function AdminBar () {
 const Wrapper = styled.div`
     background: ${colors.black};
     color: white;
-    height: 38px;
+    height: 42px;
     display: flex;
     align-items: center;
-    padding: 0 10px;
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -35,7 +37,7 @@ const Wrapper = styled.div`
         display: flex;
         li {
             cursor: pointer;
-            height: 38px;
+            height: 42px;
             font-weight: 400;
             font-size: 16px;
             display: flex;
@@ -47,6 +49,14 @@ const Wrapper = styled.div`
             @media (pointer: fine) { &:hover {
                 background: rgba(255,255,255,.15);
             }}
+            &.back {
+                background: rgba(255,255,255,.15);
+                svg {
+                    width:22px;
+                    height: 22px;
+                    margin: 0 0 -1px;
+                }
+            }
         }
     }
 `

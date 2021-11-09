@@ -8,7 +8,7 @@ export default function PageTitle ({ data, onChange, onMove, onRemove }) {
         Actions,
     } = editor()
 
-    console.log('Module', data._type, data)
+    //console.log('Module', data._type, data)
 
     const title = data.content || ''
 

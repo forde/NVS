@@ -58,6 +58,7 @@ export const getPosts = async () => {
 export const getBySlug = slug => {
     const query = `*[slug.current == "${slug}"][0]{
         _id,
+        _type,
         title,
         "slug": slug.current,
         "publishedAt": meta.publishedAt,
