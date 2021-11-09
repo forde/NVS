@@ -1,24 +1,46 @@
+import { useState, useRef } from 'react'
 import { useUser } from '@auth0/nextjs-auth0'
 import { styled } from 'linaria/react'
-import { MdArrowBack, MdOutlineAddBox, MdSettings } from 'react-icons/md'
+import { MdVpnKey, MdOutlineAddBox, MdHandyman, MdSettings, MdOutlineInsights, MdWysiwyg, MdMoreVert, MdTranslate } from 'react-icons/md'
 
 import { colors } from '~/styles'
 import PageInfo from './PageInfo'
+import { onClickOutside } from '~/lib/helpers'
 
 export default function AdminBar () {
 
+    const [ siteControllsVisible, setSiteControllsVisible ] = useState(false)
+
     const { user } = useUser()
+
+    const siteControllsRef = useRef(null)
+
+    onClickOutside(siteControllsRef, () => {
+        setSiteControllsVisible(false)
+    })
 
     if(!user) return null
 
     return (
         <Wrapper>
             <ul>
-                <li className="back"><MdArrowBack /></li>
+                <li onClick={() => setSiteControllsVisible(!siteControllsVisible)} ref={siteControllsRef}>
+                    <MdMoreVert className="xl" />
+                    {siteControllsVisible &&
+                        <ul className="site-controlls">
+                            <li><MdVpnKey/>Users</li>
+                            <li><MdHandyman/>Tools</li>
+                            <li><MdTranslate/>Languages</li>
+                            <li><MdOutlineInsights/>SEO</li>
+                            <li><MdSettings/>Settings</li>
+                        </ul>
+                    }
+                </li>
                 <PageInfo />
                 <li><MdOutlineAddBox />Add module</li>
-                <li><MdSettings />Page settings</li>
+                <li><MdWysiwyg />Page settings</li>
             </ul>
+
         </Wrapper>
     )
 }
@@ -45,18 +67,26 @@ const Wrapper = styled.div`
             padding: 0 10px;
             svg {
                 margin-right: 6px;
-            }
-            @media (pointer: fine) { &:hover {
-                background: rgba(255,255,255,.15);
-            }}
-            &.back {
-                background: rgba(255,255,255,.15);
-                svg {
+                &.xl {
                     width:22px;
                     height: 22px;
                     margin: 0 0 -1px;
                 }
             }
+            @media (pointer: fine) { &:hover {
+                background: rgba(255,255,255,.15);
+            }}
+        }
+    }
+    ul.site-controlls{
+        background: ${colors.black};
+        position: absolute;
+        left: 0;
+        bottom: 42px;
+        flex-wrap: wrap;
+        width:200px;
+        li {
+            width: 100%;
         }
     }
 `
