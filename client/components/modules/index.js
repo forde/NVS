@@ -1,6 +1,5 @@
 import { createElement, useState, useEffect } from 'react'
 
-import editor from '~/editor'
 import { clone, changeArrayItemPosition } from '~/lib/helpers'
 import PageTitle from './PageTitle'
 
@@ -8,9 +7,7 @@ const availableModules = {
     pageTitle: PageTitle
 }
 
-export default function Modules({ data=[], page={} }) {
-
-    const { editMode, Button } = editor()
+export default function Modules({ data=[] }) {
 
     const [ items, setItems ] = useState([])
 
@@ -43,7 +40,6 @@ export default function Modules({ data=[], page={} }) {
                             availableModules[item._type],
                             {
                                 data: item,
-                                page,
                                 onChange: data => changeModule(item._key, data),
                                 onMove: dir => moveModule(item._key, dir),
                                 onRemove: () => removeModule(item._key)
@@ -52,12 +48,6 @@ export default function Modules({ data=[], page={} }) {
                     </div>
                 )
             })}
-
-            {editMode &&
-                <div className="flex-center-x">
-                    <Button tertiary small>Add module</Button>
-                </div>
-            }
 
         </div>
     )

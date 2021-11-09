@@ -1,6 +1,6 @@
 import editor from '~/editor'
 
-export default function PageTitle ({ data, page, onChange, onMove, onRemove }) {
+export default function PageTitle ({ data, onChange, onMove, onRemove }) {
 
     const {
         editMode,
@@ -8,9 +8,9 @@ export default function PageTitle ({ data, page, onChange, onMove, onRemove }) {
         Actions,
     } = editor()
 
-    console.log('Module', data._type, data, page)
+    console.log('Module', data._type, data)
 
-    const title = data.content || page.title
+    const title = data.content || ''
 
     return(
         <div className="container has-actions mb-60">

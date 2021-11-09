@@ -8,7 +8,6 @@ export default function Slug ({ page }) {
     return (
         <Layout>
             <Modules
-                page={page}
                 data={[
                     {
                         _key: 'a01c686af67a',
