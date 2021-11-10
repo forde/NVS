@@ -4,7 +4,17 @@ export default {
     type: 'array',
     of: [
         {
-            type: 'title',
+            type: 'object',
+            name: 'pageTitle',
+            title: 'Page title',
+            fields: [
+                { name: 'content', type: 'string' }
+            ]
+        },
+        {
+            type: 'image',
+            name: 'image',
+            title: 'Image',
         },
     ]
 }

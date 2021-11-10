@@ -156,7 +156,7 @@ export const Row = styled.div`
     width: calc(100% + ${colGap}px);
     margin-left: -${trim2(colGap/2)}px;
     margin-right: -${trim2(colGap/2)}px;
-    justify-content: space-between;
+    //justify-content: space-between;
     flex-wrap: wrap;
 
 `

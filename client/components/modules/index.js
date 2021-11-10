@@ -1,14 +1,8 @@
 import { createElement, useState, useEffect } from 'react'
 
 import { clone, changeArrayItemPosition } from '~/lib/helpers'
-import PageTitle from './PageTitle'
 
-export const availableModules = {
-    pageTitle: {
-        name: 'Page title',
-        component: PageTitle,
-    }
-}
+import availableModules from './modules'
 
 export default function Modules({ data=[] }) {
 

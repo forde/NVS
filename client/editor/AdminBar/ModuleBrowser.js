@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { styled } from 'linaria/react'
 import { MdOutlineAddBox } from 'react-icons/md'
+import { nanoid } from 'nanoid'
 
 import { colors, Row, Col } from '~/styles'
 import { PageContext } from '~/context'
@@ -13,14 +14,14 @@ export default function ModuleBrowser () {
 
     useEffect(() => {
         (async () => {
-            setAvailableModules((await import(process.env.NEXT_PUBLIC_MODULES_LOCATION)).availableModules)
+            setAvailableModules((await import(process.env.NEXT_PUBLIC_MODULES_LOCATION)).default)
         })()
     })
 
     const { Modal } = editor()
 
     const addModule = (mod, page) => {
-        console.log('addming ', mod);
+        console.log('addming ', { ...mod, _key: nanoid(12) } );
     }
 
     return (
@@ -47,7 +48,7 @@ export default function ModuleBrowser () {
                                             key={key}
                                         >
                                             <div className="card flex-center" onClick={() => addModule(mod, page)}>
-                                                {mod.name}
+                                                {mod.title}
                                             </div>
                                         </Col>
                                     )

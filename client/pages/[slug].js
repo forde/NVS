@@ -19,18 +19,7 @@ export default function Slug ({ page }) {
         <PageContext.Provider value={pageContext}>
             <Layout>
                 <Modules
-                    data={[
-                        {
-                            _key: 'a01c686af67a',
-                            _type: 'pageTitle',
-                            content: '',
-                        },
-                        {
-                            _key: 'e41c63eff67b',
-                            _type: 'pageTitle',
-                            content: 'Second',
-                        },
-                    ]}
+                    data={page.modules || []}
                 />
             </Layout>
         </PageContext.Provider>
