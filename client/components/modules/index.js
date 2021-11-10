@@ -1,29 +1,26 @@
-import { createElement, useState, useEffect } from 'react'
+import { createElement, useCallback } from 'react'
 
-import { clone, changeArrayItemPosition } from '~/lib/helpers'
-
+import { changeArrayItemPosition } from '~/lib/helpers'
 import availableModules from './modules'
 
-export default function Modules({ data=[] }) {
+export default function Modules({ modules=[], setModules=()=>null }) {
 
-    const [ modules, setModules ] = useState([])
+    const onChange = useCallback((key, data) => {
+        setModules(modules.map(m => m._key === key ? { ...m, ...data } : m))
+    }, [])
 
-    // clone and store module data as state so it can be manipulated
-    useEffect(() => setModules(clone(data || [])), [data])
-
-    // update module data in local state
-    const changeModule = (key, data) => setModules(modules.map(i => i._key !== key ? i : data))
-
-    const removeModule = (key) => setModules(modules.filter(i => i._key !== key))
-
-    // dir = 1 | -1
-    const moveModule = (key, dir) => {
-        const currentIndex = modules.reduce((acc, module, i) => module._key !== key ? acc : i, -1)
+    const onMove = useCallback((key, dir) => {
+        // dir = 1 | -1
+        const currentIndex = modules.reduce((acc, m, i) => m._key === key ? i : acc, -1)
         const newIndex = dir === -1 ? currentIndex - 1 : currentIndex + 1
         setModules(changeArrayItemPosition(modules, currentIndex, newIndex))
-    }
+    }, [])
 
-    return(
+    const onRemove = useCallback((key) => {
+        setModules(modules.filter(m => m._key !== key))
+    }, [])
+
+    return (
         <div>
             {modules.map(module => {
 
@@ -36,10 +33,10 @@ export default function Modules({ data=[] }) {
                         {createElement(
                             availableModules[module._type].component,
                             {
-                                data: module,
-                                onChange: data => changeModule(module._key, data),
-                                onMove: dir => moveModule(module._key, dir),
-                                onRemove: () => removeModule(module._key)
+                                module,
+                                onChange,
+                                onMove,
+                                onRemove,
                             }
                         )}
                     </div>

@@ -1,11 +1,12 @@
-import editor from '~/editor'
+import { memo } from 'react'
 
+import editor from '~/editor'
 
 import imageUrlBuilder from '@sanity/image-url'
 import { client } from '~/api'
 const imageUrl = source => imageUrlBuilder(client).image(source)
 
-export default function Image ({ data, onChange, onMove, onRemove }) {
+export default memo(function Image ({ module, onChange, onMove, onRemove }) {
 
     const {
         editMode,
@@ -13,7 +14,9 @@ export default function Image ({ data, onChange, onMove, onRemove }) {
         Actions,
     } = editor()
 
-    console.log('Module', data._type, data)
+    const { _key, asset } = (module || {})
+
+    console.log('Module', module)
 
     return(
         <div className="container has-actions mb-60">
@@ -21,20 +24,20 @@ export default function Image ({ data, onChange, onMove, onRemove }) {
             <>
                 <img
                     className="block clickable"
-                    src={imageUrl(data?.asset).auto('format').url()}
+                    src={imageUrl(asset).auto('format').url()}
                 />
             </> :
             <>
                 <img
                     className="block clickable"
-                    src={imageUrl(data?.asset).auto('format').url()}
+                    src={imageUrl(asset).auto('format').url()}
                 />
             </>}
             <Actions
-                onMoveUp={() => onMove(-1)}
-                onMoveDown={() => onMove(1)}
-                onDelete={onRemove}
+                onMoveUp={() => onMove(_key, -1)}
+                onMoveDown={() => onMove(_key, 1)}
+                onDelete={() => onRemove(_key)}
             />
         </div>
     )
-}
+})

@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 
 import { getSlugsForTypes, getBySlug, getPosts } from '~/api'
 import Layout from '~/components/Layout'
 import Modules from '~/components/modules'
+import { changeArrayItemPosition } from '~/lib/helpers'
 import { PageContext } from '~/context'
 
 export default function Slug ({ page }) {
@@ -19,7 +20,11 @@ export default function Slug ({ page }) {
         <PageContext.Provider value={pageContext}>
             <Layout>
                 <Modules
-                    data={page.modules || []}
+                    modules={pageContext.page.modules || []}
+                    setModules={modules => setPageContext({
+                        ...pageContext,
+                        page: { ...page, modules }
+                    })}
                 />
             </Layout>
         </PageContext.Provider>
