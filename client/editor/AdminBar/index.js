@@ -5,6 +5,7 @@ import { MdVpnKey, MdOutlineAddBox, MdHandyman, MdSettings, MdOutlineInsights, M
 
 import { colors } from '~/styles'
 import PageInfo from './PageInfo'
+import ModuleBrowser from './ModuleBrowser'
 import { onClickOutside } from '~/lib/helpers'
 
 export default function AdminBar () {
@@ -24,7 +25,11 @@ export default function AdminBar () {
     return (
         <Wrapper>
             <ul>
-                <li onClick={() => setSiteControllsVisible(!siteControllsVisible)} ref={siteControllsRef}>
+                <li
+                    onClick={() => setSiteControllsVisible(!siteControllsVisible)}
+                    ref={siteControllsRef}
+                    className="h-pad-10"
+                >
                     <MdMoreVert className="xl" />
                     {siteControllsVisible &&
                         <ul className="site-controlls">
@@ -36,9 +41,9 @@ export default function AdminBar () {
                         </ul>
                     }
                 </li>
-                <PageInfo />
-                <li><MdOutlineAddBox />Add module</li>
-                <li><MdWysiwyg />Page settings</li>
+                <li><PageInfo /></li>
+                <li><ModuleBrowser/></li>
+                <li className="h-pad-10"><MdWysiwyg />Page settings</li>
             </ul>
 
         </Wrapper>
@@ -64,8 +69,7 @@ const Wrapper = styled.div`
             font-size: 16px;
             display: flex;
             align-items: center;
-            padding: 0 10px;
-            svg {
+            > svg, .icon {
                 margin-right: 6px;
                 &.xl {
                     width:22px;
@@ -76,6 +80,9 @@ const Wrapper = styled.div`
             @media (pointer: fine) { &:hover {
                 background: rgba(255,255,255,.15);
             }}
+            &.h-pad-10 {
+                padding: 0 10px;
+            }
         }
     }
     ul.site-controlls{
@@ -87,6 +94,7 @@ const Wrapper = styled.div`
         width:200px;
         li {
             width: 100%;
+            padding: 0 10px;
         }
     }
 `

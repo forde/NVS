@@ -3,8 +3,11 @@ import { createElement, useState, useEffect } from 'react'
 import { clone, changeArrayItemPosition } from '~/lib/helpers'
 import PageTitle from './PageTitle'
 
-const availableModules = {
-    pageTitle: PageTitle
+export const availableModules = {
+    pageTitle: {
+        name: 'Page title',
+        component: PageTitle,
+    }
 }
 
 export default function Modules({ data=[] }) {
@@ -37,7 +40,7 @@ export default function Modules({ data=[] }) {
                 return (
                     <div key={module._key} className={'module-'+module._type}>
                         {createElement(
-                            availableModules[module._type],
+                            availableModules[module._type].component,
                             {
                                 data: module,
                                 onChange: data => changeModule(module._key, data),

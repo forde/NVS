@@ -88,6 +88,9 @@ export const getBySlug = slug => {
             }
 
         },
+        "modules": modules[]{
+            ...
+        },
         "seo": seo{
             title,
             description,

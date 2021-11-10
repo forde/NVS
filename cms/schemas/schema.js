@@ -9,6 +9,7 @@ import seo from './ui/seo'
 import category from './documents/category'
 import post from './documents/post'
 import sections from './ui/sections'
+import modules from './ui/modules'
 import wysiwyg from './sections/wysiwyg'
 import blogPosts from './sections/blogPosts'
 import title from './sections/title'
@@ -26,6 +27,7 @@ export default createSchema({
         category,
         seo,
         sections,
+        modules,
         wysiwyg,
         title,
         Settings,

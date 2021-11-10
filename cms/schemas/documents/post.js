@@ -61,6 +61,11 @@ export default {
             type: 'sections',
         },
         {
+            title: 'Modules',
+            name: 'modules',
+            type: 'modules',
+        },
+        {
             title: 'SEO',
             name: 'seo',
             type: 'seo',
