@@ -2,12 +2,11 @@ import { memo } from 'react'
 
 import editor from '~/editor'
 
-export default memo(function PageTitle ({ module, onChange, onMove, onRemove }) {
+export default memo(function PageTitle ({ module, onChange, Actions }) {
 
     const {
         editMode,
         Editable,
-        Actions,
     } = editor()
 
     const { _key, content } = (module || {})
@@ -22,11 +21,7 @@ export default memo(function PageTitle ({ module, onChange, onMove, onRemove }) 
                 placeholder="Page title"
                 className="h-large"
             /> : <h1>{content || ''}</h1>}
-            <Actions
-                onMoveUp={() => onMove(_key, -1)}
-                onMoveDown={() => onMove(_key, 1)}
-                onDelete={() => onRemove(_key)}
-            />
+            <Actions />
         </div>
     )
 })
