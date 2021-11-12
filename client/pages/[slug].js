@@ -3,7 +3,6 @@ import { useState, useCallback } from 'react'
 import { getSlugsForTypes, getBySlug, getPosts } from '~/api'
 import Layout from '~/components/Layout'
 import Modules from '~/components/modules'
-import { changeArrayItemPosition } from '~/lib/helpers'
 import { PageContext } from '~/context'
 
 export default function Slug ({ page }) {
@@ -16,15 +15,19 @@ export default function Slug ({ page }) {
         refresh: () => null,
     })
 
+    const onModulesChange = useCallback(modules => {
+        setPageContext(prevPageContext => ({
+            ...prevPageContext,
+            page: { ...page, modules }
+        }))
+    }, [])
+
     return (
         <PageContext.Provider value={pageContext}>
             <Layout>
                 <Modules
                     modules={pageContext.page.modules || []}
-                    setModules={modules => setPageContext({
-                        ...pageContext,
-                        page: { ...page, modules }
-                    })}
+                    onChange={onModulesChange}
                 />
             </Layout>
         </PageContext.Provider>
