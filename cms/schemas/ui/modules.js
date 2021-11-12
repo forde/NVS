@@ -8,7 +8,8 @@ export default {
             name: 'heading',
             title: 'Heading',
             fields: [
-                { name: 'content', type: 'string' }
+                { name: 'content', type: 'string' },
+                { name: 'tag', type: 'string' },
             ]
         },
         {

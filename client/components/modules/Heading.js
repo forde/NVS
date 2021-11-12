@@ -9,7 +9,13 @@ export default memo(function Heading ({ module, onChange }) {
         Editable,
     } = editor()
 
-    const { _key, content } = (module || {})
+    const { _key, content, tag: Tag='h1' } = module
+
+    const sizes = {
+        h1: 'large',
+        h2: 'medium',
+        h3: 'small'
+    }
 
     console.log('Module', module)
 
@@ -19,8 +25,8 @@ export default memo(function Heading ({ module, onChange }) {
                 value={content || ''}
                 onChange={val => onChange(_key, { content: val })}
                 placeholder="Heading"
-                className="h-large"
-            /> : <h1>{content || ''}</h1>}
+                className={`h-${sizes[Tag]}`}
+            /> : <Tag>{content || ''}</Tag>}
         </div>
     )
 })
@@ -28,11 +34,18 @@ export default memo(function Heading ({ module, onChange }) {
 export const Settings = ({ module, onChange }) => {
 
     const {
-        editMode,
-        Editable,
+        Select,
     } = editor()
 
+    const { tag, _key } = module
+
     return (
-        <div>Some settings here</div>
+        <div>
+            <Select
+                value={tag || 'h1'}
+                onChange={val => onChange(_key, { tag: val })}
+                options={['h1','h2','h3']}
+            />
+        </div>
     )
 }

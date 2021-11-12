@@ -1,7 +1,8 @@
-import { createElement, useCallback, useState, useEffect, memo } from 'react'
+import { useCallback, useState, useEffect } from 'react'
+import { nanoid } from 'nanoid'
 
 import editor from '~/editor'
-import { changeArrayItemPosition } from '~/lib/helpers'
+import { changeArrayItemPosition, clone } from '~/lib/helpers'
 import availableModules from './modules'
 
 export default function Modules({ modules: _modules=[], onChange: _onChange=()=>null }) {
@@ -37,6 +38,19 @@ export default function Modules({ modules: _modules=[], onChange: _onChange=()=>
         })
     }, [])
 
+    const onDuplicate = useCallback((key) => {
+        setModules(prevModules => {
+            const candidate = prevModules.find(m => m._key === key)
+            const candidateIndex = prevModules.reduce((acc,m,i) => m._key === key ? i+1 : acc ,prevModules.length)
+            const duplicate = { ...clone(candidate), _key: nanoid(12) }
+            return [
+                ...prevModules.slice(0, candidateIndex),
+                duplicate,
+                ...prevModules.slice(candidateIndex)
+            ]
+        })
+    }, [])
+
     const onRemove = useCallback((key) => {
         setModules(prevModules => prevModules.filter(m => m._key !== key))
     }, [])
@@ -63,8 +77,9 @@ export default function Modules({ modules: _modules=[], onChange: _onChange=()=>
                         <Actions
                             onMoveUp={index ? () => onMove(module._key, -1) : null}
                             onMoveDown={index < modules.length-1 ? () => onMove(module._key, 1) : null}
-                            onDelete={() => onRemove(module._key)}
+                            onCopy={() => onDuplicate(module._key)}
                             onEdit={Settings ? () => setModuleSettings(module._key) : null}
+                            onDelete={() => onRemove(module._key)}
                         />
 
                         {moduleSettings === module._key &&
