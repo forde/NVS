@@ -2,7 +2,7 @@ import { memo } from 'react'
 
 import editor from '~/editor'
 
-export default memo(function PageTitle ({ module, onChange, Actions }) {
+export default memo(function Heading ({ module, onChange }) {
 
     const {
         editMode,
@@ -18,10 +18,21 @@ export default memo(function PageTitle ({ module, onChange, Actions }) {
             {editMode ? <Editable
                 value={content || ''}
                 onChange={val => onChange(_key, { content: val })}
-                placeholder="Page title"
+                placeholder="Heading"
                 className="h-large"
             /> : <h1>{content || ''}</h1>}
-            <Actions />
         </div>
     )
 })
+
+export const Settings = ({ module, onChange }) => {
+
+    const {
+        editMode,
+        Editable,
+    } = editor()
+
+    return (
+        <div>Some settings here</div>
+    )
+}

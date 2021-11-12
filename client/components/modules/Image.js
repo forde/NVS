@@ -5,7 +5,7 @@ import imageUrlBuilder from '@sanity/image-url'
 import { client } from '~/api'
 const imageUrl = source => imageUrlBuilder(client).image(source)
 
-export default memo(function Image ({ module, onChange, Actions }) {
+export default memo(function Image ({ module, onChange }) {
 
     const { editMode } = editor()
 
@@ -13,24 +13,23 @@ export default memo(function Image ({ module, onChange, Actions }) {
 
     console.log('Module', module)
 
+    const src = asset ? imageUrl(asset).auto('format').url() : 'https://via.placeholder.com/1600x900'
+
     return(
         <div className="container has-actions mb-60">
             {editMode ?
             <>
                 <img
                     className="block clickable"
-                    src={imageUrl(asset).auto('format').url()}
+                    src={src}
                 />
             </> :
             <>
                 <img
                     className="block"
-                    src={imageUrl(asset).auto('format').url()}
+                    src={src}
                 />
             </>}
-            <Actions
-                onEdit={() => null}
-            />
         </div>
     )
 })

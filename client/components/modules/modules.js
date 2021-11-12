@@ -1,12 +1,13 @@
-import PageTitle from './PageTitle'
+import Heading, { Settings } from './Heading'
 import Image from './Image'
 
 export default {
-    pageTitle: {
+    heading: {
         _key: '',
-        _type: 'pageTitle',
-        title: 'Page title',
-        component: PageTitle,
+        _type: 'heading',
+        title: 'Heading',
+        component: Heading,
+        settings: Settings,
         content: '',
     },
     image: {

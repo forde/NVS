@@ -20,13 +20,21 @@ export default function ModuleBrowser () {
 
     const { Modal } = editor()
 
-    const addModule = (mod, page) => {
-        console.log('addming ', { ...mod, _key: nanoid(12) } );
+    const addModule = (module, pageContext) => {
+
+        const _key = nanoid(12)
+
+        pageContext.changePage({
+            ...pageContext.page,
+            modules: [ ...pageContext.page.modules, { ...module, _key }]
+        })
+
+        setModalVisible(false)
     }
 
     return (
         <PageContext.Consumer>
-            {({ page={} }) => (
+            {pageContext => (
                 <Wrapper>
                     <div className="toggle" onClick={() => setModalVisible(true)}>
                         <MdOutlineAddBox className="icon"/>Add module
@@ -40,15 +48,18 @@ export default function ModuleBrowser () {
                         >
                             <Row>
                                 {Object.keys(availableModules).map(key => {
-                                    const mod = availableModules[key]
+                                    const { component, ...module } = availableModules[key]
                                     return (
                                         <Col
                                             width={3}
                                             className="module square"
                                             key={key}
                                         >
-                                            <div className="card flex-center" onClick={() => addModule(mod, page)}>
-                                                {mod.title}
+                                            <div
+                                                className="card flex-center"
+                                                onClick={() => addModule(module, pageContext)}
+                                            >
+                                                {module.title}
                                             </div>
                                         </Col>
                                     )

@@ -5,8 +5,8 @@ export default {
     of: [
         {
             type: 'object',
-            name: 'pageTitle',
-            title: 'Page title',
+            name: 'heading',
+            title: 'Heading',
             fields: [
                 { name: 'content', type: 'string' }
             ]

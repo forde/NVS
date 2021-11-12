@@ -1,4 +1,4 @@
-import { createElement, useCallback, useState, useEffect } from 'react'
+import { createElement, useCallback, useState, useEffect, memo } from 'react'
 
 import editor from '~/editor'
 import { changeArrayItemPosition } from '~/lib/helpers'
@@ -7,15 +7,22 @@ import availableModules from './modules'
 export default function Modules({ modules: _modules=[], onChange: _onChange=()=>null }) {
 
     const {
-        editMode,
         Actions,
+        Modal,
     } = editor()
 
     const [ modules, setModules ] = useState(_modules)
 
+    const [ moduleSettings, setModuleSettings ] = useState(false)
+
     useEffect(() => {
         _onChange(modules)
     }, [modules])
+
+    // when new module is added we need to update local state
+    useEffect(() => {
+        if(_modules.length > modules.length) setModules(_modules)
+    }, [_modules])
 
     const onChange = useCallback((key, data) => {
         setModules(prevModules => prevModules.map(m => m._key === key ? { ...m, ...data } : m))
@@ -42,29 +49,32 @@ export default function Modules({ modules: _modules=[], onChange: _onChange=()=>
                     return <p key="nomodule" style={{color: 'red'}}>Module "{module._type}" does not exist</p>
                 }
 
-                const PreloadedActions = (moduleActions={}) => <Actions
-                    onMoveUp={index ? () => onMove(module._key, -1) : null}
-                    onMoveDown={index < modules.length-1 ? () => onMove(module._key, 1) : null}
-                    onDelete={() => onRemove(module._key)}
-                    {...moduleActions}
-                />
+                const Component = availableModules[module._type].component
+
+                const Settings = availableModules[module._type].settings
 
                 return (
-                    <div key={module._key} className={'module-'+module._type}>
-                        {createElement(
-                            availableModules[module._type].component,
-                            {
-                                module,
-                                onChange,
-                                onMove,
-                                onRemove,
-                                Actions: PreloadedActions
-                            }
-                        )}
+                    <div
+                        key={module._key}
+                        className={`has-actions module-${module._type}`}
+                    >
+                        <Component module={module} onChange={onChange} />
+
+                        <Actions
+                            onMoveUp={index ? () => onMove(module._key, -1) : null}
+                            onMoveDown={index < modules.length-1 ? () => onMove(module._key, 1) : null}
+                            onDelete={() => onRemove(module._key)}
+                            onEdit={Settings ? () => setModuleSettings(module._key) : null}
+                        />
+
+                        {moduleSettings === module._key &&
+                            <Modal onClose={() => setModuleSettings(false)} className="p-16">
+                                <Settings module={module} onChange={onChange} />
+                            </Modal>
+                        }
                     </div>
                 )
             })}
-
         </div>
     )
 }
