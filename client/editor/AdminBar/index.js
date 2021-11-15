@@ -6,6 +6,7 @@ import { MdVpnKey, MdOutlineAddBox, MdHandyman, MdSettings, MdOutlineInsights, M
 import { colors } from '~/styles'
 import PageInfo from './PageInfo'
 import ModuleBrowser from './ModuleBrowser'
+import PublishButton from './PublishButton'
 import { onClickOutside } from '~/lib/helpers'
 
 export default function AdminBar () {
@@ -44,6 +45,7 @@ export default function AdminBar () {
                 <li><PageInfo /></li>
                 <li><ModuleBrowser/></li>
                 <li className="h-pad-10"><MdWysiwyg />Page settings</li>
+                <li className="right"><PublishButton/></li>
             </ul>
 
         </Wrapper>
@@ -62,6 +64,7 @@ const Wrapper = styled.div`
     z-index: 9999;
     ul {
         display: flex;
+        width: 100%;
         li {
             cursor: pointer;
             height: 42px;
@@ -82,6 +85,9 @@ const Wrapper = styled.div`
             }}
             &.h-pad-10 {
                 padding: 0 10px;
+            }
+            &.right {
+                margin-left: auto;
             }
         }
     }

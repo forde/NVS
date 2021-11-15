@@ -21,15 +21,15 @@ export default withApiAuthRequired(async function image(req, res) {
 
     const formData = req => {
         return new Promise((resolve, reject) => {
-            const form = new formidable()
-            form.parse(req, (err, fields, files) => err ? reject({ err }) : resolve({ err, fields, files }))
+            const form = formidable({})
+            return form.parse(req, (err, fields, files) => err ? reject({ err }) : resolve({ err, fields, files }))
         })
     }
 
     const { fields, files } = await formData(req)
 
     if(req.method === 'PUT') {
-        const resp = await client.assets.upload('image', createReadStream(files.file.path), { filename: fields.filename })
+        const resp = await client.assets.upload('image', createReadStream(files.file.filepath), { filename: fields.filename })
         res.status(200).json(resp)
     }
 

@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid'
 import editor from '~/editor'
 import { changeArrayItemPosition, clone } from '~/lib/helpers'
 import availableModules from './modules'
+import useFirstRender from '~/hooks/useFirstRender'
 
 export default function Modules({ modules: _modules=[], onChange: _onChange=()=>null }) {
 
@@ -16,8 +17,10 @@ export default function Modules({ modules: _modules=[], onChange: _onChange=()=>
 
     const [ moduleSettings, setModuleSettings ] = useState(false)
 
+    const firstRender = useFirstRender()
+
     useEffect(() => {
-        _onChange(modules)
+        if(!firstRender) _onChange(modules)
     }, [modules])
 
     // when new module is added we need to update local state

@@ -10,7 +10,8 @@ export default function Slug ({ page }) {
     const [ pageContext, setPageContext ] = useState({
         page,
         deletePage: () => null,
-        changePage: page => setPageContext({ ...pageContext, page }),
+        changePage: page => setPageContext({ ...pageContext, page, changed: true }),
+        changed: false,
         savePage: () => null,
         refresh: () => null,
     })
@@ -18,7 +19,8 @@ export default function Slug ({ page }) {
     const onModulesChange = useCallback(modules => {
         setPageContext(prevPageContext => ({
             ...prevPageContext,
-            page: { ...page, modules }
+            page: { ...page, modules },
+            changed: true
         }))
     }, [])
 
