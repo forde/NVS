@@ -1,13 +1,13 @@
 import { useState, useRef } from 'react'
 import { useUser } from '@auth0/nextjs-auth0'
 import { styled } from 'linaria/react'
-import { MdVpnKey, MdOutlineAddBox, MdHandyman, MdSettings, MdOutlineInsights, MdWysiwyg, MdMoreVert, MdTranslate } from 'react-icons/md'
+import { MdVpnKey, MdHandyman, MdSettings, MdCreate, MdInsights, MdWysiwyg, MdMoreVert, MdTranslate } from 'react-icons/md'
 
 import { colors } from '~/styles'
 import PageInfo from './PageInfo'
 import ModuleBrowser from './ModuleBrowser'
 import PublishButton from './PublishButton'
-import { onClickOutside } from '~/lib/helpers'
+import { onClickOutside, goTo } from '~/lib/helpers'
 
 export default function AdminBar () {
 
@@ -34,10 +34,11 @@ export default function AdminBar () {
                     <MdMoreVert className="xl" />
                     {siteControllsVisible &&
                         <ul className="site-controlls">
+                            <li onClick={() => goTo('/new')}><MdCreate/>New page</li>
                             <li><MdVpnKey/>Users</li>
                             <li><MdHandyman/>Tools</li>
                             <li><MdTranslate/>Languages</li>
-                            <li><MdOutlineInsights/>SEO</li>
+                            <li><MdInsights/>SEO</li>
                             <li><MdSettings/>Settings</li>
                         </ul>
                     }
@@ -45,7 +46,9 @@ export default function AdminBar () {
                 <li><PageInfo /></li>
                 <li><ModuleBrowser/></li>
                 <li className="h-pad-10"><MdWysiwyg />Page settings</li>
-                <li className="right"><PublishButton/></li>
+                <ul className="right">
+                    <li><PublishButton/></li>
+                </ul>
             </ul>
 
         </Wrapper>
@@ -62,9 +65,14 @@ const Wrapper = styled.div`
     bottom: 0;
     width: 100%;
     z-index: 9999;
+    > ul {
+        width: 100%;
+    }
     ul {
         display: flex;
-        width: 100%;
+        &.right {
+            margin-left: auto;
+        }
         li {
             cursor: pointer;
             height: 42px;
@@ -85,9 +93,6 @@ const Wrapper = styled.div`
             }}
             &.h-pad-10 {
                 padding: 0 10px;
-            }
-            &.right {
-                margin-left: auto;
             }
         }
     }
