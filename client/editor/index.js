@@ -27,5 +27,6 @@ export default function importer () {
         Select:         !user ? _ : dynamic(() => import('./Select'),         { ssr: false }),
         Switch:         !user ? _ : dynamic(() => import('./Switch'),         { ssr: false }),
         Tabs:           !user ? _ : dynamic(() => import('./Tabs'),           { ssr: false }),
+        Bars:           !user ? _ : dynamic(() => import('./Bars'),           { ssr: false }),
     }), [user])
 }

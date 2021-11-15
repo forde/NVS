@@ -5,31 +5,42 @@ import { MdCheckCircleOutline } from 'react-icons/md'
 import { colors } from '~/styles'
 import { PageContext } from '~/context'
 import editor from '~/editor'
+import { success, error } from '~/editor/Toast'
 
 export default function PublishButton  () {
 
-    const formData = data => {
-        const formData = new FormData()
-        Object.keys(data).forEach(key => formData.append(key, data[key]))
-        return formData
-    }
+    const [ publishing, setPublishing ] = useState(false)
+
+    const { Bars } = editor()
 
     const publish = async page => {
 
-            const { _id: id, ...rest } = page
+        if(publishing) return
 
-        fetch('/api/sanity/image', {
+        setPublishing(true)
+
+        fetch('/api/sanity/page', {
             method: 'PATCH',
-            body: formData({
-                id, ...rest
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                _id: page._id,
+                title: page.title,
+                slug: {
+                    _type: 'slug',
+                    current: page.slug
+                },
+                modules: page.modules,
+                seo: {
+                    _type: 'seo',
+                    ...page.seo
+                }
             })
         })
-            .then(response => {
-                console.log(response);
-                return response.json()
-            })
+            .then(response => response.json())
             .then(data => {
                 console.log('data',data);
+                setPublishing(false)
+                success('Page published')
             })
     }
 
@@ -38,7 +49,9 @@ export default function PublishButton  () {
             {({ page, changed }) => !changed ? null : <Wrapper
                 onClick={() => publish(page)}
             >
-                <MdCheckCircleOutline className="icon"/>Publish
+                <MdCheckCircleOutline className="icon"/>
+                {publishing && <Bars /> }
+                Publish
             </Wrapper>}
         </PageContext.Consumer>
     )
@@ -52,4 +65,5 @@ const Wrapper = styled.div`
     background: ${colors.green};
     height: 100%;
     color: ${colors.black};
+    position:relative;
 `
