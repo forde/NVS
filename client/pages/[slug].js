@@ -9,7 +9,11 @@ export default function Slug ({ page }) {
 
     const [ pageContext, setPageContext ] = useState({
         page,
-        changePage: page => setPageContext({ ...pageContext, page, changed: true }),
+        changePage: page => setPageContext(prevPageContext => ({
+            ...prevPageContext,
+            page: { ...prevPageContext.page, ...page },
+            changed: true
+        })),
         changed: false,
         refresh: () => null,
     })

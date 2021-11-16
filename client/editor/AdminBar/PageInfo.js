@@ -4,6 +4,7 @@ import { styled } from 'linaria/react'
 import { colors } from '~/styles'
 import { PageContext } from '~/context'
 import editor from '~/editor'
+import { truncate } from '~/lib/helpers'
 
 export default function PageInfo () {
 
@@ -16,8 +17,8 @@ export default function PageInfo () {
             {({ page={} }) => (
                 <>
                     <Wrapper onClick={() => setModalVisible(true)}>
-                        <div className="primary">{page.title}</div>
-                        <div className="secondary">/{page.slug}</div>
+                        <div className="primary">{truncate(page.title, 30)}</div>
+                        <div className="secondary">/{truncate(page.slug, 30)}</div>
                     </Wrapper>
                     {modalVisible &&
                         <Modal

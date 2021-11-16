@@ -6,17 +6,18 @@ import { nanoid } from 'nanoid'
 import { colors, Row, Col } from '~/styles'
 import { PageContext } from '~/context'
 import editor from '~/editor'
+import SlugSettings from './SlugSettings'
 
 export default function PageSettings () {
 
     const [ modalVisible, setModalVisible ] = useState(false)
     const [ tab, setTab ] = useState('General')
 
-    const { Modal, Tabs } = editor()
+    const { Modal, Tabs, Input } = editor()
 
     return (
         <PageContext.Consumer>
-            {pageContext => (
+            {({ page, changePage }) => (
                 <Wrapper>
                     <div className="toggle" onClick={() => setModalVisible(true)}>
                         <MdWysiwyg className="icon"/>Page settings
@@ -30,10 +31,16 @@ export default function PageSettings () {
                                 tabs={['General','SEO','Misc'].map(t => ({ name:t, value:t }))}
                                 active={tab}
                                 onChange={setTab}
-                                className="tabs"
+                                className="tabs mb-16"
                             />
                             <Row>
-
+                                <Col width={12}>
+                                    <Input placeholder="Title" label="Title" value={page.title} onChange={val => changePage({ title: val })} />
+                                    <SlugSettings slug={page.slug} title={page.title} onChange={val => changePage({ slug: val })} />
+                                </Col>
+                                <Col width={12}>
+                                    ...
+                                </Col>
                             </Row>
                         </Modal>
                     }

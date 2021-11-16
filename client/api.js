@@ -136,3 +136,16 @@ export const findPageByTitle = search => {
     }`
     return client.fetch(query)
 }
+
+export const findPageBySlug = search => {
+    const query = `*[_type in ['post','page']]
+    [[slug.current] match ["*${search}*"]]
+    [0..5]
+    | order(_createdAt desc) {
+        _id,
+        _type,
+        title,
+        "slug": slug.current,
+    }`
+    return client.fetch(query)
+}

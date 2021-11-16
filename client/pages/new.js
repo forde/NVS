@@ -17,7 +17,11 @@ export default function New () {
                 keywords: []
             }
         },
-        changePage: page => setPageContext({ ...pageContext, page, changed: true }),
+        changePage: page => setPageContext(prevPageContext => ({
+            ...prevPageContext,
+            page: { ...prevPageContext.page, ...page },
+            changed: true
+        })),
         changed: false,
         refresh: () => null,
     })
