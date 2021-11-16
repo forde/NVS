@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { styled } from 'linaria/react'
 import { MdCheckCircleOutline } from 'react-icons/md'
+import { nanoid } from 'nanoid'
 
 import { colors } from '~/styles'
 import { PageContext } from '~/context'
@@ -19,22 +20,38 @@ export default function PublishButton  () {
 
         setPublishing(true)
 
+
+        let method = 'PATCH'
+        let data = {}
+
+        data = {
+            _id: page._id,
+            _type: 'page',
+            title: page.title,
+            slug: {
+                _type: 'slug',
+                current: page.slug
+            },
+            modules: page.modules,
+            seo: {
+                _type: 'seo',
+                ...page.seo
+            }
+        }
+
+        if(!page._id) {
+            const key = nanoid(12)
+            data._id = key
+            data.title = key
+            data.slug.current = key
+            method = 'POST'
+        }
+
+
         fetch('/api/sanity/page', {
-            method: 'PATCH',
+            method: method,
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                _id: page._id,
-                title: page.title,
-                slug: {
-                    _type: 'slug',
-                    current: page.slug
-                },
-                modules: page.modules,
-                seo: {
-                    _type: 'seo',
-                    ...page.seo
-                }
-            })
+            body: JSON.stringify(data)
         })
             .then(response => response.json())
             .then(data => {

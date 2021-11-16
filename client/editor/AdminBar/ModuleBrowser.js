@@ -48,7 +48,7 @@ export default function ModuleBrowser () {
                         >
                             <Row>
                                 {Object.keys(availableModules).map(key => {
-                                    const { component, ...module } = availableModules[key]
+                                    const { title, component, ...module } = availableModules[key]
                                     return (
                                         <Col
                                             width={3}
@@ -59,7 +59,7 @@ export default function ModuleBrowser () {
                                                 className="card flex-center"
                                                 onClick={() => addModule(module, pageContext)}
                                             >
-                                                {module.title}
+                                                {title}
                                             </div>
                                         </Col>
                                     )
