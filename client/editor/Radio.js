@@ -86,7 +86,7 @@ const Wrapper = styled.div`
                     width: 14px;
                     height: 14px;
                     border-radius: 14px;
-                    background: ${colors.ui};
+                    background: ${colors.black};
                     display: block;
                     position: absolute;
                     top: 50%;
@@ -110,7 +110,7 @@ const Wrapper = styled.div`
                     transform: translateY(-50%) translateX(-50%);
                     transition: all .2s ease-in-out;
                     polygon {
-                        fill: ${colors.ui};
+                        fill: ${colors.black};
                     }
                     opacity: 0;
                 }
@@ -146,7 +146,7 @@ const Wrapper = styled.div`
     }
 
     input:checked + label .icon {
-        border-color: ${colors.ui};
+        border-color: ${colors.black};
     }
 
     input:disabled + label {

@@ -1,12 +1,13 @@
 import { useState, useRef } from 'react'
 import { useUser } from '@auth0/nextjs-auth0'
 import { styled } from 'linaria/react'
-import { MdVpnKey, MdHandyman, MdSettings, MdCreate, MdInsights, MdWysiwyg, MdMoreVert, MdTranslate } from 'react-icons/md'
+import { MdVpnKey, MdHandyman, MdSettings, MdCreate, MdList, MdInsights, MdWysiwyg, MdMoreVert, MdTranslate } from 'react-icons/md'
 
 import { colors } from '~/styles'
 import PageInfo from './PageInfo'
 import ModuleBrowser from './ModuleBrowser'
 import PublishButton from './PublishButton'
+import PageSettings from './PageSettings'
 import { onClickOutside, goTo } from '~/lib/helpers'
 
 export default function AdminBar () {
@@ -35,6 +36,7 @@ export default function AdminBar () {
                     {siteControllsVisible &&
                         <ul className="site-controlls">
                             <li onClick={() => goTo('/new')}><MdCreate/>New page</li>
+                            <li><MdList/>Page list</li>
                             <li><MdVpnKey/>Users</li>
                             <li><MdHandyman/>Tools</li>
                             <li><MdTranslate/>Languages</li>
@@ -45,7 +47,7 @@ export default function AdminBar () {
                 </li>
                 <li><PageInfo /></li>
                 <li><ModuleBrowser/></li>
-                <li className="h-pad-10"><MdWysiwyg />Page settings</li>
+                <li><PageSettings/></li>
                 <ul className="right">
                     <li><PublishButton/></li>
                 </ul>

@@ -179,7 +179,7 @@ const Wrapper = styled.div`
         opacity: 1;
         @media(pointer: fine) { &:hover {
             box-shadow: none;
-            border: 3px solid ${colors.ui};
+            border: 3px solid ${colors.black};
         }}
 
         .arrow-icon {

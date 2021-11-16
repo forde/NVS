@@ -72,7 +72,7 @@ const InputWrapper = styled.div`
         }
         &:read-only { opacity: .6; }
         &:focus {
-            border: 3px solid ${colors.ui};
+            border: 3px solid ${colors.black};
             box-shadow: none;
         }
         &:-webkit-autofill, &:-webkit-autofill:hover, &:-webkit-autofill:focus, &:-webkit-autofill, &:-webkit-autofill-strong-password, &:-webkit-autofill-strong-password-viewable {

@@ -23,6 +23,7 @@ const Wrapper = styled.div`
     button {
         border-radius: 0;
         margin-left:-3px;
+        transition: none;
         &:first-child {
             border-top-left-radius: 10px;
             border-bottom-left-radius: 10px;
@@ -31,10 +32,14 @@ const Wrapper = styled.div`
             border-top-right-radius: 10px;
             border-bottom-right-radius: 10px;
         }
+        @media(pointer: fine) { &:hover {
+            border-color: ${colors.gray}!important;
+            z-index: 10!important;
+        }}
         &.active {
-            border-color: ${colors.ui}!important;
+            border-color: ${colors.black}!important;
             position: relative;
-            z-index: 10;
+            z-index: 20!important;
         }
     }
 `

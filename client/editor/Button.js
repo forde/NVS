@@ -95,7 +95,7 @@ const ButtonComponent = styled.button`
         border-color: ${colors.gray};
         background: #fff;
         @media(pointer: fine) { &:hover {
-            border-color: ${colors.ui};
+            border-color: ${colors.black};
             z-index: 20;
         }}
     }

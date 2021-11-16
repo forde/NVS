@@ -83,7 +83,7 @@ const Wrapper = styled.div`
         box-shadow: none;
         &:hover, &.rdw-option-active {
             box-shadow: none;
-            border: 2px solid ${colors.ui};
+            border: 2px solid ${colors.black};
         }
     }
     .draft-toolbar .rdw-dropdown-wrapper {
