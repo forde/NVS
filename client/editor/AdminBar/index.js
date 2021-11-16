@@ -59,7 +59,6 @@ export default function AdminBar () {
 
 const Wrapper = styled.div`
     background: ${colors.black};
-    color: white;
     height: 42px;
     display: flex;
     align-items: center;
@@ -69,6 +68,9 @@ const Wrapper = styled.div`
     z-index: 9999;
     > ul {
         width: 100%;
+        li {
+            color: white;
+        }
     }
     ul {
         display: flex;

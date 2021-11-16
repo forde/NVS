@@ -9,7 +9,7 @@ import { findPageBySlug } from '~/api'
 
 let timeout
 
-export default function SlugSettings ({ slug, title, onChange }) {
+export default function SlugSettings ({ slug, title, id, onChange }) {
 
     const [ editedSlug, setEditedSlug ] = useState(null)
     const [ editedSlugValid, setEditedSlugValid ] = useState(null)
@@ -26,6 +26,16 @@ export default function SlugSettings ({ slug, title, onChange }) {
             }, 500)
         }
     }, [editedSlug])
+
+    useEffect(() => {
+        if(!title) return onChange(nanoid(6))
+        if(!id) {
+            timeout  = setTimeout(async () => {
+                const check = await findPageBySlug(toSlug(title))
+                onChange(!check.length ? toSlug(title) : toSlug(title)+'-'+nanoid(6))
+            }, 500)
+        }
+    }, [title])
 
     const toSlug = string => slugify(string, { lower: true, locale: 'nb', strict: true })
 
@@ -50,8 +60,6 @@ export default function SlugSettings ({ slug, title, onChange }) {
                 <div className="flex">
                     <Input
                         small
-                        isValid={editedSlugValid === true}
-                        isInvalid={editedSlugValid === false}
                         value={editedSlug}
                         onChange={setEditedSlug}
                         className="mr-8"

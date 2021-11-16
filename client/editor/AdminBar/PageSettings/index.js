@@ -1,19 +1,36 @@
 import { useState, useEffect } from 'react'
 import { styled } from 'linaria/react'
 import { MdWysiwyg } from 'react-icons/md'
-import { nanoid } from 'nanoid'
+import { useRouter } from 'next/router'
 
-import { colors, Row, Col } from '~/styles'
 import { PageContext } from '~/context'
 import editor from '~/editor'
-import SlugSettings from './SlugSettings'
+import GeneralSettings from './GeneralSettings'
+import SeoSettings from './SeoSettings'
 
 export default function PageSettings () {
 
-    const [ modalVisible, setModalVisible ] = useState(false)
-    const [ tab, setTab ] = useState('General')
+    const _tabs = [
+        { name: 'General', value: 'general' },
+        { name: 'SEO', value: 'seo' },
+        { name: 'Misc', value: 'misc' },
+    ]
 
-    const { Modal, Tabs, Input } = editor()
+    const [ modalVisible, setModalVisible ] = useState(false)
+    const [ tab, setTab ] = useState(_tabs[0].value)
+
+    const { Modal, Tabs } = editor()
+
+    const router = useRouter()
+
+    const close = () => {
+        setTab(_tabs[0].value)
+        setModalVisible(false)
+    }
+
+    useEffect(() => {
+        if(router.route === '/new' && !modalVisible) setModalVisible(true)
+    }, [router.route])
 
     return (
         <PageContext.Consumer>
@@ -24,24 +41,18 @@ export default function PageSettings () {
                     </div>
                     {modalVisible &&
                         <Modal
-                            onClose={() => setModalVisible(false)}
+                            onClose={close}
                             className="p-16"
+                            style={{ minHeight: '400px' }}
                         >
                             <Tabs
-                                tabs={['General','SEO','Misc'].map(t => ({ name:t, value:t }))}
+                                tabs={_tabs}
                                 active={tab}
                                 onChange={setTab}
                                 className="tabs mb-16"
                             />
-                            <Row>
-                                <Col width={12}>
-                                    <Input placeholder="Title" label="Title" value={page.title} onChange={val => changePage({ title: val })} />
-                                    <SlugSettings slug={page.slug} title={page.title} onChange={val => changePage({ slug: val })} />
-                                </Col>
-                                <Col width={12}>
-                                    ...
-                                </Col>
-                            </Row>
+                            {tab === 'general' && <GeneralSettings page={page} onChange={changePage} />}
+                            {tab === 'seo' && <SeoSettings page={page} onChange={changePage} />}
                         </Modal>
                     }
                 </Wrapper>

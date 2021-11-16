@@ -220,7 +220,7 @@ const Wrapper = styled.div`
                 margin-left: 8px;
                 &:hover {
                     @media(pointer: fine) {
-                        path {
+                        path:last-child {
                             fill: ${colors.red};
                         }
                     }
