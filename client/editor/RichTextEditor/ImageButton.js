@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, memo } from 'react'
 import { EditorState, AtomicBlockUtils } from 'draft-js'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import { styled } from 'linaria/react'
@@ -18,7 +18,7 @@ export default function ImageButton ({ editorState, onChange }) {
 
         const contentState = editorState.getCurrentContent()
         const contentStateWithEntity = contentState.createEntity('_IMAGE', 'MUTABLE', {
-            src: imageUrl(image).width(image.preferredWidth || 800).auto('format').url(),
+            src: imageUrl(image)/*.width(image.preferredWidth || 800)*/.auto('format').url(),
             alt: image.alt,
             title: image.title,
             align: 'left',
@@ -45,7 +45,7 @@ export default function ImageButton ({ editorState, onChange }) {
     )
 }
 
-export const ImageBlock = ({ data, ...rest }) => {
+export const ImageBlock = memo(({ data, ...rest }) => {
 
     const changeAlignment = (e, dir) => {
         document.activeElement.blur()
@@ -72,7 +72,7 @@ export const ImageBlock = ({ data, ...rest }) => {
             </div>
         </Wrapper>
     )
-}
+})
 
 const Wrapper = styled.div`
     position: relative;

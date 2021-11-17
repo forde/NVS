@@ -17,7 +17,7 @@ export default memo(function Heading ({ module, onChange }) {
         h3: 'small'
     }
 
-    console.log('Module', module)
+    //console.log('Module', module)
 
     return(
         <div className="container has-actions mb-60">

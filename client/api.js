@@ -70,24 +70,6 @@ export const getBySlug = slug => {
             ...,
             "meta": asset->metadata{ dimensions, lqip },
         },
-        "sections": sections[]{
-            ...,
-            _type == 'image' => {
-                ...,
-                "meta": asset->metadata{ dimensions, lqip },
-            },
-            content[]{
-                ...,
-                markDefs[]{
-                    ...,
-                    _type == "internalLink" => {
-                        "slug": @.reference->slug.current,
-                        "type": @.reference->_type
-                    }
-                }
-            }
-
-        },
         "modules": modules,
         "seo": seo{
             title,
@@ -110,6 +92,22 @@ export const getImages = ({ search, from=0, to=12 }) => {
     ${search && `[[originalFilename] match ["*${search}*"]]`}
     [${from}..${to}]
     | order(_createdAt desc) {
+        _id,
+        assetId,
+        size,
+        originalFilename,
+        url,
+        mimeType,
+        metadata{
+            dimensions,
+            lqip
+        }
+    }`
+    return client.fetch(query)
+}
+
+export const getImageMeta = (ref) => {
+    const query = `*[_id == "${ref}"][0]{
         _id,
         assetId,
         size,

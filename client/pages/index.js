@@ -188,7 +188,7 @@ export default function Home() {
                         onClose={() => {
                             setDemo({...demo, mediaBrowser: false, editedImage: null })
                         }}
-                        image={demo.editedImage}
+                        selectedImage={demo.editedImage}
                         onUse={image => {
                             setDemo({...demo, usedImage: image, mediaBrowser: false })
                             // image url builder docs: https://www.sanity.io/docs/image-url

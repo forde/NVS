@@ -7,31 +7,42 @@ import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 
 import Modal from './Modal'
-import { getImages, client } from '~/api'
+import { getImages, getImageMeta, client } from '~/api'
 import Input from './Input'
 import Button from './Button'
 import Select from './Select'
 import { percentOfPrecise, percentToNumPrecise, truncate, bytesToSize, trim2 } from '~/lib/helpers'
 import useWindowWidth from '~/hooks/useWindowWidth'
+import useFirstRender from '~/hooks/useFirstRender'
 import { colors } from '~/styles'
 import Loader from './Loader'
 import ConfirmButton from './ConfirmButton'
 
-export default function MediaBrowser ({ onClose, onUse, image, withSizeSettings }) {
-
-    const defaultImageMeta = {
-        title: image?.title || '',
-        alt: image?.alt || '',
-        preferredWidth: image?.preferredWidth || '800',
+/*
+Props:
+    onClose: Function (required) - responsible for changing parent state & hiding media browser
+    selectedImage - Object of {
+        _id: String (required),
+        crop: Object (optional),
+        hotspot: Object (optional) ,
+        title: String (optional),
+        alt: String (optional)
     }
+    onUse: Function (required) - returns image object (same structure as "image" prop.) selected & edited from media browser
+*/
+
+export default function MediaBrowser ({ onClose, onUse, selectedImage: _selectedImage, withSizeSettings }) {
 
     const [ search, setSearch ] = useState('')
     const [ images, setImages ] = useState([])
     const [ loading, setLoading ] = useState(true)
     const [ deleting, setDeleting ] = useState(false)
     const [ uploads, setUploads ] = useState([])
-    const [ selectedImage, setSelectedImage ] = useState(image?.asset || null)
-    const [ selectedImageMeta, setSelectedImageMeta ] = useState(defaultImageMeta)
+    const [ selectedImage, setSelectedImage ] = useState(null)
+    const [ selectedImageTitle, setSelectedImageTitle ] = useState('')
+    const [ selectedImageAlt, setSelectedImageAlt ] = useState('')
+    const [ desktopWidth, setDesktopWidth ] = useState('')
+    const [ mobileWidth, setMobileWidth ] = useState('')
     const [ ratioLock, setRatioLock ] = useState(trim2(16/9))
     const [ imageEditorMaxWidth, setImageEditorMaxWidth ] = useState('100%')
 
@@ -47,56 +58,70 @@ export default function MediaBrowser ({ onClose, onUse, image, withSizeSettings 
 
     const windowWidth = useWindowWidth()
 
+    const firstRender = useFirstRender()
+
     const debug = false
 
-    const imageUrl = source => imageUrlBuilder(client).image(source)
-
-    const updateImageMeta = curry((key, val) => setSelectedImageMeta({ ...selectedImageMeta, [key]: val }))
-
-    const getData = async () => {
-        if(image) return // dont load assets when dealing with edited image only
-        const resp = await getImages({ search })
-        setLoading(false)
-        if(Array.isArray(resp)) setImages(resp)
-    }
-
     useEffect(() => {
-        if(!image || !image.crop || !croppedImageRef.current) return
-        const { top, left, bottom, right } = image.crop
+        if(!selectedImage || !selectedImage.crop || !croppedImageRef.current) return
+
+        const { top, left, bottom, right } = _selectedImage.crop
         const x = percentToNumPrecise((left*100), croppedImageRef.current.width)
         const y = percentToNumPrecise((top*100), croppedImageRef.current.height)
         const width = croppedImageRef.current.width - x - percentToNumPrecise((right*100), croppedImageRef.current.width)
         const height = croppedImageRef.current.height - y - percentToNumPrecise((bottom*100), croppedImageRef.current.height)
         const unit = 'px'
-        const ratio = trim2(width/height)
+        const aspect = trim2(width/height)
 
-        setRatioLock(ratio)
-        setCrop({ x, y, width, height, unit, ratio })
-        setCompletedCrop({ x, y, width, height, unit, ratio })
+        setRatioLock(aspect)
+        setCrop({ x, y, width, height, unit, aspect })
+        setCompletedCrop({ x, y, width, height, unit, aspect })
 
     }, [croppedImageRef.current])
 
     useEffect(() => {
-        getData()
+
+        if(!_selectedImage) {
+            fetchImages()
+            return
+        }
+
+        if(_selectedImage) {
+
+            if(!_selectedImage?.metadata) {
+                (async () => {
+                    const metadata = await getImageMeta(_selectedImage?._id)
+                    console.log('Image metadata fetched', metadata);
+                    setSelectedImage({ ..._selectedImage, ...(metadata || {}) })
+                })()
+            } else {
+                setSelectedImage(_selectedImage)
+            }
+
+            if(_selectedImage?.title) setSelectedImageTitle(_selectedImage.title)
+            if(_selectedImage?.alt) setSelectedImageAlt(_selectedImage.alt)
+
+        }
+
+    }, [])
+
+    useEffect(() => {
+        if(!firstRender) fetchImages()
     }, [search])
 
     useEffect(() => {
         if(uploads.length && uploads.every(u => u._id)) {
             setTimeout(async () => {
-                await getData()
+                await fetchImages()
                 setUploads([])
             }, 1000)
         }
     }, [uploads])
 
-    const onImageReadyToCrop = useCallback(img => {
-        img.crossOrigin = 'Anonymous'
-        croppedImageRef.current = img
-    }, [])
-
     useEffect(() => {
-        if(!selectedImage || !imageContainerRef.current) return
-        const imageWidth = imageContainerRef.current.offsetHeight * selectedImage.metadata.dimensions.aspectRatio
+        if(!selectedImage || !imageContainerRef.current || !selectedImage.metadata) return
+        const ratio = selectedImage.metadata?.dimensions?.aspectRatio
+        const imageWidth = imageContainerRef.current.offsetHeight * ratio
         setImageEditorMaxWidth(`${imageWidth}px`)
     }, [selectedImage, windowWidth])
 
@@ -104,16 +129,32 @@ export default function MediaBrowser ({ onClose, onUse, image, withSizeSettings 
         setCrop({ ...crop, aspect: ratioLock })
     }, [ratioLock])
 
-    const onImageClick = image => {
-        if(!image._id) return null
-        setSelectedImage(image)
+    const onImageReadyToCrop = useCallback(img => {
+        img.crossOrigin = 'Anonymous'
+        croppedImageRef.current = img
+    }, [])
+
+    const imageUrl = source => imageUrlBuilder(client).image(source)
+
+    const fetchImages = async () => {
+        const resp = await getImages({ search })
+        setLoading(false)
+        if(Array.isArray(resp)) setImages(resp)
+    }
+
+    const onImageClick = clickedImage => {
+        if(!clickedImage._id) return
+        setSelectedImage(clickedImage)
     }
 
     const backToImageGrid = () => {
         setSelectedImage(null)
-        setSelectedImageMeta(defaultImageMeta)
+        setSelectedImageTitle('')
+        setSelectedImageAlt('')
         setCrop({ aspect: ratioLock })
         setCompletedCrop(null)
+        setRatioLock(trim2(16/9))
+        fetchImages()
     }
 
     const formData = data => {
@@ -143,15 +184,22 @@ export default function MediaBrowser ({ onClose, onUse, image, withSizeSettings 
         })
     }
 
+    const onCropRatioChange = value => {
+        setRatioLock(value)
+        setCrop({ aspect: value })
+        setCompletedCrop(null)
+    }
+
     const useImage = async () => {
 
         let data = {
-            _type: 'image',
-            asset: {
-                ...selectedImage
-            },
-            ...selectedImageMeta,
+            _id: selectedImage._id,
+            title: selectedImageTitle,
+            alt: selectedImageAlt,
         }
+
+        // add desktopWidth
+        // add mobileWidth
 
         if(completedCrop?.width && completedCrop?.height) {
             const left = percentOfPrecise(completedCrop.x, croppedImageRef.current.width) / 100
@@ -177,14 +225,10 @@ export default function MediaBrowser ({ onClose, onUse, image, withSizeSettings 
 
         await (await fetch('/api/sanity/image', {
             method: 'DELETE',
-            body: formData({
-                id:  selectedImage._id,
-                title: selectedImageMeta.title,
-                alt: selectedImageMeta.alt,
-            })
+            body: formData({ id:  selectedImage._id })
         })).json()
 
-        await getData()
+        await fetchImages()
 
         setDeleting(false)
         backToImageGrid()
@@ -218,12 +262,12 @@ export default function MediaBrowser ({ onClose, onUse, image, withSizeSettings 
                                 accept="image/jpeg, image/jpg, image/png, image/heif, image/heic"
                             />
                         </> : <>
-                            {!image && <Button tertiary small icon={MdKeyboardBackspace} onClick={backToImageGrid}/>}
+                            <Button tertiary small icon={MdKeyboardBackspace} onClick={backToImageGrid}/>
                         </>
                     }
                 </div>
 
-                {!image && loading && 'Loading...'}
+                {!_selectedImage && loading && 'Loading...'}
 
                 {!selectedImage ?
                     <ul className="image-grid">
@@ -245,7 +289,11 @@ export default function MediaBrowser ({ onClose, onUse, image, withSizeSettings 
                         <div className="image-container" ref={imageContainerRef}>
                             <ImageEditor debug={debug} style={{maxWidth:imageEditorMaxWidth}}>
                                 <ReactCrop
-                                    src={imageUrl(selectedImage).width(1000).url()}
+                                    src={imageUrl({
+                                        ...selectedImage,
+                                        crop: null, // we always show full image here so discard crop/hotspot if any
+                                        hotspot: null, // we always show full image here so discard crop/hotspot if any
+                                    }).width(1000).url()}
                                     crop={crop}
                                     onChange={setCrop}
                                     onImageLoaded={onImageReadyToCrop}
@@ -260,15 +308,15 @@ export default function MediaBrowser ({ onClose, onUse, image, withSizeSettings 
                             <div>
                                 <span>
                                     {truncate(selectedImage.originalFilename, 35)}<br/>
-                                    {selectedImage.metadata.dimensions.width} / {selectedImage.metadata.dimensions.height} px<br/>
-                                    {bytesToSize(selectedImage.size)}
+                                    {selectedImage.metadata?.dimensions?.width} / {selectedImage.metadata?.dimensions?.height} px<br/>
+                                    {bytesToSize(selectedImage.size || 0)}
                                 </span>
                                 <Select
                                     small
                                     className="mb-24"
                                     label="Crop ratio"
                                     value={ratioLock}
-                                    onChange={setRatioLock}
+                                    onChange={onCropRatioChange}
                                     style={{minWidth:'100%', width:'100%'}}
                                     options={[
                                         { name: '16:9', value: trim2(16/9) },
@@ -282,25 +330,25 @@ export default function MediaBrowser ({ onClose, onUse, image, withSizeSettings 
                                     small
                                     className="mb-24"
                                     label="Image title"
-                                    value={selectedImageMeta.title}
-                                    onChange={updateImageMeta('title')}
+                                    value={selectedImageTitle}
+                                    onChange={val => setSelectedImageTitle(val)}
                                 />
                                 <Input
                                     small
                                     className="mb-24"
                                     label="Image alt text"
-                                    value={selectedImageMeta.alt}
-                                    onChange={updateImageMeta('alt')}
+                                    value={selectedImageAlt}
+                                    onChange={val => setSelectedImageAlt(val)}
                                 />
                                 {withSizeSettings &&
                                     <div className="size-settings mb-24 flex">
                                         <div className="flex align-center">
                                             <MdDesktopMac style={{minWidth:'24px', marginRight: '4px'}}/>
-                                            <Input small suffix="px" value={selectedImageMeta.preferredWidth} onChange={updateImageMeta('preferredWidth')} />
+                                            <Input small suffix="px" value={desktopWidth} onChange={setDesktopWidth} />
                                         </div>
                                         <div className="flex align-center">
                                             <MdPhoneIphone style={{minWidth:'24px', marginLeft: '4px'}}/>
-                                            <Input small suffix="%" disabled value="100" onChange={_=>null} />
+                                            <Input small suffix="px" value={mobileWidth} onChange={setMobileWidth} />
                                         </div>
                                     </div>
                                 }

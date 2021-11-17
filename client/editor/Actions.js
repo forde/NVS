@@ -125,6 +125,11 @@ const Wrapper = styled.div`
             }
         }
     }
+    &.align-center {
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+    }
     &.fixed {
         position: fixed;
     }
