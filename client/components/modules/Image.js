@@ -20,8 +20,26 @@ export default memo(function Image ({ module, onChange }) {
             {editMode ?
             <>
                 <ImageInput
-                    image={image}
-                    onChange={image => onChange(_key, { ...image })}
+                    id={image?.asset?._ref}
+                    title={image?.title}
+                    alt={image?.alt}
+                    crop={image?.crop}
+                    hotspot={image?.hotspot}
+                    onChange={data => {
+
+                        if(!data) {
+                            const { alt, title, hotspot, crop, ...rest } = image
+                            return onChange(_key, { ...rest, asset: null })
+                        }
+
+                        const { _id, alt, title, hotspot, crop } = data
+                        onChange(_key, {
+                            ...image,
+                            alt, title, hotspot, crop,
+                            asset: { _type: 'reference', _ref: _id }
+                        })
+
+                    }}
                     placeholder="https://via.placeholder.com/1600x900"
                 />
             </> :

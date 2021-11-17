@@ -65,7 +65,7 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
     useEffect(() => {
         if(!selectedImage || !selectedImage.crop || !croppedImageRef.current) return
 
-        const { top, left, bottom, right } = _selectedImage.crop
+        const { top, left, bottom, right } = selectedImage.crop
         const x = percentToNumPrecise((left*100), croppedImageRef.current.width)
         const y = percentToNumPrecise((top*100), croppedImageRef.current.height)
         const width = croppedImageRef.current.width - x - percentToNumPrecise((right*100), croppedImageRef.current.width)

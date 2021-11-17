@@ -7,51 +7,22 @@ import { client } from '~/api'
 
 const imageUrl = source => imageUrlBuilder(client).image(source)
 
-export default function ImageInput ({ image, placeholder, onChange }) {
+export default function ImageInput ({ id: _id, alt='', title='', hotspot=null, crop=null, placeholder, onChange }) {
 
     const [ mediaBrowserVisible, setMediaBrowserVisible ] = useState(false)
 
     const { MediaBrowser, Actions } = editor()
 
-    const editImage = () => {
-        setMediaBrowserVisible(true)
-    }
-
-    const removeImage = () => {
-        const { crop, hotspot, title, alt, asset, ...rest } = image
-        onChange({
-            ...rest,
-            asset: null
-        })
-    }
-
-    const src = image?.asset ? imageUrl(image).auto('format').url() : placeholder
-
-    const selectedImage = {
-        _id: image?._id || image?.asset?._ref,
-        crop: image?.crop,
-        hotspot: image?.hotspot,
-        title: image?.title || '',
-        alt: image?.alt || ''
-    }
+    const src = _id ? imageUrl({
+        _type: 'reference',
+        _ref: _id,
+        crop, hotspot
+    }).auto('format').url() : placeholder
 
     const onUse = usedImage => {
-        console.log('Image out', usedImage);
         setMediaBrowserVisible(false)
-        const { _id, crop, hotspot, title, alt } = usedImage
-        const changedImage = {
-            ...image,
-            crop, hotspot, title, alt,
-            asset: {
-                _type: 'reference',
-                _ref: _id,
-            }
-        }
-        onChange(changedImage)
-        console.log('Changed image', changedImage);
+        onChange(usedImage)
     }
-
-    console.log('Image in', selectedImage);
 
     return (
         <div className="has-actions">
@@ -61,13 +32,13 @@ export default function ImageInput ({ image, placeholder, onChange }) {
             />
             <Actions
                 align="center"
-                onEdit={editImage}
-                onDelete={!selectedImage._id ? null : removeImage}
+                onEdit={() => setMediaBrowserVisible(true)}
+                onDelete={!_id ? null : () => onChange(null)}
             />
             {mediaBrowserVisible &&
                 <MediaBrowser
                     onClose={() => setMediaBrowserVisible(false)}
-                    selectedImage={selectedImage._id ? selectedImage : null}
+                    selectedImage={!_id ? null : { _id, alt, title, hotspot, crop }}
                     withSizeSettings
                     onUse={onUse}
                 />
