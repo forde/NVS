@@ -34,7 +34,7 @@ export default function ModuleBrowser () {
 
     return (
         <PageContext.Consumer>
-            {pageContext => (
+            {pageContext => !pageContext.page ? null : (
                 <Wrapper>
                     <div className="toggle" onClick={() => setModalVisible(true)}>
                         <MdOutlineAddBox className="icon"/>Add module

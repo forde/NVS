@@ -4,19 +4,6 @@ export default {
     type: 'object',
     fields: [
         {
-            title: 'Columns',
-            name: 'columns',
-            type: 'string',
-            options: {
-                list: [
-                    {title: '1', value: '1'},
-                    {title: '2', value: '2'}
-                ],
-                layout: 'radio',
-                direction: 'horizontal'
-            }
-        },
-        {
             name: 'content',
             type: 'array',
             of: [

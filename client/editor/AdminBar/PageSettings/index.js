@@ -34,7 +34,7 @@ export default function PageSettings () {
 
     return (
         <PageContext.Consumer>
-            {({ page, changePage }) => (
+            {({ page, changePage }) => !page ? null : (
                 <Wrapper>
                     <div className="toggle" onClick={() => setModalVisible(true)}>
                         <MdWysiwyg className="icon"/>Page settings

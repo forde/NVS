@@ -32,5 +32,11 @@ export default {
                 }
             ]
         },
+        {
+            type: 'wysiwyg',
+            name: 'content',
+            title: 'Content',
+
+        }
     ]
 }

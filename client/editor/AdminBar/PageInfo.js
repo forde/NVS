@@ -14,7 +14,7 @@ export default function PageInfo () {
 
     return (
         <PageContext.Consumer>
-            {({ page={} }) => (
+            {({ page }) => !page ? null : (
                 <>
                     <Wrapper onClick={() => setModalVisible(true)}>
                         <div className="primary">{truncate(page.title, 30)}</div>
