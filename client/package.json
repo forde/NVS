@@ -24,6 +24,7 @@
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/client": "^2.21.7",
     "@sanity/image-url": "^1.0.1",
+    "@sanity/portable-text-editor": "^2.22.0",
     "draft-js": "^0.11.7",
     "formidable": "^2.0.1",
     "groq": "^2.15.0",
@@ -43,6 +44,7 @@
     "react-image-crop": "^9.0.4",
     "shortid": "^2.2.16",
     "slugify": "^1.6.2",
+    "styled-components": "^5.3.3",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

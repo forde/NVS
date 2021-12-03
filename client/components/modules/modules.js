@@ -1,6 +1,6 @@
 import Heading, { Settings } from './Heading'
 import Image from './Image'
-import RichText from './RichText'
+import Content from './Content'
 
 export default {
     heading: {
@@ -18,11 +18,11 @@ export default {
         component: Image,
         asset: null,
     },
-    richText: {
+    content: {
         _key: '',
-        _type: 'richText',
-        title: 'Rich text',
-        component: RichText,
+        _type: 'content',
+        title: 'Content',
+        component: Content,
         content: ''
     }
 }

@@ -265,7 +265,6 @@ const Wrapper = styled.div`
             &:hover {
                 @media(pointer: fine) {
                     background: ${colors.lightGray};
-                    color: ${colors.ui};
                 }
             }
             &.selected {

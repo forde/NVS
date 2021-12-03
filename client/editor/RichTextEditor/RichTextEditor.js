@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react'
-import { EditorState, convertToRaw } from 'draft-js'
+import { useState, useRef, useEffect } from 'react'
+import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
 import 'draft-js/dist/Draft.css'
 import dynamic from 'next/dynamic'
 import { styled } from 'linaria/react'
@@ -8,19 +8,24 @@ import { colors } from '~/styles'
 import ImageButton, { ImageBlock } from './ImageButton'
 import LinkButton from './LinkButton'
 import VideoButton, { VideoBlock } from './VideoButton'
+import useFirstRender from '~/hooks/useFirstRender'
 
 const Editor = dynamic(
     () => import('react-draft-wysiwyg').then(mod => mod.Editor),
     { ssr: false }
 )
 
-export default function RichTextEditor() {
+export default function RichTextEditor({ onChange }) {
 
     const [ editorState, setEditorState ] = useState(() => EditorState.createEmpty())
 
-    //console.log(convertToRaw(editorState.getCurrentContent()));
-
     const editorRef = useRef(null)
+
+    const firstRender = useFirstRender()
+
+    useEffect(() => {
+        if(!firstRender) onChange(convertToRaw(editorState.getCurrentContent()))
+    }, [editorState])
 
     const customBlockRenderer = block => {
 
