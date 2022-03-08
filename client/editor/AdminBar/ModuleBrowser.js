@@ -91,7 +91,7 @@ const Wrapper = styled.div`
                 font-weight: 600;
                 font-size: 1.6em;
                 @media (pointer: fine) { &:hover {
-                    border-color: ${colors.main};
+                    border-color: ${colors.black};
                 }}
             }
         }

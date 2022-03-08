@@ -405,7 +405,7 @@ css`
                 margin: 0;
             }
             img {
-                max-width:100%none;
+                max-width:100%;
                 height:auto;
                 display: block;
                 margin-bottom: 16px;

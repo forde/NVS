@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { styled } from 'linaria/react'
-import { MdCheckCircleOutline } from 'react-icons/md'
 import { nanoid } from 'nanoid'
+import { MdSave } from 'react-icons/md'
 
 import { colors } from '~/styles'
 import { PageContext } from '~/context'
@@ -66,8 +66,8 @@ export default function PublishButton  () {
             {({ page, changed }) => !changed ? null : <Wrapper
                 onClick={() => publish(page)}
             >
-                <MdCheckCircleOutline className="icon"/>
                 {publishing && <Bars /> }
+                <MdSave className="icon"/>
                 Publish
             </Wrapper>}
         </PageContext.Consumer>
@@ -83,4 +83,7 @@ const Wrapper = styled.div`
     height: 100%;
     color: ${colors.black};
     position:relative;
+    @media (pointer: fine) { &:hover {
+        background: ${colors.green}!important;
+    }}
 `

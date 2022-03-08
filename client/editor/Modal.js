@@ -8,9 +8,13 @@ export default function Modal ({ children, onClose, width, height, className, wh
 
     useEffect(() => {
         const onKeyup = e => e.key === 'Escape' ? onClose() : null
-        window.addEventListener('keyup', onKeyup);
-        return () => window.removeEventListener('keyup', onKeyup);
-    })
+        window.addEventListener('keyup', onKeyup)
+        document.getElementsByTagName('html')[0].classList.add('oh')
+        return () => {
+            window.removeEventListener('keyup', onKeyup)
+            document.getElementsByTagName('html')[0].classList.remove('oh')
+        }
+    }, [])
 
     return (
         <Wrapper id="modal" onClick={e => onClose && e.target.id === 'modal' ? onClose() : null} white={white}>

@@ -30,9 +30,10 @@ export default function AdminBar () {
                 <li
                     onClick={() => setSiteControllsVisible(!siteControllsVisible)}
                     ref={siteControllsRef}
-                    className="h-pad-10"
                 >
-                    <MdMoreVert className="xl" />
+                    <div className="h-pad-10">
+                        <MdMoreVert className="xl" />
+                    </div>
                     {siteControllsVisible &&
                         <ul className="site-controlls">
                             <li onClick={() => goTo('/new')}><MdCreate/>New page</li>
@@ -45,9 +46,9 @@ export default function AdminBar () {
                         </ul>
                     }
                 </li>
-                <li><PageInfo /></li>
-                <li><ModuleBrowser/></li>
-                <li><PageSettings/></li>
+                <li><div><PageInfo /></div></li>
+                <li><div><ModuleBrowser/></div></li>
+                <li><div><PageSettings/></div></li>
                 <ul className="right">
                     <li><PublishButton/></li>
                 </ul>
@@ -78,12 +79,18 @@ const Wrapper = styled.div`
             margin-left: auto;
         }
         li {
-            cursor: pointer;
             height: 42px;
-            font-weight: 400;
-            font-size: 16px;
             display: flex;
             align-items: center;
+        }
+        li > div, li ul li {
+            cursor: pointer;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            -webkit-font-smoothing: antialiased;
+            font-weight: 400;
+            font-size: 16px;
             > svg, .icon {
                 margin-right: 6px;
                 &.xl {

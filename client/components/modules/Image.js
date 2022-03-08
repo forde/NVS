@@ -11,7 +11,7 @@ export default memo(function Image ({ module, onChange }) {
 
     const { _key, ...image } = (module || {})
 
-    console.log('Module', module)
+    //console.log('Module', module)
 
     const src = image.asset ? imageUrl(image.asset).auto('format').url() : 'https://via.placeholder.com/1600x900'
 
