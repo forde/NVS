@@ -5,3 +5,12 @@
 + add checkbox component
 + add radio component
 + create client authentication and only use sanity client with token from next api layer when logged in
+
+Must have:
+- abstract editor to separate npm package
+- make rich text editor compatible with sanity portabkle text editor :/
+
+
+Nice to have:
+- add multiple image support to module "thumb" in browser + slider
+-

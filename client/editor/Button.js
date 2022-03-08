@@ -10,6 +10,7 @@ import Loader from './Loader'
 export default function Button ({
     children,
     small,
+    sharp,
     secondary,
     tertiary,
     disabled,
@@ -31,6 +32,7 @@ export default function Button ({
                 small && 'small',
                 secondary && 'secondary',
                 tertiary && 'tertiary',
+                sharp && 'sharp',
                 (disabled || busy) && 'disabled',
             ].filter(c=>c).join(' ')}
             {...rest}
@@ -86,8 +88,15 @@ const ButtonComponent = styled.button`
 
     }}
 
+    &.sharp {
+        border-radius: 0;
+    }
+
     &.secondary {
         background: ${colors.black};
+        @media(pointer: fine) { &:hover, &:active {
+            background: #373737;
+        }}
     }
 
     &.tertiary {

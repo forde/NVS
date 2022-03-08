@@ -67,7 +67,8 @@ export default function Actions ({
                 .filter(k => typeof rest[k] === 'function')
                 .map(k => <Button
                     key={k}
-                    tertiary
+                    secondary
+                    sharp
                     small
                     icon={iconMap[k]}
                     onClick={rest[k]}
@@ -76,31 +77,31 @@ export default function Actions ({
     )
 }
 
+const spacing = 0
+
 const Wrapper = styled.div`
     z-index: 20;
     overflow: visible;
     display: flex;
     position: absolute;
     top: ${props => props.offset}px;
-    left: calc(50% + 4px);
+    left: calc(50% + ${spacing/2}px);
     transform: translateX(-50%) translateY(-50%);
     width: auto;
     button {
-        margin: 0 8px 0 0 ;
-        background: #fff;
+        margin: 0 ${spacing}px 0 0 ;
         &:last-child {
             margin: none;
         }
     }
     &.align-right {
         flex-direction: column;
-        top: calc(50% + 4px);
+        top: calc(50% + ${spacing/2}px);
         left: auto;
         right: ${props => props.offset}px;
         transform: translateX(50%) translateY(-50%);
         button {
-            margin: 0 0 8px 0;
-            background: #fff;
+            margin: 0 0 ${spacing}px 0;
             &:last-child {
                 margin: none;
             }
@@ -109,17 +110,16 @@ const Wrapper = styled.div`
     &.align-bottom {
         top: auto;
         bottom: ${props => props.offset}px;
-        left: calc(50% + 4px);
+        left: calc(50% + ${spacing/2}px);
         transform: translateX(-50%) translateY(50%);
     }
     &.align-left {
         flex-direction: column;
-        top: calc(50% + 4px);
+        top: calc(50% + ${spacing/2}px);
         left: ${props => props.offset}px;
         transform: translateX(-50%) translateY(-50%);
         button {
-            margin: 0 0 8px 0;
-            background: #fff;
+            margin: 0 0 ${spacing}px 0;
             &:last-child {
                 margin: none;
             }
