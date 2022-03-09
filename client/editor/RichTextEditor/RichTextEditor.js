@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { EditorState, ContentState, convertToRaw, convertFromRaw, convertFromHTML } from 'draft-js'
+import { EditorState, ContentState, convertToRaw, convertFromRaw, CompositeDecorator } from 'draft-js'
 import 'draft-js/dist/Draft.css'
 import dynamic from 'next/dynamic'
 import { styled } from 'linaria/react'
@@ -69,20 +69,16 @@ export default function RichTextEditor({ content, onChange }) {
                 //toolbarOnFocus
                 ref={editorRef}
                 toolbar={{
-                    options: ['blockType', 'inline', 'list', 'textAlign', 'emoji', 'remove', 'link'],
-                    blockType: { options: ['Normal', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'Blockquote'] },
+                    options: ['blockType', 'inline', 'list', 'textAlign', 'emoji', 'remove'],
+                    blockType: { options: ['Normal', 'H2', 'H3', 'H4', 'Blockquote'] },
                     inline: { options: ['bold', 'italic', 'underline', 'strikethrough'] },
                     list: { options: ['unordered', 'ordered'] },
                     textAlign: { options: ['left', 'center', 'right'] },
-                    link: {
-                        component: LinkButton,
-                        defaultTargetOption: '_self',
-                        options: ['link'],
-                    },
                 }}
                 toolbarCustomButtons={[
                     <ImageButton />,
                     <VideoButton />,
+                    <LinkButton />
                 ]}
                 blockRendererFn={customBlockRenderer}
             />

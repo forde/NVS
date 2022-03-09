@@ -9,13 +9,15 @@ import Switch from './Switch'
 import { findPageByTitle } from '~/api'
 import { shadow, colors } from '~/styles'
 
-export default function LinkPicker ({ onLink, onClose, url:_url, title:_title, target:_target }) {
+export default function LinkPicker ({ onLink, onClose, url:_url, title:_title, target:_target, type:_type, id:_id }) {
 
     const [ query, setQuery ] = useState('')
     const [ results, setResults ] = useState([])
     const [ url, setUrl ] = useState(_url || '')
     const [ title, setTitle ] = useState(_title || '')
     const [ target, setTarget ] = useState(_target || '_self')
+    const [ type, setType ] = useState(_type || '')
+    const [ id, setId ] = useState(_id || '')
 
     useEffect(() => {
         if(!query) {
@@ -30,6 +32,8 @@ export default function LinkPicker ({ onLink, onClose, url:_url, title:_title, t
 
     const onResultClick = result => {
         setQuery('')
+        setType(result._type)
+        setId(result._id)
         setUrl(`/${result.slug}`)
         if(!title) setTitle(result.title)
     }
@@ -75,7 +79,7 @@ export default function LinkPicker ({ onLink, onClose, url:_url, title:_title, t
         <Button
             small
             disabled={!title || !url}
-            onClick={() => onLink({ url, title, target })}
+            onClick={() => onLink({ url, title, target, type, id })}
         >Insert link</Button>
     </Modal>
 }

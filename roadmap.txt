@@ -8,9 +8,11 @@
 
 Must have:
 - abstract editor to separate npm package
-- make rich text editor compatible with sanity portabkle text editor :/
+- make rich text editor compatible with sanity portabkle text editor
+    + create translator from sanity -> draft
+    - create translator from draft -> sanity
 
 
 Nice to have:
 - add multiple image support to module "thumb" in browser + slider
--
+

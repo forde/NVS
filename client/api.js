@@ -70,7 +70,21 @@ export const getBySlug = slug => {
             ...,
             "meta": asset->metadata{ dimensions, lqip },
         },
-        "modules": modules,
+        "modules": modules[]{
+            ...,
+            content[]{
+                ...,
+                markDefs[]{
+                    ...,
+                    _type == "internalLink" => {
+                        "document": {
+                            "slug": @.reference->slug.current,
+                            "type": @.reference->_type
+                        }
+                    }
+                }
+            }
+        },
         "seo": seo{
             title,
             description,
