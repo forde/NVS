@@ -1,5 +1,6 @@
 import { useCallback, useState, useEffect } from 'react'
 import { nanoid } from 'nanoid'
+import { styled } from 'linaria/react'
 
 import editor from '~/editor'
 import { changeArrayItemPosition, clone } from '~/lib/helpers'
@@ -71,9 +72,9 @@ export default function Modules({ modules: _modules=[], onChange: _onChange=()=>
                 const Settings = availableModules[module._type].settings
 
                 return (
-                    <div
+                    <Module
                         key={module._key}
-                        className={`has-actions module-${module._type}`}
+                        className={`module has-actions module-${module._type}`}
                     >
                         <Component module={module} onChange={onChange} />
 
@@ -90,9 +91,15 @@ export default function Modules({ modules: _modules=[], onChange: _onChange=()=>
                                 <Settings module={module} onChange={onChange} />
                             </Modal>
                         }
-                    </div>
+
+                    </Module>
                 )
             })}
         </div>
     )
 }
+
+const Module = styled.div`
+    position: relative;
+
+`

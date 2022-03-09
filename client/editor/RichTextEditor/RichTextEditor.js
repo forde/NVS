@@ -69,11 +69,10 @@ export default function RichTextEditor({ content, onChange }) {
                 //toolbarOnFocus
                 ref={editorRef}
                 toolbar={{
-                    options: ['blockType', 'inline', 'list', 'textAlign', 'emoji', 'remove'],
+                    options: ['blockType', 'inline', 'list', 'emoji', 'remove'],
                     blockType: { options: ['Normal', 'H2', 'H3', 'H4', 'Blockquote'] },
                     inline: { options: ['bold', 'italic', 'underline', 'strikethrough'] },
                     list: { options: ['unordered', 'ordered'] },
-                    textAlign: { options: ['left', 'center', 'right'] },
                 }}
                 toolbarCustomButtons={[
                     <ImageButton />,

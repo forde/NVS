@@ -46,8 +46,6 @@ const getBlockText = block => block.children
     .map(child => child.text || '')
     .join('')
 
-
-
 const entityFromMarkDef = (def, text) => {
 
     if(def._type === 'internalLink') {
