@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
-import { EditorState, ContentState, convertToRaw, convertFromRaw, CompositeDecorator } from 'draft-js'
+import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
 import 'draft-js/dist/Draft.css'
 import dynamic from 'next/dynamic'
 import { styled } from 'linaria/react'
+import debounce from 'lodash.debounce'
 
 import { colors } from '~/styles'
 import ImageButton, { ImageBlock } from './ImageButton'
@@ -31,13 +32,39 @@ export default function RichTextEditor({ content, onChange }) {
 
     const [ editorState, setEditorState ] = useState(stateInit)
 
-    const editorRef = useRef(null)
+    const wrapperRef = useRef(null)
 
     const firstRender = useFirstRender()
 
     useEffect(() => {
         if(!firstRender) onChange(convertToRaw(editorState.getCurrentContent()))
     }, [editorState])
+
+    useEffect(() => {
+        window.addEventListener('scroll', debounce(onScroll, 10))
+        return () => window.removeEventListener('scroll', onScroll)
+    }, [])
+
+    const onScroll = () => {
+        if(wrapperRef.current) {
+            const toolbar = wrapperRef.current.querySelector('.draft-toolbar')
+            const toolbarBCR = toolbar.getBoundingClientRect()
+            const wrapperBCR = wrapperRef.current.getBoundingClientRect()
+            const isFixed = toolbar.classList.contains('fixed')
+            const offset = toolbarBCR.height*3
+            //console.log(toolbarBCR.top, toolbarBCR.height, wrapperBCR.top, wrapperBCR.height)
+
+            if(!isFixed && wrapperBCR.top < 0 && Math.abs(wrapperBCR.top - offset) < wrapperBCR.height) {
+                toolbar.classList.add('fixed')
+            }
+            if(isFixed && wrapperBCR.top > toolbarBCR.height) {
+                toolbar.classList.remove('fixed')
+            }
+            if(isFixed && Math.abs(wrapperBCR.top - offset) > wrapperBCR.height) {
+                toolbar.classList.remove('fixed')
+            }
+        }
+    }
 
     const customBlockRenderer = block => {
 
@@ -59,7 +86,7 @@ export default function RichTextEditor({ content, onChange }) {
     }
 
     return(
-        <Wrapper>
+        <Wrapper ref={wrapperRef}>
             <Editor
                 editorState={editorState}
                 toolbarClassName="draft-toolbar"
@@ -67,7 +94,6 @@ export default function RichTextEditor({ content, onChange }) {
                 editorClassName="draft-editor content"
                 onEditorStateChange={setEditorState}
                 //toolbarOnFocus
-                ref={editorRef}
                 toolbar={{
                     options: ['blockType', 'inline', 'list', 'emoji', 'remove'],
                     blockType: { options: ['Normal', 'H2', 'H3', 'H4', 'Blockquote'] },
@@ -75,8 +101,8 @@ export default function RichTextEditor({ content, onChange }) {
                     list: { options: ['unordered', 'ordered'] },
                 }}
                 toolbarCustomButtons={[
-                    <ImageButton />,
-                    <VideoButton />,
+                    //<ImageButton />,
+                    //<VideoButton />,
                     <LinkButton />
                 ]}
                 blockRendererFn={customBlockRenderer}
@@ -86,27 +112,42 @@ export default function RichTextEditor({ content, onChange }) {
 }
 
 const Wrapper = styled.div`
-    .draft-toolbar .rdw-option-wrapper,
-    .draft-toolbar .rdw-dropdown-wrapper {
-        height: 30px;
-        min-width: 30px;
-        border: 2px solid ${colors.gray};
-        border-radius: 5px;
-        box-shadow: none;
-        &:hover, &.rdw-option-active {
-            box-shadow: none;
-            border: 2px solid ${colors.black};
+    .draft-wrapper {
+        padding-top:36px;
+        .draft-toolbar  {
+            border: none;
+            padding: 0;
+            margin-left: -3px;
+            top: 0;
+            position: absolute;
+            .rdw-option-wrapper, .rdw-dropdown-wrapper {
+                height: 30px;
+                min-width: 30px;
+                border: 2px solid ${colors.gray};
+                border-radius: 5px;
+                box-shadow: none;
+                &:hover, &.rdw-option-active {
+                    box-shadow: none;
+                    border: 2px solid ${colors.black};
+                }
+            }
+            .rdw-dropdown-wrapper {
+                min-width:50px;
+                .rdw-dropdown-carettoopen {
+                    top: 42%;
+                }
+            }
+            &.fixed {
+                visibility: visible;
+                position: fixed;
+                background: rgba(255,255,255,.8);
+                z-index: 100;
+            }
         }
-    }
-    .draft-toolbar .rdw-dropdown-wrapper {
-        min-width:50px;
-        .rdw-dropdown-carettoopen {
-            top: 42%;
-        }
-    }
-    .draft-editor {
-        .public-DraftStyleDefault-block {
-            margin: 0;
+        .draft-editor {
+            .public-DraftStyleDefault-block {
+                margin: 0;
+            }
         }
     }
 `
