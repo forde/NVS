@@ -40,7 +40,7 @@ export default function PublishButton  () {
         }
 
         if(!page._id) {
-            const key = nanoid(12)
+            const key = nanoid(36)
             data._id = key
             data.title = key
             data.slug.current = key

@@ -12,6 +12,7 @@ const getBlockType = block => {
         'h4': 'header-four',
         'h5': 'header-five',
         'h6': 'header-six',
+        'blockquote': 'blockquote'
     })[block?.style]
 }
 
@@ -135,7 +136,7 @@ export default function blockContentToDraft (blockContent) {
         }
     })
 
-    console.log('block to draft => ', blocks, entities.entityMap);
+    //console.log('block to draft => ', blocks, entities.entityMap);
 
     return {
         blocks: blocks,

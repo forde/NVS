@@ -1,6 +1,8 @@
 import { memo } from 'react'
 
 import editor from '~/editor'
+import draftToBlockContent from '~/editor/RichTextEditor/converters/draftToBlockContent'
+
 
 export default memo(function RichText ({ module, onChange }) {
 
@@ -11,7 +13,8 @@ export default memo(function RichText ({ module, onChange }) {
             <RichTextEditor
                 content={module.content}
                 onChange={state => {
-                    console.log('Draft state',state);
+                    onChange(module._key, { content: draftToBlockContent(state) })
+                    //console.log('===> Draft to Sanity. D:', state, ' S: ', module.content,' Res: ',draftToBlockContent(state))
                 }}
             />
         </div>

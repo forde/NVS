@@ -1,11 +1,11 @@
 import { useCallback, useState, useEffect } from 'react'
-import { nanoid } from 'nanoid'
 import { styled } from 'linaria/react'
 
 import editor from '~/editor'
 import { changeArrayItemPosition, clone } from '~/lib/helpers'
 import availableModules from './modules'
 import useFirstRender from '~/hooks/useFirstRender'
+import id from '~/editor/lib/id'
 
 export default function Modules({ modules: _modules=[], onChange: _onChange=()=>null }) {
 
@@ -46,7 +46,7 @@ export default function Modules({ modules: _modules=[], onChange: _onChange=()=>
         setModules(prevModules => {
             const candidate = prevModules.find(m => m._key === key)
             const candidateIndex = prevModules.reduce((acc,m,i) => m._key === key ? i+1 : acc ,prevModules.length)
-            const duplicate = { ...clone(candidate), _key: nanoid(12) }
+            const duplicate = { ...clone(candidate), _key: id() }
             return [
                 ...prevModules.slice(0, candidateIndex),
                 duplicate,

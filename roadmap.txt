@@ -8,9 +8,9 @@
 
 Must have:
 - abstract editor to separate npm package
-- make rich text editor compatible with sanity portabkle text editor
++ make rich text editor compatible with sanity portabkle text editor
     + create translator from sanity -> draft
-    - create translator from draft -> sanity
+    + create translator from draft -> sanity
 
 
 Nice to have:

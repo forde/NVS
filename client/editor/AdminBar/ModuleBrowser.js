@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import { styled } from 'linaria/react'
 import { MdOutlineAddBox } from 'react-icons/md'
-import { nanoid } from 'nanoid'
 
 import { colors, Row, Col } from '~/styles'
 import { PageContext } from '~/context'
 import editor from '~/editor'
+import id from '~/editor/lib/id'
 
 export default function ModuleBrowser () {
 
@@ -22,7 +22,7 @@ export default function ModuleBrowser () {
 
     const addModule = (module, pageContext) => {
 
-        const _key = nanoid(12)
+        const _key = id()
 
         pageContext.changePage({
             ...pageContext.page,
