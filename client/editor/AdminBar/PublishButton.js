@@ -6,7 +6,7 @@ import { MdSave } from 'react-icons/md'
 import { colors } from '/styles'
 import { PageContext } from '/context'
 import editor from '/editor'
-import { success, error } from '/editor/Toast'
+import { success, error } from '/editor/message'
 
 export default function PublishButton  () {
 

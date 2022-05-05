@@ -6,7 +6,7 @@ import xor from 'lodash.xor'
 
 import { Row, Col, colors } from '/styles'
 import Layout from '/components/Layout'
-import { success, error } from '/editor/Toast'
+import { success, error } from '/editor/message'
 import { client } from '/api'
 import editor from '/editor'
 

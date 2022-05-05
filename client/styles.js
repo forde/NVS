@@ -23,8 +23,8 @@ export const colors = {
     darkerGray: '#898e98',
     lightGray: '#F1F1F3',
     lighterGray: '#F9F9F9',
-    red: '#EC5B54',
-    green: '#80CF5B',
+    red: '#ff5d51',
+    green: '#97d252',
 }
 
 export const fonts = {
@@ -488,6 +488,32 @@ css`
                 font-size: 26px;
                 line-height: 1;
                 margin-bottom: 20px;
+            }
+        }
+
+        .message {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 99999;
+            font-size: 18px;
+            transform: translateY(-100%);
+            transition: all .3s ease-in-out;
+            > div {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                height: 64px;
+            }
+            &.success {
+                background: ${colors.green};
+            }
+            &.error {
+                background: ${colors.red};
+            }
+            &.visible {
+                transform: translateY(0%);
             }
         }
 

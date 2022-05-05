@@ -9,7 +9,7 @@ export default function Portal ({ children }) {
     useEffect(() => {
         mount.appendChild(el)
 
-    return () => mount.removeChild(el)
+        return () => mount.removeChild(el)
 
     }, [el, mount])
 

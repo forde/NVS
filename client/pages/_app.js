@@ -1,4 +1,3 @@
-import { Toaster } from 'react-hot-toast'
 import { UserProvider } from '@auth0/nextjs-auth0'
 import Head from 'next/head'
 
@@ -11,7 +10,6 @@ export default function App({ Component, pageProps }) {
         </Head>
         <UserProvider>
             <Component {...pageProps} />
-            <Toaster />
         </UserProvider>
     </>
 }
