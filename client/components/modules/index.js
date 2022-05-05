@@ -2,7 +2,7 @@ import { useCallback, useState, useEffect } from 'react'
 import { styled } from 'linaria/react'
 
 import editor from '/editor'
-import { changeArrayItemPosition, clone } from '/lib/helpers'
+import { changeArrayItemPosition, clone } from '/editor/lib/helpers'
 import availableModules from './modules'
 import useFirstRender from '/editor/hooks/useFirstRender'
 import id from '/editor/lib/id'

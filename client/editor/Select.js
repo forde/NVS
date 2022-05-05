@@ -3,7 +3,7 @@ import { styled } from 'linaria/react'
 import { MdCancel, MdArrowDropDown } from 'react-icons/md'
 
 import { colors, shadow, shadowHover } from '/styles'
-import { onClickOutside, isObject } from '/lib/helpers'
+import { onClickOutside, isObject } from '/editor/lib/helpers'
 import Label from './Label'
 
 export default function Select ({

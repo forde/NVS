@@ -4,7 +4,7 @@ import { styled } from 'linaria/react'
 import { colors } from '/styles'
 import { PageContext } from '/context'
 import editor from '/editor'
-import { truncate } from '/lib/helpers'
+import { truncate } from '/editor/lib/helpers'
 
 export default function PageInfo () {
 

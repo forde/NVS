@@ -8,7 +8,7 @@ import PageInfo from './PageInfo'
 import ModuleBrowser from './ModuleBrowser'
 import PublishButton from './PublishButton'
 import PageSettings from './PageSettings'
-import { onClickOutside, goTo } from '/lib/helpers'
+import { onClickOutside, goTo } from '/editor/lib/helpers'
 
 export default function AdminBar () {
 
