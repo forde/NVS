@@ -3,9 +3,9 @@ import { nanoid } from 'nanoid'
 import slugify from 'slugify'
 import { styled } from 'linaria/react'
 
-import editor from '~/editor'
-import { colors } from '~/styles'
-import { findPageBySlug } from '~/api'
+import editor from '/editor'
+import { colors } from '/styles'
+import { findPageBySlug } from '/api'
 
 let timeout
 

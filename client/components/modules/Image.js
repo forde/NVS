@@ -1,8 +1,8 @@
 import { memo } from 'react'
 
-import editor from '~/editor'
+import editor from '/editor'
 import imageUrlBuilder from '@sanity/image-url'
-import { client } from '~/api'
+import { client } from '/api'
 const imageUrl = source => imageUrlBuilder(client).image(source)
 
 export default memo(function Image ({ module, onChange }) {

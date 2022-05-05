@@ -1,5 +1,5 @@
-import { Row, Col } from '~/styles'
-import editor from '~/editor'
+import { Row, Col } from '/styles'
+import editor from '/editor'
 
 export default function SeoSettings ({ page, onChange }) {
 

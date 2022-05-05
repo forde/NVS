@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import { styled } from 'linaria/react'
 import debounce from 'lodash.debounce'
 
-import { colors } from '~/styles'
+import { colors } from '/styles'
 import ImageButton, { ImageBlock } from './ImageButton'
 import LinkButton from './LinkButton'
 import VideoButton, { VideoBlock } from './VideoButton'

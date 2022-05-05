@@ -7,9 +7,6 @@
                 {
                     "rootPathSuffix": "./",
                     "rootPathPrefix": "/"
-                }, {
-                    "rootPathSuffix": "./",
-                    "rootPathPrefix": "~/"
                 }
             ]
         }]

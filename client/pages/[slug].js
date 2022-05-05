@@ -1,9 +1,9 @@
 import { useState, useCallback } from 'react'
 
-import { getSlugsForTypes, getBySlug, getPosts } from '~/api'
-import Layout from '~/components/Layout'
-import Modules from '~/components/modules'
-import { PageContext } from '~/context'
+import { getSlugsForTypes, getBySlug, getPosts } from '/api'
+import Layout from '/components/Layout'
+import Modules from '/components/modules'
+import { PageContext } from '/context'
 
 export default function Slug ({ page }) {
 

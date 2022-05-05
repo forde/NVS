@@ -3,10 +3,10 @@ import { styled } from 'linaria/react'
 import { nanoid } from 'nanoid'
 import { MdSave } from 'react-icons/md'
 
-import { colors } from '~/styles'
-import { PageContext } from '~/context'
-import editor from '~/editor'
-import { success, error } from '~/editor/Toast'
+import { colors } from '/styles'
+import { PageContext } from '/context'
+import editor from '/editor'
+import { success, error } from '/editor/Toast'
 
 export default function PublishButton  () {
 

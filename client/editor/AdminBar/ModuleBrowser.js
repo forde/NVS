@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react'
 import { styled } from 'linaria/react'
 import { MdOutlineAddBox } from 'react-icons/md'
 
-import { colors, Row, Col } from '~/styles'
-import { PageContext } from '~/context'
-import editor from '~/editor'
-import id from '~/editor/lib/id'
+import { colors, Row, Col } from '/styles'
+import { PageContext } from '/context'
+import editor from '/editor'
+import id from '/editor/lib/id'
 
 export default function ModuleBrowser () {
 

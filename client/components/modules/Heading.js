@@ -1,6 +1,6 @@
 import { memo } from 'react'
 
-import editor from '~/editor'
+import editor from '/editor'
 
 export default memo(function Heading ({ module, onChange }) {
 

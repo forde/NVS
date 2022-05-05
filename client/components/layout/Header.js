@@ -1,8 +1,8 @@
 import { css } from 'linaria'
 import Link from 'next/link'
 
-import { colors } from '~/styles'
-import AuthStatus from '~/components/AuthStatus'
+import { colors } from '/styles'
+import AuthStatus from '/components/AuthStatus'
 import Menu from './Menu'
 
 export default function Header () {

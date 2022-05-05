@@ -1,7 +1,7 @@
 import React from 'react'
 import { styled } from 'linaria/react'
 
-import { colors } from '~/styles'
+import { colors } from '/styles'
 
 export default function Switch ({ on, style, onChange }) {
     return(

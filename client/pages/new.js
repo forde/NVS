@@ -1,8 +1,8 @@
 import { useState, useCallback } from 'react'
 
-import Layout from '~/components/Layout'
-import Modules from '~/components/modules'
-import { PageContext } from '~/context'
+import Layout from '/components/Layout'
+import Modules from '/components/modules'
+import { PageContext } from '/context'
 
 export default function New () {
 

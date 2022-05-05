@@ -6,7 +6,7 @@ import { MdImage, MdFormatAlignLeft, MdFormatAlignCenter, MdFormatAlignRight } f
 
 import MediaBrowser from './../MediaBrowser'
 import Button from './../Button'
-import { imageUrl } from '~/lib/helpers'
+import { imageUrl } from '/lib/helpers'
 
 export default function ImageButton ({ editorState, onChange }) {
 

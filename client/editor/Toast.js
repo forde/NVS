@@ -1,6 +1,6 @@
 import reactToast from 'react-hot-toast'
 
-import { truncate } from '~/lib/helpers'
+import { truncate } from '/lib/helpers'
 
 export function success(message, config={}) {
 

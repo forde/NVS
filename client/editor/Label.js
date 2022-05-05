@@ -1,6 +1,6 @@
 import { styled } from 'linaria/react'
 
-import { colors } from '~/styles'
+import { colors } from '/styles'
 
 export default function Label ({ className, children, ...rest }) {
     return (

@@ -1,7 +1,7 @@
 import { useUser } from '@auth0/nextjs-auth0'
 
 import { css } from 'linaria'
-import { colors } from '~/styles'
+import { colors } from '/styles'
 
 export default function Footer () {
 

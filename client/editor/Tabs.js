@@ -1,7 +1,7 @@
 import { styled } from 'linaria/react'
 
 import Button from './Button'
-import { colors } from '~/styles'
+import { colors } from '/styles'
 
 export default function Tabs ({ tabs=[], active='', onChange, ...rest }) {
 

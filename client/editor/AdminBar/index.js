@@ -3,12 +3,12 @@ import { useUser } from '@auth0/nextjs-auth0'
 import { styled } from 'linaria/react'
 import { MdVpnKey, MdHandyman, MdSettings, MdCreate, MdList, MdInsights, MdWysiwyg, MdMoreVert, MdTranslate } from 'react-icons/md'
 
-import { colors } from '~/styles'
+import { colors } from '/styles'
 import PageInfo from './PageInfo'
 import ModuleBrowser from './ModuleBrowser'
 import PublishButton from './PublishButton'
 import PageSettings from './PageSettings'
-import { onClickOutside, goTo } from '~/lib/helpers'
+import { onClickOutside, goTo } from '/lib/helpers'
 
 export default function AdminBar () {
 

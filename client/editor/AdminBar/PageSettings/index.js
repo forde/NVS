@@ -3,8 +3,8 @@ import { styled } from 'linaria/react'
 import { MdWysiwyg } from 'react-icons/md'
 import { useRouter } from 'next/router'
 
-import { PageContext } from '~/context'
-import editor from '~/editor'
+import { PageContext } from '/context'
+import editor from '/editor'
 import GeneralSettings from './GeneralSettings'
 import SeoSettings from './SeoSettings'
 

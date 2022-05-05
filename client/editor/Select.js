@@ -2,8 +2,8 @@ import { useState, useRef, useEffect } from 'react'
 import { styled } from 'linaria/react'
 import { MdCancel, MdArrowDropDown } from 'react-icons/md'
 
-import { colors, shadow, shadowHover } from '~/styles'
-import { onClickOutside, isObject } from '~/lib/helpers'
+import { colors, shadow, shadowHover } from '/styles'
+import { onClickOutside, isObject } from '/lib/helpers'
 import Label from './Label'
 
 export default function Select ({

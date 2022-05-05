@@ -2,7 +2,7 @@ import React from 'react'
 import { styled } from 'linaria/react'
 import shortid from 'shortid'
 
-import { colors } from '~/styles'
+import { colors } from '/styles'
 
 const Checkmark = () => <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" >
     <polygon fill="#1F1A22" points="6.05975342 9.93658447 10.0007629 13.8756714 17.9388733 5.93614197 20.0621185 8.05975342 10.0007629 18.1184998 3.93916321 12.0574646"></polygon>

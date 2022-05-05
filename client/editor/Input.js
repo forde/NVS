@@ -1,6 +1,6 @@
 import { styled } from 'linaria/react'
 
-import { shadow, colors } from '~/styles'
+import { shadow, colors } from '/styles'
 import Label from './Label'
 
 export default function Input ({

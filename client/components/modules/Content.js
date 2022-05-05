@@ -1,7 +1,7 @@
 import { memo } from 'react'
 
-import editor from '~/editor'
-import draftToBlockContent from '~/editor/RichTextEditor/converters/draftToBlockContent'
+import editor from '/editor'
+import draftToBlockContent from '/editor/RichTextEditor/converters/draftToBlockContent'
 
 
 export default memo(function RichText ({ module, onChange }) {

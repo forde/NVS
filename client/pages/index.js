@@ -4,11 +4,11 @@ import { MdAddCircle, MdSearch } from 'react-icons/md'
 import imageUrlBuilder from '@sanity/image-url'
 import xor from 'lodash.xor'
 
-import { Row, Col, colors } from '~/styles'
-import Layout from '~/components/Layout'
-import { success, error } from '~/editor/Toast'
-import { client } from '~/api'
-import editor from '~/editor'
+import { Row, Col, colors } from '/styles'
+import Layout from '/components/Layout'
+import { success, error } from '/editor/Toast'
+import { client } from '/api'
+import editor from '/editor'
 
 const imageUrl = source => imageUrlBuilder(client).image(source)
 
