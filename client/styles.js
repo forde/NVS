@@ -410,15 +410,6 @@ css`
                 display: block;
                 margin-bottom: 16px;
             }
-            .rdw-image-alignment {
-                width: 100%;
-            }
-            @media(max-width: 767px) {
-                .rdw-image-alignment, .rdw-image-imagewrapper img {
-                    width: 100%;
-                    display: block;
-                }
-            }
         }
 
         .editable {

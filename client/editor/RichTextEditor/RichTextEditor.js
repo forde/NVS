@@ -1,16 +1,19 @@
 import { useState, useRef, useEffect } from 'react'
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
+import { compose } from 'ramda'
+
 import 'draft-js/dist/Draft.css'
 import dynamic from 'next/dynamic'
 import { styled } from 'linaria/react'
 import debounce from 'lodash.debounce'
 
 import { colors } from '/styles'
-import ImageButton, { ImageBlock } from './ImageButton'
+//import ImageButton, { ImageBlock } from './ImageButton'
 import LinkButton from './LinkButton'
-import VideoButton, { VideoBlock } from './VideoButton'
+//import VideoButton, { VideoBlock } from './VideoButton'
 import useFirstRender from '/editor/hooks/useFirstRender'
 import blockContentToDraft from './converters/blockContentToDraft'
+import draftToBlockContent from './converters/draftToBlockContent'
 
 const Editor = dynamic(
     () => import('react-draft-wysiwyg').then(mod => mod.Editor),
@@ -21,7 +24,11 @@ export default function RichTextEditor({ content, onChange }) {
 
     const stateInit = () => {
 
-        if(content) return EditorState.createWithContent(convertFromRaw(blockContentToDraft(content)))
+        if(content) return compose(
+            EditorState.createWithContent,
+            convertFromRaw,
+            blockContentToDraft
+        )(content)
 
         return EditorState.createEmpty()
 
@@ -37,7 +44,11 @@ export default function RichTextEditor({ content, onChange }) {
     const firstRender = useFirstRender()
 
     useEffect(() => {
-        if(!firstRender) onChange(convertToRaw(editorState.getCurrentContent()))
+        if(!firstRender) compose(
+            onChange,
+            draftToBlockContent,
+            convertToRaw,
+        )(editorState.getCurrentContent())
     }, [editorState])
 
     useEffect(() => {
