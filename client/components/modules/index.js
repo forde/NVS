@@ -4,7 +4,7 @@ import { styled } from 'linaria/react'
 import editor from '~/editor'
 import { changeArrayItemPosition, clone } from '~/lib/helpers'
 import availableModules from './modules'
-import useFirstRender from '~/hooks/useFirstRender'
+import useFirstRender from '/editor/hooks/useFirstRender'
 import id from '~/editor/lib/id'
 
 export default function Modules({ modules: _modules=[], onChange: _onChange=()=>null }) {

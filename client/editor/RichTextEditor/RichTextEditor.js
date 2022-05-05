@@ -9,7 +9,7 @@ import { colors } from '~/styles'
 import ImageButton, { ImageBlock } from './ImageButton'
 import LinkButton from './LinkButton'
 import VideoButton, { VideoBlock } from './VideoButton'
-import useFirstRender from '~/hooks/useFirstRender'
+import useFirstRender from '/editor/hooks/useFirstRender'
 import blockContentToDraft from './converters/blockContentToDraft'
 
 const Editor = dynamic(
@@ -118,7 +118,7 @@ const Wrapper = styled.div`
             border: none;
             padding: 0;
             margin-left: -3px;
-            top: 0;
+            top: 3px;
             position: absolute;
             .rdw-option-wrapper, .rdw-dropdown-wrapper {
                 height: 30px;
