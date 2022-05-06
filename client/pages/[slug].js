@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 
 import { getSlugsForTypes, getBySlug, getPosts } from '/api'
 import Layout from '/components/Layout'
@@ -7,16 +7,27 @@ import { PageContext } from '/context'
 
 export default function Slug ({ page }) {
 
+    const changePage = page => setPageContext(prevPageContext => ({
+        ...prevPageContext,
+        page: { ...prevPageContext.page, ...page },
+        changed: true
+    }))
+
     const [ pageContext, setPageContext ] = useState({
         page,
-        changePage: page => setPageContext(prevPageContext => ({
-            ...prevPageContext,
-            page: { ...prevPageContext.page, ...page },
-            changed: true
-        })),
+        changePage,
         changed: false,
         refresh: () => null,
     })
+
+    useEffect(() => {
+        setPageContext({
+            page,
+            changePage,
+            changed: false,
+            refresh: () => null,
+        })
+    }, [page])
 
     const onModulesChange = useCallback(modules => {
         setPageContext(prevPageContext => ({

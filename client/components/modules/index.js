@@ -14,7 +14,7 @@ export default function Modules({ modules: _modules=[], onChange: _onChange=()=>
         Modal,
     } = editor()
 
-    const [ modules, setModules ] = useState(_modules)
+    const [ modules, setModules ] = useState([])
 
     const [ moduleSettings, setModuleSettings ] = useState(false)
 

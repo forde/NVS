@@ -72,14 +72,17 @@ export const getBySlug = slug => {
         },
         "modules": modules[]{
             ...,
-            content[]{
+            _type == "content" => {
                 ...,
-                markDefs[]{
+                content[]{
                     ...,
-                    _type == "internalLink" => {
-                        "document": {
-                            "slug": @.reference->slug.current,
-                            "type": @.reference->_type
+                    markDefs[]{
+                        ...,
+                        _type == "internalLink" => {
+                            "document": {
+                                "slug": @.reference->slug.current,
+                                "type": @.reference->_type
+                            }
                         }
                     }
                 }
