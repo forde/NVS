@@ -48,14 +48,10 @@ const distanceProps = [
 ]
 
 const distances = [
-    { desktop: 120, tablet: 80, mobile: 60},
-    { desktop: 80, tablet: 60, mobile: 48},
     { desktop: 60, tablet: 48, mobile: 32},
     { desktop: 48, tablet: 36, mobile: 24},
-    { desktop: 32, tablet: 24, mobile: 16},
     { desktop: 24, tablet: 16, mobile: 12},
     { desktop: 16, tablet: 12, mobile: 8},
-    { desktop: 12, tablet: 8, mobile: 4},
     { desktop: 8, tablet: 6, mobile: 4},
 ]
 
@@ -79,7 +75,7 @@ const distanceClasses = () => distanceProps.map(set =>
 |  Typography
 |--------------------------------------------------------------------------
 */
-const lh = fs => Math.round(fs * 1.618)
+/*const lh = fs => Math.round(fs * 1.618)
 
 export const headingSizes = [
     {   name: 'large', tags: 'h1,', sizes: [52,40,30] },
@@ -105,7 +101,7 @@ const headingClasses = () => headingSizes.map(size => `
             line-height: ${lh(size.sizes[2])}px;
         }
     }
-`).join(' ')
+`).join(' ')*/
 
 /*
 |--------------------------------------------------------------------------
@@ -123,7 +119,6 @@ export const Row = styled.div`
     width: calc(100% + ${colGap}px);
     margin-left: -${trim2(colGap/2)}px;
     margin-right: -${trim2(colGap/2)}px;
-    //justify-content: space-between;
     flex-wrap: wrap;
 
 `
@@ -191,8 +186,6 @@ css`
         }
 
         ${distanceClasses()}
-
-        ${headingClasses()}
 
         div { position: relative; }
 
