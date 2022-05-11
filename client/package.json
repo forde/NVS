@@ -44,7 +44,6 @@
     "react-image-crop": "^9.0.4",
     "shortid": "^2.2.16",
     "slugify": "^1.6.2",
-    "styled-components": "^5.3.3",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

@@ -3,11 +3,6 @@ import { css } from 'linaria'
 import { styled } from 'linaria/react'
 
 /*
-    test = css`color: tomato;` => classname={test}
-    const H1 = styled.h1`color: tomato;` => <H1>...</H1>
-*/
-
-/*
 |--------------------------------------------------------------------------
 |  Colors
 |--------------------------------------------------------------------------
@@ -94,7 +89,7 @@ export const headingSizes = [
 
 const headingClasses = () => headingSizes.map(size => `
     ${size.tags} .h-${size.name} {
-        font-family: "Source Sans Pro", sans-serif;
+        font-family: "Arial", sans-serif;
         margin: 0;
         color: ${colors.black};
         font-weight: 700;
@@ -111,34 +106,6 @@ const headingClasses = () => headingSizes.map(size => `
         }
     }
 `).join(' ')
-
-export const paragraphSizes = [
-    {   name: 'large', sizes: [24,18,18] },
-    {   name: 'medium', tags: 'p,', sizes: [20, 18, 18] },
-    {   name: 'small', sizes: [16,16,16] },
-]
-
-const paragraphClasses = () => paragraphSizes.map(size => `
-    ${size.tags} .p-${size.name} {
-        margin: 0;
-        color: ${colors.black};
-        position:relative;
-        font-family: "Georgia", "Cambria", "Times New Roman", Times, serif;
-        font-size: ${size.sizes[0]}px;
-        line-height: ${lh(size.sizes[0])}px;
-        letter-spacing: .3px;
-        -webkit-font-smoothing: antialiased;
-        @media (min-width: 768px) and (max-width: 1024px) {
-            font-size: ${size.sizes[1]}px;
-            line-height: ${lh(size.sizes[1])}px;
-        }
-        @media(max-width: 767px) {
-            font-size: ${size.sizes[2]}px;
-            line-height: ${lh(size.sizes[2])}px;
-        }
-    }
-`).join(' ')
-
 
 /*
 |--------------------------------------------------------------------------
@@ -209,7 +176,7 @@ css`
             box-sizing: border-box;
             color: ${colors.black};
             -moz-osx-font-smoothing: grayscale;
-            font-family: 'Source Sans Pro', sans-serif;
+            font-family: "Arial", sans-serif;
             font-display: fallback;
             font-size:18px;
             line-height: 1.4;
@@ -226,8 +193,6 @@ css`
         ${distanceClasses()}
 
         ${headingClasses()}
-
-        ${paragraphClasses()}
 
         div { position: relative; }
 
@@ -447,7 +412,7 @@ css`
             border-radius: 5px;
             line-height: 1;
             transition: all .2s ease-in-out;
-            font-family: 'gellix-medium';
+            font-family: "Arial", sans-serif;
 
             background-image:-webkit-linear-gradient(hsla(0,0%,100%,0), hsla(0,0%,100%,0))!important;
 

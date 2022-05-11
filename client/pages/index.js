@@ -171,7 +171,6 @@ export default function Home() {
                         value={demo.editable}
                         onChange={change('editable')}
                         placeholder="Editable text"
-                        className="h-medium"
                     />
                 </div>
                 <div className="mb-24">
