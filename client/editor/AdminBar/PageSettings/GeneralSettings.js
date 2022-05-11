@@ -1,10 +1,10 @@
 import { Row, Col } from '/styles'
-import editor from '/editor'
+import ui from '/editor/ui'
 import SlugSettings from './SlugSettings'
 
 export default function GeneralSettings ({ page, onChange }) {
 
-    const { Input } = editor()
+    const { Input } = ui()
 
     return (
         <Row>

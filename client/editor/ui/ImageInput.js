@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import editor from '/editor'
+import ui from '/editor/ui'
 import imageUrlBuilder from '@sanity/image-url'
 
 import { client } from '/api'
@@ -11,7 +11,7 @@ export default function ImageInput ({ id: _id, alt='', title='', hotspot=null, c
 
     const [ mediaBrowserVisible, setMediaBrowserVisible ] = useState(false)
 
-    const { MediaBrowser, Actions } = editor()
+    const { MediaBrowser, Actions } = ui()
 
     const src = _id ? imageUrl({
         _type: 'reference',

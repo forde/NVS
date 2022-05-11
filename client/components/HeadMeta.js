@@ -9,7 +9,7 @@ const HeadMeta = withRouter(props => {
             <meta charSet="UTF-8" />
             <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
-            <title>{title || 'SpotOn'}</title>
+            <title>{title || ''}</title>
             <meta name="description" content={description || ''} />
             <meta name="keywords" content={keywords || ''} />
             <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, shrink-to-fit=yes" />

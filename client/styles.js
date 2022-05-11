@@ -75,7 +75,7 @@ const distanceClasses = () => distanceProps.map(set =>
 |  Typography
 |--------------------------------------------------------------------------
 */
-/*const lh = fs => Math.round(fs * 1.618)
+const lh = fs => Math.round(fs * 1.618)
 
 export const headingSizes = [
     {   name: 'large', tags: 'h1,', sizes: [52,40,30] },
@@ -101,7 +101,7 @@ const headingClasses = () => headingSizes.map(size => `
             line-height: ${lh(size.sizes[2])}px;
         }
     }
-`).join(' ')*/
+`).join(' ')
 
 /*
 |--------------------------------------------------------------------------
@@ -186,6 +186,8 @@ css`
         }
 
         ${distanceClasses()}
+
+        ${headingClasses()}
 
         div { position: relative; }
 
@@ -378,7 +380,7 @@ css`
             }
         }
 
-        .actions-on-hover, .has-actions {
+        .has-actions {
             position: relative;
             > .actions {
                 opacity: 0;

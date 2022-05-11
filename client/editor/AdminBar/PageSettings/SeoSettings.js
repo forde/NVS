@@ -1,9 +1,9 @@
 import { Row, Col } from '/styles'
-import editor from '/editor'
+import ui from '/editor/ui'
 
 export default function SeoSettings ({ page, onChange }) {
 
-    const { Input, TagInput } = editor()
+    const { Input, TagInput } = ui()
 
     return (
         <Row>

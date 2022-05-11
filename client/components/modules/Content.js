@@ -1,11 +1,11 @@
 import { memo } from 'react'
 
-import editor from '/editor'
-import RichText from '/editor/RichText'
+import ui from '/editor/ui'
+import RichText from '/editor/presentation/RichText'
 
 export default memo(function Content ({ module, onChange }) {
 
-    const { editMode, RichTextEditor } = editor()
+    const { editMode, RichTextEditor } = ui()
 
     return(
         <div className="container mb-60">

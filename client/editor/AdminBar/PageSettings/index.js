@@ -4,7 +4,7 @@ import { MdWysiwyg } from 'react-icons/md'
 import { useRouter } from 'next/router'
 
 import { PageContext } from '/context'
-import editor from '/editor'
+import ui from '/editor/ui'
 import GeneralSettings from './GeneralSettings'
 import SeoSettings from './SeoSettings'
 
@@ -19,7 +19,7 @@ export default function PageSettings () {
     const [ modalVisible, setModalVisible ] = useState(false)
     const [ tab, setTab ] = useState(_tabs[0].value)
 
-    const { Modal, Tabs } = editor()
+    const { Modal, Tabs } = ui()
 
     const router = useRouter()
 

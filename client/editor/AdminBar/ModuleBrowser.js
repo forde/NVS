@@ -4,7 +4,7 @@ import { MdOutlineAddBox } from 'react-icons/md'
 
 import { colors, Row, Col } from '/styles'
 import { PageContext } from '/context'
-import editor from '/editor'
+import ui from '/editor/ui'
 import id from '/editor/lib/id'
 
 export default function ModuleBrowser () {
@@ -18,7 +18,7 @@ export default function ModuleBrowser () {
         })()
     })
 
-    const { Modal } = editor()
+    const { Modal } = ui()
 
     const addModule = (module, pageContext) => {
 

@@ -1,7 +1,7 @@
 import { useCallback, useState, useEffect } from 'react'
 import { styled } from 'linaria/react'
 
-import editor from '/editor'
+import ui from '/editor/ui'
 import { changeArrayItemPosition, clone } from '/editor/lib/helpers'
 import availableModules from './modules'
 import useFirstRender from '/editor/hooks/useFirstRender'
@@ -12,7 +12,7 @@ export default function Modules({ modules: _modules=[], onChange: _onChange=()=>
     const {
         Actions,
         Modal,
-    } = editor()
+    } = ui()
 
     const [ modules, setModules ] = useState([])
 
@@ -101,5 +101,4 @@ export default function Modules({ modules: _modules=[], onChange: _onChange=()=>
 
 const Module = styled.div`
     position: relative;
-
 `

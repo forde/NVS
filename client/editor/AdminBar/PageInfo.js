@@ -3,14 +3,14 @@ import { styled } from 'linaria/react'
 
 import { colors } from '/styles'
 import { PageContext } from '/context'
-import editor from '/editor'
+import ui from '/editor/ui'
 import { truncate } from '/editor/lib/helpers'
 
 export default function PageInfo () {
 
     const [ modalVisible, setModalVisible ] = useState(false)
 
-    const { Modal } = editor()
+    const { Modal } = ui()
 
     return (
         <PageContext.Consumer>

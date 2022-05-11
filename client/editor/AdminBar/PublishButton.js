@@ -5,14 +5,14 @@ import { MdSave } from 'react-icons/md'
 
 import { colors } from '/styles'
 import { PageContext } from '/context'
-import editor from '/editor'
-import { success, error } from '/editor/message'
+import ui from '/editor/ui'
+import { success, error } from '/editor/lib/message'
 
 export default function PublishButton  () {
 
     const [ publishing, setPublishing ] = useState(false)
 
-    const { Bars } = editor()
+    const { Bars } = ui()
 
     const publish = async page => {
 

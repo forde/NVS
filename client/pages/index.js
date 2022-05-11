@@ -6,9 +6,9 @@ import xor from 'lodash.xor'
 
 import { Row, Col, colors } from '/styles'
 import Layout from '/components/Layout'
-import { success, error } from '/editor/message'
+import { success, error } from '/editor/lib/message'
 import { client } from '/api'
-import editor from '/editor'
+import ui from '/editor/ui'
 
 const imageUrl = source => imageUrlBuilder(client).image(source)
 
@@ -32,7 +32,7 @@ export default function Home() {
         Select,
         Switch,
         Tabs,
-    } = editor()
+    } = ui()
 
 
     const [ demo, setDemo ] = useState({

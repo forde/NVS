@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid'
 import slugify from 'slugify'
 import { styled } from 'linaria/react'
 
-import editor from '/editor'
+import ui from '/editor/ui'
 import { colors } from '/styles'
 import { findPageBySlug } from '/api'
 
@@ -14,7 +14,7 @@ export default function SlugSettings ({ slug, title, id, onChange }) {
     const [ editedSlug, setEditedSlug ] = useState(null)
     const [ editedSlugValid, setEditedSlugValid ] = useState(null)
 
-    const { Label, Input, Button } = editor()
+    const { Label, Input, Button } = ui()
 
     useEffect(() => {
         clearTimeout(timeout)

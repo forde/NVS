@@ -1,13 +1,13 @@
 import { memo } from 'react'
 
-import editor from '/editor'
+import ui from '/editor/ui'
 
 export default memo(function Heading ({ module, onChange }) {
 
     const {
         editMode,
         Editable,
-    } = editor()
+    } = ui()
 
     const { _key, content, tag: Tag='h1' } = module
 
@@ -35,7 +35,7 @@ export const Settings = ({ module, onChange }) => {
 
     const {
         Select,
-    } = editor()
+    } = ui()
 
     const { tag, _key } = module
 

@@ -1,8 +1,6 @@
 import { styled } from 'linaria/react'
 import Link from 'next/link'
 
-import Actions from '/editor/Actions'
-
 export default function Menu () {
 
     const links = [
@@ -18,10 +16,6 @@ export default function Menu () {
                     </Link>
                 </li>)}
             </ul>
-            <Actions
-                align="right"
-                onEdit={()=>null}
-            />
         </Nav>
     )
 }
