@@ -1,11 +1,11 @@
 import { useCallback, useState, useEffect } from 'react'
 import { styled } from 'linaria/react'
 
-import ui from '/editor/ui'
-import { changeArrayItemPosition, clone } from '/editor/lib/helpers'
+import ui from '/front/ui'
+import { changeArrayItemPosition, clone } from '/front/lib/helpers'
 
-import useFirstRender from '/editor/lib/hooks/useFirstRender'
-import id from '/editor/lib/id'
+import useFirstRender from '/front/lib/hooks/useFirstRender'
+import id from '/front/lib/id'
 
 export default function Modules({ modules: _modules=[], moduleMap={}, onChange: _onChange=()=>null }) {
 

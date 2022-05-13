@@ -5,8 +5,8 @@ import { MdSave } from 'react-icons/md'
 
 import { colors } from '/styles'
 import { PageContext } from '/context'
-import ui from '/editor/ui'
-import { success, error } from '/editor/lib/message'
+import ui from '/front/ui'
+import { success, error } from '/front/lib/message'
 
 export default function PublishButton  () {
 

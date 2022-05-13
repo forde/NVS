@@ -4,7 +4,7 @@ import { MdWysiwyg } from 'react-icons/md'
 import { useRouter } from 'next/router'
 
 import { PageContext } from '/context'
-import ui from '/editor/ui'
+import ui from '/front/ui'
 import GeneralSettings from './GeneralSettings'
 import SeoSettings from './SeoSettings'
 

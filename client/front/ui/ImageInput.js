@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import ui from '/editor/ui'
+import ui from '/front/ui'
 import imageUrlBuilder from '@sanity/image-url'
 
 import { client } from '/api'

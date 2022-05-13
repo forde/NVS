@@ -1,5 +1,5 @@
 import { Row, Col } from '/styles'
-import ui from '/editor/ui'
+import ui from '/front/ui'
 import SlugSettings from './SlugSettings'
 
 export default function GeneralSettings ({ page, onChange }) {

@@ -1,6 +1,6 @@
 import { curry } from 'ramda'
 
-import id from '/editor/lib/id'
+import id from '/front/lib/id'
 
 const draftTypeToBlockStyle = type => {
     const types = {

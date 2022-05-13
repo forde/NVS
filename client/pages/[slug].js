@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react'
 
 import { getSlugsForTypes, getBySlug, getPosts } from '/api'
 import Layout from '/components/Layout'
-import Modules from '/editor/presentation/Modules'
+import Modules from '/front/presentation/Modules'
 import { PageContext } from '/context'
 
 import moduleMap from '/components/modules/modules'

@@ -3,7 +3,7 @@ import { styled } from 'linaria/react'
 import { MdCancel } from 'react-icons/md'
 
 import Button from './Button'
-import Portal from '/editor/lib/Portal'
+import Portal from '/front/lib/Portal'
 
 export default function Modal ({
     children,

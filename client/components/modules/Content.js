@@ -1,7 +1,7 @@
 import { memo } from 'react'
 
-import ui from '/editor/ui'
-import RichText from '/editor/presentation/RichText'
+import ui from '/front/ui'
+import RichText from '/front/presentation/RichText'
 
 export default memo(function Content ({ module, onChange }) {
 

@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid'
 import slugify from 'slugify'
 import { styled } from 'linaria/react'
 
-import ui from '/editor/ui'
+import ui from '/front/ui'
 import { colors } from '/styles'
 import { findPageBySlug } from '/api'
 

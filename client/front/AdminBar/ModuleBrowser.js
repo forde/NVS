@@ -4,8 +4,8 @@ import { MdOutlineAddBox } from 'react-icons/md'
 
 import { colors, Row, Col } from '/styles'
 import { PageContext } from '/context'
-import ui from '/editor/ui'
-import id from '/editor/lib/id'
+import ui from '/front/ui'
+import id from '/front/lib/id'
 
 export default function ModuleBrowser () {
 

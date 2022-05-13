@@ -11,9 +11,9 @@ import { colors } from '/styles'
 //import ImageButton, { ImageBlock } from './ImageButton'
 import LinkButton from './LinkButton'
 //import VideoButton, { VideoBlock } from './VideoButton'
-import useFirstRender from '/editor/lib/hooks/useFirstRender'
-import blockContentToDraft from '/editor/lib/blockContentToDraft'
-import draftToBlockContent from '/editor/lib/draftToBlockContent'
+import useFirstRender from '/front/lib/hooks/useFirstRender'
+import blockContentToDraft from '/front/lib/blockContentToDraft'
+import draftToBlockContent from '/front/lib/draftToBlockContent'
 
 const Editor = dynamic(
     () => import('react-draft-wysiwyg').then(mod => mod.Editor),
@@ -31,11 +31,7 @@ export default function RichTextEditor({ content, onChange }) {
         )(content)
 
         return EditorState.createEmpty()
-
     }
-
-    // temp for debuging
-    blockContentToDraft(content)
 
     const [ editorState, setEditorState ] = useState(stateInit)
 

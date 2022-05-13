@@ -3,8 +3,8 @@ import { styled } from 'linaria/react'
 
 import { colors } from '/styles'
 import { PageContext } from '/context'
-import ui from '/editor/ui'
-import { truncate } from '/editor/lib/helpers'
+import ui from '/front/ui'
+import { truncate } from '/front/lib/helpers'
 
 export default function PageInfo () {
 

@@ -1,6 +1,6 @@
 import { memo } from 'react'
 
-import ui from '/editor/ui'
+import ui from '/front/ui'
 
 export default memo(function Heading ({ module, onChange }) {
 
