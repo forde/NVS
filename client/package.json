@@ -52,6 +52,7 @@
     "babel-plugin-ramda": "^2.0.0",
     "babel-plugin-root-import": "^6.6.0",
     "next-pwa": "^5.4.0",
-    "next-sitemap": "^1.6.203"
+    "next-sitemap": "^1.6.203",
+    "sass": "^1.51.0"
   }
 }

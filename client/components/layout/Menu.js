@@ -8,7 +8,7 @@ export default function Menu () {
     ]
 
     return(
-        <Nav className="has-actions">
+        <Nav>
             <ul>
                 {links.map((link, i) => <li key={i}>
                     <Link href={link.url}>

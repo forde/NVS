@@ -1,4 +1,3 @@
-import { normalize } from 'polished'
 import { css } from 'linaria'
 import { styled } from 'linaria/react'
 
@@ -8,10 +7,9 @@ import { styled } from 'linaria/react'
 |--------------------------------------------------------------------------
 */
 export const colors = {
-    main: '#2196f3',
-    mainDarker: '#1565c0',
-    mainLighter: '#90caf9',
-    ui: '#3977F3',
+    primary: '#2196f3',
+    primaryDarker: '#1565c0',
+    primaryLighter: '#90caf9',
     black: '#141414',
     gray: '#efeff1',
     darkGray: '#bcbfc5',
@@ -158,13 +156,12 @@ export const Col = styled.div`
 css`
     :global() {
 
-        ${normalize()}
-
         html, body {
             min-height: 100vh;
             overflow-x: hidden;
             -webkit-text-size-adjust: none;
 	        touch-action: manipulation;
+            margin: 0;
         }
 
         body {
@@ -337,7 +334,7 @@ css`
             font-family: ${fonts.serif};
             letter-spacing: .3px;
             font-size: 20px;
-            h1,h2,h3,h4,h5,h6 {
+            h1, h2, h3, h4, h5, h6 {
                 font-family: ${fonts.main};
             }
             p, ul, ol, h1, h2, h3, h4, h5, h6, .public-DraftEditor-content > div > div {
@@ -358,7 +355,7 @@ css`
                 list-style: none;
             }
             a {
-                color: ${colors.ui};
+                color: ${colors.primary};
                 text-decoration: underline;
             }
             figure {

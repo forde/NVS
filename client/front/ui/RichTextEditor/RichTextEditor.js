@@ -20,7 +20,7 @@ const Editor = dynamic(
     { ssr: false }
 )
 
-export default function RichTextEditor({ content, onChange }) {
+export default function RichTextEditor({ content, onChange=s=>null }) {
 
     const stateInit = () => {
 

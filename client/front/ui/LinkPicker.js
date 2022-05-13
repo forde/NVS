@@ -108,7 +108,7 @@ const Results = styled.div`
         &:hover {
             @media(pointer: fine) {
                 background: ${colors.lightGray};
-                color: ${colors.ui};
+                color: ${colors.primary};
             }
         }
     }

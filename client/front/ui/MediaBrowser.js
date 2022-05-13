@@ -417,7 +417,7 @@ const Wrapper = styled.div`
                 border: 3px solid transparent;
                 cursor: pointer;
                 &:hover {
-                    border: 3px solid ${colors.ui};
+                    border: 3px solid ${colors.primary};
                 }
             }
         }

@@ -77,7 +77,7 @@ const ButtonComponent = styled.button`
     transition: all .2s ease-in-out;
     line-height: 1;
     color: #fff;
-    background: ${colors.ui};
+    background: ${colors.primary};
     border: 3px solid transparent;
     height: 50px;
     min-height: 50px;

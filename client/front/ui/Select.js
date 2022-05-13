@@ -268,7 +268,7 @@ const Wrapper = styled.div`
                 }
             }
             &.selected {
-                color: ${colors.ui}!important;
+                color: ${colors.primary}!important;
             }
         }
     }
