@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { styled } from 'linaria/react'
 import { nanoid } from 'nanoid'
 import { MdSave } from 'react-icons/md'
 
-import { colors } from '/styles'
 import { PageContext } from '/context'
 import ui from '/front/ui'
 import { success, error } from '/front/lib/message'
+
+import { publishButton } from '/front/styles/AdminBar/PublishButton.module.scss'
 
 export default function PublishButton  () {
 
@@ -63,27 +63,14 @@ export default function PublishButton  () {
 
     return (
         <PageContext.Consumer>
-            {({ page, changed }) => !changed ? null : <Wrapper
+            {({ page, changed }) => !changed ? null : <div
+                className={publishButton}
                 onClick={() => publish(page)}
             >
                 {publishing && <Bars /> }
                 <MdSave className="icon"/>
                 Publish
-            </Wrapper>}
+            </div>}
         </PageContext.Consumer>
     )
 }
-
-const Wrapper = styled.div`
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-    background: ${colors.green};
-    height: 100%;
-    color: ${colors.black};
-    position:relative;
-    @media (pointer: fine) { &:hover {
-        background: ${colors.green}!important;
-    }}
-`

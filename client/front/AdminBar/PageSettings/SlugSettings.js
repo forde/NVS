@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import { nanoid } from 'nanoid'
 import slugify from 'slugify'
-import { styled } from 'linaria/react'
 
 import ui from '/front/ui'
-import { colors } from '/styles'
 import { findPageBySlug } from '/api'
+
+import styles from '/front/styles/AdminBar/PageSettings/SlugSettings.module.scss'
 
 let timeout
 
@@ -52,8 +52,8 @@ export default function SlugSettings ({ slug, title, id, onChange }) {
     }
 
     return (
-        <Wrapper>
-            {editedSlug === null && <Label className="slug">
+        <div className={styles.wrapper}>
+            {editedSlug === null && <Label className={styles.slug}>
                 {process.env.NEXT_PUBLIC_APP_URL}/<span onClick={edit}>{slug || toSlug(title)}</span>
             </Label>}
             {editedSlug !== null &&
@@ -78,20 +78,6 @@ export default function SlugSettings ({ slug, title, id, onChange }) {
                     >Cancel</Button>
                 </div>
             }
-        </Wrapper>
+        </div>
     )
 }
-
-const Wrapper = styled.div`
-    padding-top: 8px;
-    .slug {
-        color: ${colors.darkGray};
-        span {
-            cursor: pointer;
-            display: inline-block;
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-    }
-`

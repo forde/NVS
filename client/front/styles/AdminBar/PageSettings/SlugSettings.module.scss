@@ -1,0 +1,16 @@
+@use './../../colors.module';
+
+.wrapper{
+    padding-top: 8px;
+}
+
+.slug {
+    color: colors.$darkGray;
+    span {
+        cursor: pointer;
+        display: inline-block;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

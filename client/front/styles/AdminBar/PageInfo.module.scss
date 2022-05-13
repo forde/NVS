@@ -1,0 +1,22 @@
+@use './../colors.module';
+
+.pageInfo {
+    background: colors.$black;
+    color: white;
+    height: 42px;
+    min-width: 130px;
+    padding: 0 10px;
+    background: colors.$primary;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    align-items: flex-start;
+    justify-content: center;
+    div:first-child {
+        font-size: 14px;
+    }
+    div:last-child {
+        font-size: 12px;
+        opacity: .8;
+    }
+}

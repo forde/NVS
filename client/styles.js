@@ -224,9 +224,10 @@ css`
             max-width: 1180px;
             margin-left: auto;
             margin-right: auto;
-        }
-        @media (max-width: 1180px) {
-            .container { padding-left: 20px; padding-right: 20px; }
+            @media (max-width: 1180px) {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
         }
 
         .box-shadow {

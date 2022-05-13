@@ -120,3 +120,10 @@ export const changeArrayItemPosition = (array, currentIndex, newIndex) => {
     _array[newIndex] = a
     return _array
 }
+
+export const classes = _names => {
+    return { className: (Array.isArray(_names) ? _names : [_names])
+        .filter(n => n)
+        .join(' ')
+    }
+}

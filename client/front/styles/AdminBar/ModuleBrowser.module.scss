@@ -1,0 +1,29 @@
+@use './../colors.module';
+
+.toggle {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    svg {
+        margin-right: 6px;
+    }
+}
+
+.moduleBrowser {
+    color: colors.$black;
+    position: relative;
+}
+
+.module {
+    position: relative;
+    > div {
+        border: 3px solid colors.$gray;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1.6em;
+        @media (pointer: fine) { &:hover {
+            border-color: colors.$black;
+        }}
+    }
+}

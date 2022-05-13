@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
-import { styled } from 'linaria/react'
 import { MdWysiwyg } from 'react-icons/md'
 import { useRouter } from 'next/router'
 
 import { PageContext } from '/context'
 import ui from '/front/ui'
+import { classes } from '/front/lib/helpers'
 import GeneralSettings from './GeneralSettings'
 import SeoSettings from './SeoSettings'
+
+import styles from '/front/styles/AdminBar/PageSettings/PageSettings.module.scss'
 
 export default function PageSettings () {
 
@@ -35,8 +37,8 @@ export default function PageSettings () {
     return (
         <PageContext.Consumer>
             {({ page, changePage }) => !page ? null : (
-                <Wrapper>
-                    <div className="toggle" onClick={() => setModalVisible(true)}>
+                <div>
+                    <div className={styles.toggle} onClick={() => setModalVisible(true)}>
                         <MdWysiwyg className="icon"/>Page settings
                     </div>
                     {modalVisible &&
@@ -49,30 +51,14 @@ export default function PageSettings () {
                                 tabs={_tabs}
                                 active={tab}
                                 onChange={setTab}
-                                className="tabs mb-16"
+                                {...classes([styles.tabs, `mb-16`])}
                             />
                             {tab === 'general' && <GeneralSettings page={page} onChange={changePage} />}
                             {tab === 'seo' && <SeoSettings page={page} onChange={changePage} />}
                         </Modal>
                     }
-                </Wrapper>
+                </div>
             )}
         </PageContext.Consumer>
     )
 }
-
-const Wrapper = styled.div`
-    .toggle {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        padding: 0 10px;
-    }
-    .tabs {
-        width: calc(100% - 38px - 16px);
-        display: flex;
-        button {
-            flex: 1;
-        }
-    }
-`
