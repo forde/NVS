@@ -11,9 +11,9 @@ import { colors } from '/styles'
 //import ImageButton, { ImageBlock } from './ImageButton'
 import LinkButton from './LinkButton'
 //import VideoButton, { VideoBlock } from './VideoButton'
-import useFirstRender from '/editor/hooks/useFirstRender'
-import blockContentToDraft from './converters/blockContentToDraft'
-import draftToBlockContent from './converters/draftToBlockContent'
+import useFirstRender from '/editor/lib/hooks/useFirstRender'
+import blockContentToDraft from '/editor/lib/blockContentToDraft'
+import draftToBlockContent from '/editor/lib/draftToBlockContent'
 
 const Editor = dynamic(
     () => import('react-draft-wysiwyg').then(mod => mod.Editor),

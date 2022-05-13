@@ -3,11 +3,11 @@ import { styled } from 'linaria/react'
 
 import ui from '/editor/ui'
 import { changeArrayItemPosition, clone } from '/editor/lib/helpers'
-import availableModules from './modules'
-import useFirstRender from '/editor/hooks/useFirstRender'
+
+import useFirstRender from '/editor/lib/hooks/useFirstRender'
 import id from '/editor/lib/id'
 
-export default function Modules({ modules: _modules=[], onChange: _onChange=()=>null }) {
+export default function Modules({ modules: _modules=[], moduleMap={}, onChange: _onChange=()=>null }) {
 
     const {
         Actions,
@@ -63,17 +63,18 @@ export default function Modules({ modules: _modules=[], onChange: _onChange=()=>
         <div>
             {modules.map((module, index) => {
 
-                if(!availableModules[module._type]) {
-                    return <p key="nomodule" style={{color: 'red'}}>Module "{module._type}" does not exist</p>
+                if(!moduleMap[module._type]) {
+                    console.warn({ module, moduleMap }, `Module type "${module._type}" does not exist in module map`)
+                    return null
                 }
 
-                const Component = availableModules[module._type].component
+                const Component = moduleMap[module._type].component
 
-                const Settings = availableModules[module._type].settings
+                const Settings = moduleMap[module._type].settings
 
                 return (
                     <Module
-                        key={module._key}
+                        key={module._key+'-'+index}
                         className={`module has-actions module-${module._type}`}
                     >
                         <Component module={module} onChange={onChange} />

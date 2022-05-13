@@ -2,8 +2,10 @@ import { useState, useCallback, useEffect } from 'react'
 
 import { getSlugsForTypes, getBySlug, getPosts } from '/api'
 import Layout from '/components/Layout'
-import Modules from '/components/modules'
+import Modules from '/editor/presentation/Modules'
 import { PageContext } from '/context'
+
+import moduleMap from '/components/modules/modules'
 
 export default function Slug ({ page }) {
 
@@ -42,6 +44,7 @@ export default function Slug ({ page }) {
             <Layout>
                 <Modules
                     modules={pageContext.page.modules || []}
+                    moduleMap={moduleMap}
                     onChange={onModulesChange}
                 />
             </Layout>
