@@ -8,12 +8,12 @@
 .module {
     position: relative;
     > div {
-        border: 3px solid colors.$gray;
+        border: 3px solid transparent;
         cursor: pointer;
         font-weight: 600;
         font-size: 1.6em;
         @media (pointer: fine) { &:hover {
-            border-color: colors.$black;
+            outline: 3px solid colors.$primary;
         }}
     }
 }

@@ -10,6 +10,7 @@ import Loader from './Loader'
 export default function Button ({
     children,
     small,
+    medium,
     sharp,
     secondary,
     tertiary,
@@ -30,6 +31,7 @@ export default function Button ({
             className={[
                 className,
                 small && 'small',
+                medium && 'medium',
                 secondary && 'secondary',
                 tertiary && 'tertiary',
                 sharp && 'sharp',
@@ -47,7 +49,7 @@ export default function Button ({
                 }
                 if(Icon && children) {
                     return <>
-                        <Icon style={{transform: `scale(${small ? 1.2 : 1.4})`, marginRight: '8px'}}/>
+                        <Icon style={{transform: `scale(${small ? 1.2 : 1.4})`, marginRight: '6px'}}/>
                         {children}
                     </>
                 }
@@ -88,14 +90,11 @@ const ButtonComponent = styled.button`
 
     }}
 
-    &.sharp {
-        border-radius: 0;
-    }
-
     &.secondary {
-        background: ${colors.black};
+        background: #404040;//${colors.black};
+        color: #EAEBEB;
         @media(pointer: fine) { &:hover, &:active {
-            background: #373737;
+            background: #5D5E5E;//#373737;
         }}
     }
 
@@ -109,10 +108,22 @@ const ButtonComponent = styled.button`
         }}
     }
 
-    &.small {
+    &.medium {
         height: 36px;
         min-height: 36px;
         font-size: 16px;
+    }
+
+    &.small {
+        height: 28px;
+        min-height: 28px;
+        font-size: 15px;
+        line-height: 1;
+        border-radius: 6px;
+    }
+
+    &.sharp {
+        border-radius: 0;
     }
 
     &.disabled {

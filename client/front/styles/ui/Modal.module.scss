@@ -1,0 +1,69 @@
+@use './../colors.module';
+
+.overlay {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background: rgba(0,0,0,.48);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+    //cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAQBJREFUSA2tldENgjAQQIkJI8AejuAE/jML/25jHMT45QYO4AIm+K56eiS00F4vuVwJ6XttaWnTfGOapp22a1TlBSgPR6BXal8JPsI5w2sbMZE3UuJOuiT0HwVEvMhDGDCNnhS4RLGEvhY+zFaDly5JEq6mUskmeKkkC54rKYJvlbjga5Iq8ITkhEBC9vl8K2qn3ArIbuG6cB0MVB25CB6k68QrN1Rg9oQKXKL4xKfgA2C7XD4JMDvy3wetIonBdXouyRo8Ien0XbRuhStgYSZxSS48S1IKN5IOhr20/jPxwpMS4HInX8gq/xY4ek6etPdBTqMlPxe0DsdRYclyBfgbXpalja44wn4AAAAASUVORK5CYII='), auto;
+    > div {
+        position:relative;
+    }
+}
+
+.close {
+    width: 12px;
+    height: 12px;
+    background: #DD7164;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-left: auto;
+    @media (pointer: fine) { &:hover { background: #EC6A5E; }}
+}
+.modal {
+    background: colors.$uiBackground;
+    border: 1px solid #666666;
+    outline: 1px solid #484949;
+    max-width: 90vw;
+    max-height: 90vh;
+    cursor: default;
+    position: relative;
+    border-radius: 10px;
+    color: colors.$uiWhite;
+}
+
+.toolbar {
+    background: colors.$uiDark;
+    padding: 10px 16px;
+    height: 48px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    color: colors.$uiWhite;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    border-bottom: 1px solid #0E0F0F;
+}
+
+.toolbarChildren {
+    padding: 0px 16px;
+    display: flex;
+    flex: 1 0 auto;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.children {
+    padding: 16px;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    &::-webkit-scrollbar { display: none; }
+}

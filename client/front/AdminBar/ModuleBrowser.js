@@ -45,7 +45,8 @@ export default function ModuleBrowser () {
                             onClose={() => setModalVisible(false)}
                             width="80vw"
                             height="80vh"
-                            className={`p-16 ${styles.moduleBrowser}`}
+                            className={`${styles.moduleBrowser}`}
+                            title="Add module"
                         >
                             <Row>
                                 {Object.keys(availableModules).map(key => {

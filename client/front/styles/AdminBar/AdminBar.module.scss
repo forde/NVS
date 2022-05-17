@@ -1,7 +1,7 @@
 @use './../colors.module';
 
 .wrapper {
-    background: colors.$black;
+    background: colors.$uiDark;
     height: 42px;
     position: fixed;
     bottom: 0;
@@ -18,13 +18,13 @@
             display: flex;
             align-items: center;
             position: relative;
-            color: white;
+            color: #E7E7E7;
             font-size: 16px;
             cursor: pointer;
             -webkit-font-smoothing: antialiased;
             font-weight: 400;
             @media (pointer: fine) { &:hover {
-                background: rgba(255,255,255,.15);
+                background: colors.$uiDarkHover;
             }}
         }
     }
@@ -44,7 +44,7 @@
 }
 
 .submenu {
-    background: colors.$black;
+    background: colors.$uiDark;
     position: fixed;
     left: 0;
     bottom: 42px;

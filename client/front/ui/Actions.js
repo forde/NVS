@@ -69,7 +69,7 @@ export default function Actions ({
                     key={k}
                     secondary
                     sharp
-                    small
+                    medium
                     icon={iconMap[k]}
                     onClick={rest[k]}
                 />)}

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 
 import { PageContext } from '/context'
 import ui from '/front/ui'
-import { classes } from '/front/lib/helpers'
+import { classes, truncate } from '/front/lib/helpers'
 import GeneralSettings from './GeneralSettings'
 import SeoSettings from './SeoSettings'
 
@@ -16,6 +16,7 @@ export default function PageSettings () {
         { name: 'General', value: 'general' },
         { name: 'SEO', value: 'seo' },
         { name: 'Misc', value: 'misc' },
+        { name: 'Data', value: 'data' },
     ]
 
     const [ modalVisible, setModalVisible ] = useState(false)
@@ -38,23 +39,25 @@ export default function PageSettings () {
         <PageContext.Consumer>
             {({ page, changePage }) => !page ? null : (
                 <>
-                    <div onClick={setModalVisible}>
-                        Page settings
+                    <div className={styles.pageInfo} onClick={setModalVisible}>
+                        <div className="primary">{truncate(page.title, 30)}</div>
+                        <div className="secondary">{truncate(page._type, 30)}</div>
                     </div>
                     {modalVisible &&
                         <Modal
                             onClose={close}
-                            className="p-16"
-                            style={{ minHeight: '400px' }}
-                        >
-                            <Tabs
+                            title="Page settings"
+                            width="60vw"
+                            height="60vh"
+                            toolbarChildren={<Tabs
                                 tabs={_tabs}
                                 active={tab}
                                 onChange={setTab}
-                                {...classes([styles.tabs, `mb-16`])}
-                            />
+                            />}
+                        >
                             {tab === 'general' && <GeneralSettings page={page} onChange={changePage} />}
                             {tab === 'seo' && <SeoSettings page={page} onChange={changePage} />}
+                            {tab === 'data' && <pre>{JSON.stringify(page, null, 4)}</pre>}
                         </Modal>
                     }
                 </>

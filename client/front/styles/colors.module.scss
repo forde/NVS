@@ -1,4 +1,4 @@
-$primary: #2196f3;
+$primary: #408EF7;
 $primaryDarker: #1565c0;
 $primaryLighter: #90caf9;
 $black: #141414;
@@ -9,6 +9,15 @@ $lightGray: #F1F1F3;
 $lighterGray: #F9F9F9;
 $red: #ff5d51;
 $green: #80d022;
+
+$uiDark: #353636;
+$uiDarkHover: #434444;
+$uiWhite: #EAEBEB;
+$uiTab: #424444;
+$uiTabActive: #5D5E5E;
+$uiBackground: #20201F;
+$uiGray: #7A7B7C;
+$uiDisabled: #A5A6A6;
 
 :export {
     primary: $primary;
@@ -22,4 +31,13 @@ $green: #80d022;
     lighterGray: $lighterGray;
     red: $red;
     green: $green;
+
+    uiDark: $uiDark;
+    uiDarkHover: $uiDarkHover;
+    uiWhite: $uiWhite;
+    uiTab: $uiTab;
+    uiTabActive: $uiTabActive;
+    uiBackground: $uiBackground;
+    uiGray: $uiGray;
+    uiDisabled: $uiDisabled;
 }

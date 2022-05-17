@@ -81,7 +81,7 @@ export default function Home() {
                 <h3 className="mb-24">Heading 3</h3>
                 <div className="mb-24">
                     <Button tertiary small onClick={() => change('modal')(true)}>Open modal</Button>
-                    {demo.modal && <Modal onClose={() => change('modal')(false)} className="modal"><h3>Modal</h3>Modal content...</Modal>}
+                    {demo.modal && <Modal onClose={() => change('modal')(false)} title="Modal">Modal content...</Modal>}
                 </div>
                 <Row>
                     <Col width={[6,6,12]}>

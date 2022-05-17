@@ -235,38 +235,39 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
     }
 
     return(
-        <Modal onClose={onClose} width="90vw" height="90vh">
+        <Modal
+            onClose={onClose}
+            width="90vw"
+            height="90vh"
+            title="Media browser"
+            toolbarChildren={<>
+                {selectedImage &&
+                    <Button secondary small icon={MdKeyboardBackspace} onClick={backToImageGrid} className="mr-16"/>
+                }
+                <Input
+                    icon={MdSearch}
+                    small
+                    className="search-input mr-16"
+                    placeholder="Search"
+                    value={search}
+                    onChange={setSearch}
+                />
+                <Button
+                    small
+                    secondary
+                    onClick={() => fileInputRef.current.click()}
+                >Upload image</Button>
+                <input
+                    ref={fileInputRef}
+                    style={{ position: 'fixed', top: '-100em'}}
+                    type="file"
+                    multiple
+                    onChange={onFileSelected}
+                    accept="image/jpeg, image/jpg, image/png, image/heif, image/heic"
+                />
+            </>}
+        >
             <Wrapper>
-                <div className="top-bar flex">
-                    {!selectedImage ?
-                        <>
-                            <Input
-                                icon={MdSearch}
-                                small
-                                className="search-input mr-16"
-                                placeholder="Search"
-                                value={search}
-                                onChange={setSearch}
-                            />
-                            <Button
-                                small
-                                onClick={() => fileInputRef.current.click()}
-                                className="mr-16"
-                            >Upload image</Button>
-                            <input
-                                ref={fileInputRef}
-                                style={{ position: 'fixed', top: '-100em'}}
-                                type="file"
-                                multiple
-                                onChange={onFileSelected}
-                                accept="image/jpeg, image/jpg, image/png, image/heif, image/heic"
-                            />
-                        </> : <>
-                            <Button tertiary small icon={MdKeyboardBackspace} onClick={backToImageGrid}/>
-                        </>
-                    }
-                </div>
-
                 {!_selectedImage && loading && 'Loading...'}
 
                 {!selectedImage ?
@@ -375,16 +376,8 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
 }
 
 const Wrapper = styled.div`
-    padding: 16px;
     position: relative;
     height: calc(100% - 36px - 16px);
-    .top-bar {
-        margin-bottom:16px;
-        height: 36px;
-        .search-input {
-            width: 200px;
-        }
-    }
     .image-grid {
         display: flex;
         flex-wrap: wrap;
@@ -426,7 +419,7 @@ const Wrapper = styled.div`
         display: flex;
         height: 100%;
         .image-container {
-            width: calc(100% - 316px);
+            width: calc(100% - 300px);
             display: flex;
             align-items: center;
             justify-content: center;

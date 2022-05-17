@@ -72,7 +72,7 @@ const InputWrapper = styled.div`
         }
         &:read-only { opacity: .6; }
         &:focus {
-            border: 3px solid ${colors.black};
+            //border: 3px solid ${colors.black};
             box-shadow: none;
         }
         &:-webkit-autofill, &:-webkit-autofill:hover, &:-webkit-autofill:focus, &:-webkit-autofill, &:-webkit-autofill-strong-password, &:-webkit-autofill-strong-password-viewable {
@@ -112,10 +112,18 @@ const InputWrapper = styled.div`
 
     &.small {
         input, textarea {
-            height: 36px;
-            min-height: 36px;
-            font-size: 16px;
-            padding: 0 8px;
+            padding: 2px 8px 0;
+            height: 28px;
+            min-height: 28px;
+            font-size: 15px;
+            line-height: 1;
+            border-radius: 6px;
+            box-shadow: none;
+            background: #404040;
+            color: #EAEBEB;
+            &:focus {
+                background: #5D5E5E;
+            }
         }
         input {
             padding-bottom: 2px;

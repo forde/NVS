@@ -2,7 +2,6 @@ import { useState, useRef } from 'react'
 import { useUser } from '@auth0/nextjs-auth0'
 import { MdVpnKey, MdHandyman, MdSettings, MdCreate, MdList, MdInsights, MdMoreVert, MdTranslate } from 'react-icons/md'
 
-import PageInfo from './PageInfo'
 import ModuleBrowser from './ModuleBrowser'
 import PublishButton from './PublishButton'
 import PageSettings from './PageSettings'
@@ -47,9 +46,8 @@ export default function AdminBar () {
                         </ul>
                     }
                 </li>
-                <li><PageInfo /></li>
-                <li><ModuleBrowser/></li>
                 <li><PageSettings/></li>
+                <li><ModuleBrowser/></li>
                 <li style={{ marginLeft: 'auto'}}><PublishButton/></li>
             </HorisontalScroller>
         </div>

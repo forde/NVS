@@ -7,7 +7,7 @@ import { styled } from 'linaria/react'
 |--------------------------------------------------------------------------
 */
 export const colors = {
-    primary: '#2196f3',
+    primary: '#408EF7',
     primaryDarker: '#1565c0',
     primaryLighter: '#90caf9',
     black: '#141414',
@@ -217,6 +217,7 @@ css`
             border-top: 1px solid #E8E8E8;
             border-left: 1px solid #E8E8E8;
             overflow: auto;
+            margin: 0;
         }
 
         .container {
@@ -240,6 +241,7 @@ css`
 
         .oh {
             overflow: hidden;
+            padding-right: 22px;
         }
 
         .card {

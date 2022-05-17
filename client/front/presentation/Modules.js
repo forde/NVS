@@ -88,7 +88,10 @@ export default function Modules({ modules: _modules=[], moduleMap={}, onChange: 
                         />
 
                         {moduleSettings === module._key &&
-                            <Modal onClose={() => setModuleSettings(false)} className="p-16">
+                            <Modal
+                                onClose={() => setModuleSettings(false)}
+                                title={moduleMap[module._type].title+' module'}
+                            >
                                 <Settings module={module} onChange={onChange} />
                             </Modal>
                         }

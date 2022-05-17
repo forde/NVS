@@ -1,0 +1,62 @@
+@use './../colors.module';
+
+.tabs {
+    display: flex;
+    > div {
+        border-radius: 0;
+        transition: none;
+        background: colors.$uiTab;
+        color: colors.$uiDisabled;
+        padding: 2px 15px;
+        font-size: 15px;
+        line-height: 1;
+        cursor: pointer;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        &:first-child {
+            border-top-left-radius: 6px;
+            border-bottom-left-radius: 6px;
+        }
+        &:last-child {
+            border-top-right-radius: 6px;
+            border-bottom-right-radius: 6px;
+            &:after {
+                display: none;
+            }
+        }
+        &:after {
+            content: '';
+            width: 1px;
+            height: 60%;
+            right: 0;
+            top: 50%;
+            display: block;
+            position: absolute;
+            transform: translateY(-50%);
+            background-color: colors.$uiTabActive;
+        }
+        @media(pointer: fine) { &:hover {
+            z-index: 10!important;
+        }}
+        + .active {
+            &:after {
+                content: '';
+                width: 1px;
+                height: 100%;
+                right: 0;
+                left: -1px;
+                display: block;
+                position: absolute;
+                background-color: colors.$uiTabActive;
+            }
+        }
+    }
+}
+
+.active {
+    z-index: 20!important;
+    background: colors.$uiTabActive!important;
+    color: colors.$uiWhite!important;
+}
