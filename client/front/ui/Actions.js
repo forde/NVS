@@ -89,9 +89,15 @@ const Wrapper = styled.div`
     transform: translateX(-50%) translateY(-50%);
     width: auto;
     button {
-        margin: 0 ${spacing}px 0 0 ;
+        margin: 0 ${spacing}px 0 0;
+        &:first-child {
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+        }
         &:last-child {
             margin: none;
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
         }
     }
     &.align-right {

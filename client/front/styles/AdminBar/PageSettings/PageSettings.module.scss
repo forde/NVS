@@ -20,6 +20,9 @@
         opacity: .8;
         line-height: 1.1;
     }
+    @media (pointer: fine) { &:hover {
+        background: colors.$primaryHover;
+    }}
 }
 
 .tabs {

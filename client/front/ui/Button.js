@@ -26,7 +26,7 @@ export default function Button ({
     return( 
         <ButtonComponent
             width={width}
-            padding={(Icon && !children && small) ? '0 8px' : '0 16px'}
+            padding={(Icon && !children && medium || small) ? '0 8px' : '0 16px'}
             onClick={e => (!onClick || disabled || busy) ? null : onClick(e)}
             className={[
                 className,
@@ -42,14 +42,14 @@ export default function Button ({
             {(() => {
                 if(busy) return <Loader
                     color={tertiary ? 'black' : 'white'}
-                    style={{ transform: `scale(${small ? .8 : 1})`}}
+                    style={{ transform: `scale(${medium || small ? .8 : 1})`}}
                 />
                 if(Icon && !children) {
-                    return <Icon style={{transform: `scale(${small ? 1.2 : 1.4})`}}/>
+                    return <Icon style={{transform: `scale(${medium || small ? 1.2 : 1.4})`}}/>
                 }
                 if(Icon && children) {
                     return <>
-                        <Icon style={{transform: `scale(${small ? 1.2 : 1.4})`, marginRight: '6px'}}/>
+                        <Icon style={{transform: `scale(${medium || small ? 1.2 : 1.4})`, marginRight: '6px'}}/>
                         {children}
                     </>
                 }
@@ -112,6 +112,7 @@ const ButtonComponent = styled.button`
         height: 36px;
         min-height: 36px;
         font-size: 16px;
+        border-radius: 8px;
     }
 
     &.small {

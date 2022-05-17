@@ -239,32 +239,35 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
             onClose={onClose}
             width="90vw"
             height="90vh"
-            title="Media browser"
+            title={selectedImage ? 'Image settings' : 'Media browser'}
             toolbarChildren={<>
-                {selectedImage &&
-                    <Button secondary small icon={MdKeyboardBackspace} onClick={backToImageGrid} className="mr-16"/>
-                }
-                <Input
-                    icon={MdSearch}
-                    small
-                    className="search-input mr-16"
-                    placeholder="Search"
-                    value={search}
-                    onChange={setSearch}
-                />
-                <Button
-                    small
-                    secondary
-                    onClick={() => fileInputRef.current.click()}
-                >Upload image</Button>
-                <input
-                    ref={fileInputRef}
-                    style={{ position: 'fixed', top: '-100em'}}
-                    type="file"
-                    multiple
-                    onChange={onFileSelected}
-                    accept="image/jpeg, image/jpg, image/png, image/heif, image/heic"
-                />
+                {selectedImage ? (
+                    <Button secondary small icon={MdKeyboardBackspace} onClick={backToImageGrid} children="Back to media browser" />
+                ) : (
+                    <>
+                        <Input
+                            icon={MdSearch}
+                            small
+                            className="search-input mr-16"
+                            placeholder="Search"
+                            value={search}
+                            onChange={setSearch}
+                        />
+                        <Button
+                            small
+                            secondary
+                            onClick={() => fileInputRef.current.click()}
+                        >Upload image</Button>
+                        <input
+                            ref={fileInputRef}
+                            style={{ position: 'fixed', top: '-100em'}}
+                            type="file"
+                            multiple
+                            onChange={onFileSelected}
+                            accept="image/jpeg, image/jpg, image/png, image/heif, image/heic"
+                        />
+                    </>
+                )}
             </>}
         >
             <Wrapper>

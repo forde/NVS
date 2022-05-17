@@ -91,82 +91,190 @@ export default function Home() {
                         <p>Ommodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim</p>
                     </Col>
                 </Row>
-                <div className="mb-24">
-                    <Select {...selectProps} />
-                    <Select {...selectProps} small />
-                    <Select {...selectProps} disabled label="Label"/>
-                    <Select {...selectProps} disabled small label="Label"/>
-                </div>
-                <div className="mb-24">
-                    <Select {...multiselectProps} multiple />
-                    <Select {...multiselectProps} small multiple />
-                </div>
-                <div className="mb-24">
-                    <Select {...selectProps} searchable />
-                    <Select {...selectProps} small searchable />
-                </div>
-                <div className="mb-24">
-                    <Select {...selectProps} invalid />
-                    <Select {...selectProps} small invalid />
-                </div>
-                <div className="mb-24">
-                    <button onClick={() => success('Success mssage')} style={{background:colors.green, color: 'black', border: 'none'}}>toast</button>
-                    <button onClick={() => error('Error mssage')} style={{background:colors.red, color: '#fff', border: 'none'}}>toast</button>
-                </div>
-                <div className="mb-24">
-                    <Switch on={demo.switch} onChange={change('switch')} />
-                </div>
-                <div className="mb-24">
-                    <Button className="mr-16" onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" secondary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" tertiary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" small onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" small secondary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" small tertiary onClick={() => console.log('click')}>button</Button>
-                </div>
-                <div className="mb-24">
-                    <Button className="mr-16" busy width="88px" onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" busy width="88px" secondary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" busy width="88px" tertiary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" busy width="88px" small onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" busy width="88px" small secondary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" busy width="88px" small tertiary onClick={() => console.log('click')}>button</Button>
-                </div>
-                <div className="mb-24">
-                    <Button className="mr-16" disabled onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" disabled secondary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" disabled tertiary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" disabled small onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" disabled small secondary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" disabled small tertiary onClick={() => console.log('click')}>button</Button>
-                </div>
-                <div className="mb-24">
-                    <Button className="mr-16" icon={MdAddCircle} onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" icon={MdAddCircle} secondary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" icon={MdAddCircle} tertiary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" icon={MdAddCircle} small onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" icon={MdAddCircle} small secondary onClick={() => console.log('click')}>button</Button>
-                    <Button className="mr-16" icon={MdAddCircle} small tertiary onClick={() => console.log('click')}>button</Button>
-                </div>
-                <div className="mb-24">
-                    <Button className="mr-16" icon={MdAddCircle} onClick={() => console.log('click')}/>
-                    <Button className="mr-16" icon={MdAddCircle} secondary onClick={() => console.log('click')}/>
-                    <Button className="mr-16" icon={MdAddCircle} tertiary onClick={() => console.log('click')}/>
-                    <Button className="mr-16" icon={MdAddCircle} small onClick={() => console.log('click')}/>
-                    <Button className="mr-16" icon={MdAddCircle} small secondary onClick={() => console.log('click')}/>
-                    <Button className="mr-16" icon={MdAddCircle} small tertiary onClick={() => console.log('click')}/>
-                </div>
-                <div className="mb-24">
-                    <Tabs
-                        tabs={[
-                            { name: 'One', value: 'one' },
-                            { name: 'Two', value: 'two' },
-                            { name: 'Three', value: 'three' },
-                        ]}
-                        className="mb-24"
-                        active={demo.tab}
-                        onChange={change('tab')}
-                    />
+                <div className="p-16 mb-24" style={{background: '#20201F'}}>
+                    <div className="mb-24">
+                        <Select {...selectProps} />
+                        <Select {...selectProps} small />
+                        <Select {...selectProps} disabled label="Label"/>
+                        <Select {...selectProps} disabled small label="Label"/>
+                    </div>
+                    <div className="mb-24">
+                        <Select {...multiselectProps} multiple />
+                        <Select {...multiselectProps} small multiple />
+                    </div>
+                    <div className="mb-24">
+                        <Select {...selectProps} searchable />
+                        <Select {...selectProps} small searchable />
+                    </div>
+                    <div className="mb-24">
+                        <Select {...selectProps} invalid />
+                        <Select {...selectProps} small invalid />
+                    </div>
+                    <div className="mb-24">
+                        <button onClick={() => success('Success mssage')} style={{background:colors.green, color: 'black', border: 'none'}}>toast</button>
+                        <button onClick={() => error('Error mssage')} style={{background:colors.red, color: '#fff', border: 'none'}}>toast</button>
+                    </div>
+                    <div className="mb-24">
+                        <Switch on={demo.switch} onChange={change('switch')} />
+                    </div>
+                    <div className="mb-24">
+                        <Button className="mr-16" onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" secondary onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" tertiary onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" medium onClick={() => console.log('click')}>medium</Button>
+                        <Button className="mr-16" medium secondary onClick={() => console.log('click')}>medium</Button>
+                        <Button className="mr-16" medium tertiary onClick={() => console.log('click')}>medium</Button>
+                        <Button className="mr-16" small onClick={() => console.log('click')}>small</Button>
+                        <Button className="mr-16" small secondary onClick={() => console.log('click')}>small</Button>
+                        <Button className="mr-16" small tertiary onClick={() => console.log('click')}>small</Button>
+                    </div>
+                    <div className="mb-24">
+                        <Button className="mr-16" busy width="88px" onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" busy width="88px" secondary onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" busy width="88px" tertiary onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" busy width="88px" medium onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" busy width="88px" medium secondary onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" busy width="88px" medium tertiary onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" busy width="88px" small onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" busy width="88px" small secondary onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" busy width="88px" small tertiary onClick={() => console.log('click')}>button</Button>
+                    </div>
+                    <div className="mb-24">
+                        <Button className="mr-16" disabled onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" disabled secondary onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" disabled tertiary onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" disabled small onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" disabled small secondary onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" disabled small tertiary onClick={() => console.log('click')}>button</Button>
+                    </div>
+                    <div className="mb-24">
+                        <Button className="mr-16" icon={MdAddCircle} onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" icon={MdAddCircle} secondary onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" icon={MdAddCircle} tertiary onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" icon={MdAddCircle} medium onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" icon={MdAddCircle} medium secondary onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" icon={MdAddCircle} medium tertiary onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" icon={MdAddCircle} small onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" icon={MdAddCircle} small secondary onClick={() => console.log('click')}>button</Button>
+                        <Button className="mr-16" icon={MdAddCircle} small tertiary onClick={() => console.log('click')}>button</Button>
+                    </div>
+                    <div className="mb-24">
+                        <Button className="mr-16" icon={MdAddCircle} onClick={() => console.log('click')}/>
+                        <Button className="mr-16" icon={MdAddCircle} secondary onClick={() => console.log('click')}/>
+                        <Button className="mr-16" icon={MdAddCircle} tertiary onClick={() => console.log('click')}/>
+                        <Button className="mr-16" icon={MdAddCircle} medium onClick={() => console.log('click')}/>
+                        <Button className="mr-16" icon={MdAddCircle} medium secondary onClick={() => console.log('click')}/>
+                        <Button className="mr-16" icon={MdAddCircle} medium tertiary onClick={() => console.log('click')}/>
+                        <Button className="mr-16" icon={MdAddCircle} small onClick={() => console.log('click')}/>
+                        <Button className="mr-16" icon={MdAddCircle} small secondary onClick={() => console.log('click')}/>
+                        <Button className="mr-16" icon={MdAddCircle} small tertiary onClick={() => console.log('click')}/>
+                    </div>
+                    <div className="mb-24">
+                        <Tabs
+                            tabs={[
+                                { name: 'One', value: 'one' },
+                                { name: 'Two', value: 'two' },
+                                { name: 'Three', value: 'three' },
+                            ]}
+                            className="mb-24"
+                            active={demo.tab}
+                            onChange={change('tab')}
+                        />
+                    </div>
+                    <Row className="mb-24">
+                        <Col width={3}>
+                            <Input value={demo.input} placeholder="Type something" onChange={change('input')} />
+                        </Col>
+                        <Col width={3}>
+                            <Input value={demo.input} placeholder="Type something" onChange={change('input')} small />
+                        </Col>
+                        <Col width={3}>
+                            <Input value={demo.input} onChange={change('input')} disabled label="Label" placeholder="Disabled" />
+                        </Col>
+                        <Col width={3}>
+                            <Input value={demo.input} onChange={change('input')} small disabled label="Label" placeholder="Disabled" />
+                        </Col>
+                        <Col width={3}>
+                            <Input value={demo.input} onChange={change('input')} icon={MdSearch} placeholder="Search"/>
+                        </Col>
+                        <Col width={3}>
+                            <Input value={demo.input} onChange={change('input')} small icon={MdSearch} placeholder="Search" />
+                        </Col>
+                        <Col width={3}>
+                            <Input value={demo.input} placeholder="Type something" onChange={change('input')} multiline/>
+                        </Col>
+                        <Col width={3}>
+                            <Input value={demo.input} placeholder="Type something" onChange={change('input')} small multiline/>
+                        </Col>
+                    </Row>
+                    <div className="mb-24 flex">
+                        <Radio
+                            value="one"
+                            onChange={change('radio')}
+                            checked={demo.radio === 'one'}
+                            label="One"
+                            description="First choice"
+                            style={{width: '200px', marginRight: '16px'}}
+                        />
+                        <Radio
+                            value="two"
+                            onChange={change('radio')}
+                            checked={demo.radio === 'two'}
+                            label="Two"
+                            description="Second choice"
+                            style={{width: '200px', marginRight: '16px'}}
+                        />
+                        <Radio
+                            value="three"
+                            onChange={change('radio')}
+                            checked={demo.radio === 'three'}
+                            label="Three"
+                            style={{width: '200px', marginRight: '16px'}}
+                        />
+                        <Radio
+                            value="four"
+                            onChange={change('radio')}
+                            checked={demo.radio === 'four'}
+                            label="Four"
+                            disabled
+                            description="I'm disabled"
+                            style={{width: '200px'}}
+                        />
+                    </div>
+                    <div className="mb-24 flex">
+                        <Checkbox
+                            value="one"
+                            onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
+                            checked={demo.checkbox.includes('one')}
+                            label="One"
+                            description="First choice"
+                            style={{width: '200px', marginRight: '16px'}}
+                        />
+                        <Checkbox
+                            value="two"
+                            onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
+                            checked={demo.checkbox.includes('two')}
+                            label="Two"
+                            description="Second choice"
+                            style={{width: '200px', marginRight: '16px'}}
+                        />
+                        <Checkbox
+                            value="three"
+                            onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
+                            checked={demo.checkbox.includes('three')}
+                            label="Three"
+                            style={{width: '200px', marginRight: '16px'}}
+                        />
+                        <Checkbox
+                            value="four"
+                            onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
+                            checked={demo.checkbox.includes('four')}
+                            label="Four"
+                            disabled
+                            description="I'm disabled"
+                            style={{width: '200px'}}
+                        />
+                    </div>
                 </div>
                 <div className="mb-24">
                     <Editable
@@ -202,100 +310,6 @@ export default function Home() {
                         title={demo.usedImage.title}
                         alt={demo.usedImage.alt}
                     />}
-                </div>
-                <Row className="mb-24">
-                    <Col width={3}>
-                        <Input value={demo.input} placeholder="Type something" onChange={change('input')} />
-                    </Col>
-                    <Col width={3}>
-                        <Input value={demo.input} placeholder="Type something" onChange={change('input')} small />
-                    </Col>
-                    <Col width={3}>
-                        <Input value={demo.input} onChange={change('input')} disabled label="Label" placeholder="Disabled" />
-                    </Col>
-                    <Col width={3}>
-                        <Input value={demo.input} onChange={change('input')} small disabled label="Label" placeholder="Disabled" />
-                    </Col>
-                    <Col width={3}>
-                        <Input value={demo.input} onChange={change('input')} icon={MdSearch} placeholder="Search"/>
-                    </Col>
-                    <Col width={3}>
-                        <Input value={demo.input} onChange={change('input')} small icon={MdSearch} placeholder="Search" />
-                    </Col>
-                    <Col width={3}>
-                        <Input value={demo.input} placeholder="Type something" onChange={change('input')} multiline/>
-                    </Col>
-                    <Col width={3}>
-                        <Input value={demo.input} placeholder="Type something" onChange={change('input')} small multiline/>
-                    </Col>
-                </Row>
-                <div className="mb-24 flex">
-                    <Radio
-                        value="one"
-                        onChange={change('radio')}
-                        checked={demo.radio === 'one'}
-                        label="One"
-                        description="First choice"
-                        style={{width: '200px', marginRight: '16px'}}
-                    />
-                    <Radio
-                        value="two"
-                        onChange={change('radio')}
-                        checked={demo.radio === 'two'}
-                        label="Two"
-                        description="Second choice"
-                        style={{width: '200px', marginRight: '16px'}}
-                    />
-                    <Radio
-                        value="three"
-                        onChange={change('radio')}
-                        checked={demo.radio === 'three'}
-                        label="Three"
-                        style={{width: '200px', marginRight: '16px'}}
-                    />
-                    <Radio
-                        value="four"
-                        onChange={change('radio')}
-                        checked={demo.radio === 'four'}
-                        label="Four"
-                        disabled
-                        description="I'm disabled"
-                        style={{width: '200px'}}
-                    />
-                </div>
-                <div className="mb-24 flex">
-                    <Checkbox
-                        value="one"
-                        onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
-                        checked={demo.checkbox.includes('one')}
-                        label="One"
-                        description="First choice"
-                        style={{width: '200px', marginRight: '16px'}}
-                    />
-                    <Checkbox
-                        value="two"
-                        onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
-                        checked={demo.checkbox.includes('two')}
-                        label="Two"
-                        description="Second choice"
-                        style={{width: '200px', marginRight: '16px'}}
-                    />
-                    <Checkbox
-                        value="three"
-                        onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
-                        checked={demo.checkbox.includes('three')}
-                        label="Three"
-                        style={{width: '200px', marginRight: '16px'}}
-                    />
-                    <Checkbox
-                        value="four"
-                        onChange={val => change('checkbox')(xor(demo.checkbox, [val]))}
-                        checked={demo.checkbox.includes('four')}
-                        label="Four"
-                        disabled
-                        description="I'm disabled"
-                        style={{width: '200px'}}
-                    />
                 </div>
                 <div className="mb-24 flex mt-48 has-actions">
                     <div className="flex-center p-24" style={{background: '#EFEFF1', width: '100%'}}>
