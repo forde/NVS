@@ -17,7 +17,7 @@ export const colors = {
     lightGray: '#F1F1F3',
     lighterGray: '#F9F9F9',
     red: '#ff5d51',
-    green: '#97d252',
+    green: '#80d022',
 }
 
 export const fonts = {

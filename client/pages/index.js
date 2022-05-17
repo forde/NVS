@@ -4,11 +4,13 @@ import { MdAddCircle, MdSearch } from 'react-icons/md'
 import imageUrlBuilder from '@sanity/image-url'
 import xor from 'lodash.xor'
 
-import { Row, Col, colors } from '/styles'
+import { Row, Col } from '/styles'
 import Layout from '/components/Layout'
 import { success, error } from '/front/lib/message'
 import { client } from '/api'
 import ui from '/front/ui'
+
+import colors from '/front/styles/colors.module.scss'
 
 const imageUrl = source => imageUrlBuilder(client).image(source)
 
@@ -325,6 +327,13 @@ export default function Home() {
                         onMoveDown={_=>null}
                     />
                 </div>
+            </div>
+            <div className="mb-24 container flex wrap mt-48">
+                {Object.keys(colors).map(k => <div
+                    key={k}
+                    style={{ background: colors[k], padding: '20px 40px' }}
+                    children={k}
+                />)}
             </div>
         </Layout>
     )

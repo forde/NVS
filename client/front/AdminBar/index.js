@@ -7,6 +7,7 @@ import ModuleBrowser from './ModuleBrowser'
 import PublishButton from './PublishButton'
 import PageSettings from './PageSettings'
 import { onClickOutside, goTo } from '/front/lib/helpers'
+import HorisontalScroller from '/front/ui/HorisontalScroller'
 
 import styles from '/front/styles/AdminBar/AdminBar.module.scss'
 
@@ -26,12 +27,12 @@ export default function AdminBar () {
 
     return (
         <div className={styles.wrapper}>
-            <ul>
+            <HorisontalScroller WrapperTag="ul">
                 <li
                     onClick={() => setSiteControllsVisible(!siteControllsVisible)}
                     ref={siteControllsRef}
                 >
-                    <div className={styles.submenuToggle}>
+                    <div className={styles.dotToggle}>
                         <MdMoreVert />
                     </div>
                     {siteControllsVisible &&
@@ -46,15 +47,11 @@ export default function AdminBar () {
                         </ul>
                     }
                 </li>
-                <li><div><PageInfo /></div></li>
-                <li><div><ModuleBrowser/></div></li>
-                <li><div><PageSettings/></div></li>
-            </ul>
-            <div className={styles.right}>
-                <ul>
-                    <li><PublishButton/></li>
-                </ul>
-            </div>
+                <li><PageInfo /></li>
+                <li><ModuleBrowser/></li>
+                <li><PageSettings/></li>
+                <li style={{ marginLeft: 'auto'}}><PublishButton/></li>
+            </HorisontalScroller>
         </div>
     )
 }

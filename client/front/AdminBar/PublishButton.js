@@ -68,7 +68,6 @@ export default function PublishButton  () {
                 onClick={() => publish(page)}
             >
                 {publishing && <Bars /> }
-                <MdSave className="icon"/>
                 Publish
             </div>}
         </PageContext.Consumer>

@@ -37,9 +37,9 @@ export default function PageSettings () {
     return (
         <PageContext.Consumer>
             {({ page, changePage }) => !page ? null : (
-                <div>
-                    <div className={styles.toggle} onClick={() => setModalVisible(true)}>
-                        <MdWysiwyg className="icon"/>Page settings
+                <>
+                    <div onClick={setModalVisible}>
+                        Page settings
                     </div>
                     {modalVisible &&
                         <Modal
@@ -57,7 +57,7 @@ export default function PageSettings () {
                             {tab === 'seo' && <SeoSettings page={page} onChange={changePage} />}
                         </Modal>
                     }
-                </div>
+                </>
             )}
         </PageContext.Consumer>
     )

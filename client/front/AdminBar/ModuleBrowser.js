@@ -36,9 +36,9 @@ export default function ModuleBrowser () {
     return (
         <PageContext.Consumer>
             {pageContext => !pageContext.page ? null : (
-                <div>
-                    <div className={styles.toggle} onClick={() => setModalVisible(true)}>
-                        <MdOutlineAddBox className="icon"/>Add module
+                <>
+                    <div onClick={() => setModalVisible(true)}>
+                        Add module
                     </div>
                     {modalVisible &&
                         <Modal
@@ -68,7 +68,7 @@ export default function ModuleBrowser () {
                             </Row>
                         </Modal>
                     }
-                </div>
+                </>
             )}
         </PageContext.Consumer>
     )

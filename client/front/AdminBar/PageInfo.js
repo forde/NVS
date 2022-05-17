@@ -18,7 +18,7 @@ export default function PageInfo () {
                 <>
                     <div className={pageInfo} onClick={() => setModalVisible(true)}>
                         <div className="primary">{truncate(page.title, 30)}</div>
-                        <div className="secondary">/{truncate(page.slug, 30)}</div>
+                        <div className="secondary">{truncate(page._type, 30)}</div>
                     </div>
                     {modalVisible &&
                         <Modal
