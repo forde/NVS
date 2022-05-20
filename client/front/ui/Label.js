@@ -12,5 +12,5 @@ const StyledLabel = styled.label`
     font-size:16px;
     font-weight: 400;
     display:block;
-    color: ${colors.black};
+    color: #EAEBEB;
 `

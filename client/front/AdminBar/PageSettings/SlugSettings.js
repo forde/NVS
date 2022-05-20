@@ -66,14 +66,13 @@ export default function SlugSettings ({ slug, title, id, onChange }) {
                     />
                     <Button
                         small
-                        secondary
                         disabled={editedSlug === '' || !editedSlugValid}
                         onClick={set}
                         className="mr-8"
                     >Set</Button>
                     <Button
                         small
-                        tertiary
+                        secondary
                         onClick={cancel}
                     >Cancel</Button>
                 </div>

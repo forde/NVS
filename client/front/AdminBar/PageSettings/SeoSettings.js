@@ -11,6 +11,7 @@ export default function SeoSettings ({ page, onChange }) {
                 <Input
                     placeholder="Title"
                     label="Title"
+                    medium
                     value={page.seo.title}
                     onChange={val => onChange({ seo: { ...page.seo, title: val } })}
                 />
@@ -20,6 +21,7 @@ export default function SeoSettings ({ page, onChange }) {
                     placeholder="Description"
                     label="Description"
                     multiline
+                    medium
                     value={page.seo.description}
                     onChange={val => onChange({ seo: { ...page.seo, description: val } })}
                 />

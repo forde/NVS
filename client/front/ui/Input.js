@@ -7,6 +7,7 @@ export default function Input ({
     value,
     type,
     small,
+    medium,
     disabled,
     icon: Icon,
     onChange,
@@ -29,6 +30,7 @@ export default function Input ({
                 className={[
                     className,
                     small && 'small',
+                    medium && 'medium',
                     disabled && 'disabled',
                     Icon && 'with-icon'
                 ].filter(c=>c).join(' ')}
@@ -65,6 +67,8 @@ const InputWrapper = styled.div`
         border-radius: 10px;
         transition: all .2s ease-in-out;
         -webkit-font-smoothing: antialiased;
+        background-color: #404040;
+        color: #EAEBEB;
         ${shadow};
         &::placeholder {
             color: ${colors.darkGray};
@@ -107,6 +111,24 @@ const InputWrapper = styled.div`
             top: 50%;
             left: 10px;
             transform: translateY(-50%);
+        }
+    }
+
+    &.medium {
+        input, textarea {
+            padding: 0 10px 2px;
+            height: 36px;
+            min-height: 36px;
+            font-size: 16px;
+            border-radius: 8px;
+            &:focus {
+                background: #5D5E5E;
+            }
+        }
+        textarea {
+            min-height: 100px;
+            padding-top: 6px;
+            padding-bottom: 6px;
         }
     }
 

@@ -12,6 +12,7 @@ export default function GeneralSettings ({ page, onChange }) {
                 <Input
                     placeholder="Title"
                     label="Title"
+                    medium
                     value={page.title}
                     onChange={val => onChange({ title: val })}
                 />

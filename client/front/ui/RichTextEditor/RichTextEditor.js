@@ -20,7 +20,11 @@ const Editor = dynamic(
     { ssr: false }
 )
 
-export default function RichTextEditor({ content, onChange=s=>null }) {
+export default function RichTextEditor({
+    content,
+    onChange=s=>null,
+    stickyToolbar=true,
+}) {
 
     const stateInit = () => {
 
@@ -48,8 +52,10 @@ export default function RichTextEditor({ content, onChange=s=>null }) {
     }, [editorState])
 
     useEffect(() => {
-        window.addEventListener('scroll', debounce(onScroll, 10))
-        return () => window.removeEventListener('scroll', onScroll)
+        if(stickyToolbar) {
+            window.addEventListener('scroll', debounce(onScroll, 10))
+            return () => window.removeEventListener('scroll', onScroll)
+        }
     }, [])
 
     const onScroll = () => {
@@ -121,7 +127,8 @@ export default function RichTextEditor({ content, onChange=s=>null }) {
 const Wrapper = styled.div`
     .draft-wrapper {
         padding-top:36px;
-        .draft-toolbar  {
+        .draft-toolbar {
+            display: none;
             border: none;
             padding: 0;
             margin-left: -3px;
@@ -149,6 +156,11 @@ const Wrapper = styled.div`
                 position: fixed;
                 background: rgba(255,255,255,.8);
                 z-index: 100;
+            }
+        }
+        &:hover {
+            .draft-toolbar  {
+                display: flex;
             }
         }
         .draft-editor {

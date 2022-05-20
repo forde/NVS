@@ -210,12 +210,13 @@ css`
 
         pre {
             font-size: 14px;
-            background: #F6F6F6;
+            background: #434444;
             padding: 16px;
             color: ${colors.black};
             line-height: 1;
-            border-top: 1px solid #E8E8E8;
-            border-left: 1px solid #E8E8E8;
+            border: none;
+            outline: none;
+            color: #EAEBEB;
             overflow: auto;
             margin: 0;
         }
