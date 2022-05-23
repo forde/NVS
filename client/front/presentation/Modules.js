@@ -75,7 +75,7 @@ export default function Modules({ modules: _modules=[], moduleMap={}, onChange: 
                 return (
                     <Module
                         key={module._key+'-'+index}
-                        className={`module has-actions module-${module._type}`}
+                        className={`module module-${module._type}`}
                     >
                         <Component module={module} onChange={onChange} />
 

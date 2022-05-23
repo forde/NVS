@@ -313,7 +313,7 @@ export default function Home() {
                         alt={demo.usedImage.alt}
                     />}
                 </div>
-                <div className="mb-24 flex mt-48 has-actions">
+                <div className="mb-24 flex mt-48">
                     <div className="flex-center p-24" style={{background: '#EFEFF1', width: '100%'}}>
                         Actions preview on hover
                     </div>

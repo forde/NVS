@@ -1,0 +1,96 @@
+@use './../colors.module';
+
+.button {
+    padding:0;
+    outline: 0;
+    box-shadow: none;
+    background: transparent;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 1;
+    position: relative;
+    display: inline-flex;
+    border-radius: 10px;
+    text-align:center;
+    align-items: center;
+    justify-content:center;
+    width: auto;
+    white-space: nowrap;
+    transition: all .2s ease-in-out;
+    line-height: 1;
+    color: #fff;
+    background: colors.$primary;
+    border: 3px solid transparent;
+    height: 50px;
+    min-height: 50px;
+    font-size: 18px;
+    padding: 0 16px;
+    @supports (-moz-appearance:none) { padding: 0 16px; }
+    @media(pointer: fine) { &:hover, &:active {
+        background: colors.$primaryHover;
+    }}
+}
+
+.smallPadding {
+    padding: 0 8px;
+    @supports (-moz-appearance:none) { padding: 0 8px; }
+}
+
+.secondary {
+    background: colors.$black;
+    color: colors.$uiWhite;
+    @media(pointer: fine) { &:hover, &:active {
+        background: colors.$uiDark;
+    }}
+}
+
+.tertiary {
+    color: colors.$black;
+    background: #fff;
+    @media(pointer: fine) { &:hover {
+        background: colors.$uiWhite;
+        z-index: 20;
+    }}
+}
+
+.medium {
+    height: 36px;
+    min-height: 36px;
+    font-size: 16px;
+    border-radius: 8px;
+}
+
+.small {
+    height: 28px;
+    min-height: 28px;
+    font-size: 15px;
+    line-height: 1;
+    border-radius: 6px;
+}
+
+.sharp {
+    border-radius: 0;
+}
+
+.disabled {
+    cursor: default;
+    pointer-events: none;
+    opacity: .6;
+}
+
+.badge {
+    position: absolute;
+    top:-10px;
+    right:-10px;
+    background: colors.$red;
+    color: white;
+    width: 20px;
+    height:20px;
+    border-radius: 20px;
+    font-size: 12px;
+    line-height: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 2px;
+}

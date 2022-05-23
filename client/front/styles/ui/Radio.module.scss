@@ -1,0 +1,107 @@
+@use './../colors.module';
+
+.radio {
+    min-height:28px;
+    position: relative;
+    input {
+        position:absolute;
+        z-index:-1;
+        opacity: 0;
+        visibility: hidden;
+        -webkit-appearance: none;
+    }
+    label {
+        cursor: pointer;
+        display:flex;
+        align-items: center;
+        width: 100%;
+        position:relative;
+        color: colors.$uiWhite;
+        > div {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            flex: 1 0 auto;
+            @media(max-width: 767px) {
+                padding-right:26px;
+            }
+        }
+    }
+    input:checked + label i {
+        border-color: colors.$primary;
+    }
+    input:disabled + label {
+        opacity: .6;
+        pointer-events: none;
+    }
+}
+
+.label {
+    font-size: 18px;
+    display: block;
+    line-height: 1;
+}
+
+.description {
+    font-size: 16px;
+    line-height: 1;
+    padding-top: 6px;
+    color: colors.$darkGray;
+}
+
+.icon {
+    width: 28px;
+    min-width: 28px;
+    margin-right: 8px;
+    height: 28px;
+    border: 3px solid colors.$gray;
+    border-radius: 32px;
+    position: relative;
+    transition: all .1s ease-in-out;
+}
+
+.iconRadio {
+    &:before {
+        content: '';
+        width: 14px;
+        height: 14px;
+        border-radius: 14px;
+        background: colors.$primary;
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transition: all .2s ease-in-out;
+        transform: translateY(-50%) translateX(-50%);
+        opacity: 0;
+    }
+}
+
+.iconRadioSelected {
+    &:before {
+        opacity: 1;
+    }
+}
+
+.iconCheckbox {
+    border-radius: 6px;
+    svg {
+        width: 28px;
+        height: 28px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateY(-50%) translateX(-50%);
+        transition: all .2s ease-in-out;
+        polygon {
+            fill: colors.$primary;
+        }
+        opacity: 0;
+    }
+}
+
+.iconCheckboxChecked {
+    svg {
+        opacity: 1;
+    }
+}

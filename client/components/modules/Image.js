@@ -16,7 +16,7 @@ export default memo(function Image ({ module, onChange }) {
     const src = image.asset ? imageUrl(image.asset).auto('format').url() : 'https://via.placeholder.com/1600x900'
 
     return(
-        <div className="container has-actions mb-60">
+        <div className="container mb-60">
             {editMode ?
             <>
                 <ImageInput
