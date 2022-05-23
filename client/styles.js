@@ -381,20 +381,6 @@ css`
             }
         }
 
-        .has-actions {
-            position: relative;
-            > .actions {
-                opacity: 0;
-                visibility: hidden;
-            }
-            &:hover {
-                > .actions {
-                    opacity: 1;
-                    visibility: visible;
-                }
-            }
-        }
-
         input, textarea {
             width: 100%;
             padding: 8px 12px;

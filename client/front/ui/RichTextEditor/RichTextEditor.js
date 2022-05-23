@@ -95,7 +95,7 @@ export default function RichTextEditor({
     }
 
     return(
-        <div ref={wrapperRef} className="draft-wrapper">
+        <div ref={wrapperRef}>
             <style jsx global>{`
                 .draft-wrapper {
                     padding-top:36px;
@@ -104,7 +104,7 @@ export default function RichTextEditor({
                     display: flex;
                 }
                 .draft-toolbar {
-                    //display: none;
+                    display: none;
                     border: none;
                     padding: 0;
                     margin-left: -3px;

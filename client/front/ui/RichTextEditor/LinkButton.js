@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import { MdLink } from 'react-icons/md'
 import { EditorState, Modifier } from 'draft-js'

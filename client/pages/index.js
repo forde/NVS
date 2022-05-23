@@ -316,7 +316,6 @@ export default function Home() {
                         Actions preview on hover
                     </div>
                     <Actions
-                        align="top"
                         onrefresh={_=>null}
                         onBild={_=>null}
                         onDelete={_=>null}

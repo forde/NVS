@@ -1,4 +1,4 @@
-import { styled } from 'linaria/react'
+import { useRef, useEffect } from 'react'
 import {
     MdAutorenew,
     MdBuild,
@@ -27,13 +27,16 @@ import {
 
 import Button from './Button'
 
+import styles from '/front/styles/ui/Actions.module.scss'
+
 export default function Actions ({
     align='top',
-    offset='0',
     fixed,
     className,
     ...rest
 }) {
+
+    const actionsRef = useRef(null)
 
     const iconMap = {
         onrefresh: MdAutorenew,
@@ -60,83 +63,53 @@ export default function Actions ({
         onMoveUp: MdKeyboardArrowUp,
     }
 
-    return(
-        <Wrapper offset={offset} className={`actions ${className || ''} align-${align} ${fixed ? 'fixed' : ''}`} >
-            {Object.keys(rest)
-                .filter(k => !k.indexOf('on'))
-                .filter(k => typeof rest[k] === 'function')
-                .map(k => <Button
-                    key={k}
-                    secondary
-                    sharp
-                    medium
-                    icon={iconMap[k]}
-                    onClick={rest[k]}
-                />)}
-        </Wrapper>
+    useEffect(() => {
+        const parentEl = actionsRef?.current?.parentNode
+        if(parentEl && !parentEl.classList.contains('has-front-actions')) {
+            parentEl.classList.add('has-front-actions')
+        }
+    }, [actionsRef])
+
+    return (
+        <>
+            <style jsx global>{`
+                .has-front-actions {
+                    position: relative;
+                }
+                .has-front-actions > .front-actions {
+                    opacity: 0;
+                    visibility: hidden;
+                }
+                .has-front-actions:hover > .front-actions {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            `}</style>
+            <div
+                ref={actionsRef}
+                className={[
+                    'front-actions',
+                    className,
+                    styles.wrapper,
+                    align === 'top' && styles.alignTop,
+                    align === 'bottom' && styles.alignBottom,
+                    align === 'left' && styles.alignLeft,
+                    align === 'right' && styles.alignRight,
+                    fixed && styles.fixed,
+                ].filter(x=>x).join(' ')}
+            >
+                {Object.keys(rest)
+                    .filter(k => !k.indexOf('on'))
+                    .filter(k => typeof rest[k] === 'function')
+                    .map(k => <Button
+                        key={k}
+                        secondary
+                        sharp
+                        medium
+                        icon={iconMap[k]}
+                        onClick={rest[k]}
+                    />)}
+            </div>
+        </>
     )
 }
-
-const spacing = 0
-
-const Wrapper = styled.div`
-    z-index: 20;
-    overflow: visible;
-    display: flex;
-    position: absolute;
-    top: ${props => props.offset}px;
-    left: calc(50% + ${spacing/2}px);
-    transform: translateX(-50%) translateY(-50%);
-    width: auto;
-    button {
-        margin: 0 ${spacing}px 0 0;
-        &:first-child {
-            border-top-left-radius: 8px;
-            border-bottom-left-radius: 8px;
-        }
-        &:last-child {
-            margin: none;
-            border-top-right-radius: 8px;
-            border-bottom-right-radius: 8px;
-        }
-    }
-    &.align-right {
-        flex-direction: column;
-        top: calc(50% + ${spacing/2}px);
-        left: auto;
-        right: ${props => props.offset}px;
-        transform: translateX(50%) translateY(-50%);
-        button {
-            margin: 0 0 ${spacing}px 0;
-            &:last-child {
-                margin: none;
-            }
-        }
-    }
-    &.align-bottom {
-        top: auto;
-        bottom: ${props => props.offset}px;
-        left: calc(50% + ${spacing/2}px);
-        transform: translateX(-50%) translateY(50%);
-    }
-    &.align-left {
-        flex-direction: column;
-        top: calc(50% + ${spacing/2}px);
-        left: ${props => props.offset}px;
-        transform: translateX(-50%) translateY(-50%);
-        button {
-            margin: 0 0 ${spacing}px 0;
-            &:last-child {
-                margin: none;
-            }
-        }
-    }
-    &.align-center {
-        top: 50%;
-        left: 50%;
-        transform: translateX(-50%) translateY(-50%);
-    }
-    &.fixed {
-        position: fixed;
-    }
-`
