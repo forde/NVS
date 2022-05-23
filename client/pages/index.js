@@ -10,11 +10,13 @@ import { success, error } from '/front/lib/message'
 import { client } from '/api'
 import ui from '/front/ui'
 
-import colors from '/front/styles/colors.module.scss'
+import colorsModule from '/front/styles/colors.module.scss'
 
 const imageUrl = source => imageUrlBuilder(client).image(source)
 
 export default function Home() {
+
+    const colors = colorsModule?.locals || colorsModule
 
     const {
         editMode,
@@ -30,12 +32,12 @@ export default function Home() {
         MediaBrowser,
         Modal,
         OverlayLock,
+        Bars,
         Radio,
         Select,
         Switch,
         Tabs,
     } = ui()
-
 
     const [ demo, setDemo ] = useState({
         switch: false,
@@ -111,8 +113,8 @@ export default function Home() {
                         <Select {...selectProps} small invalid />
                     </div>
                     <div className="mb-24">
-                        <button onClick={() => success('Success mssage')} style={{background:colors.green, color: 'black', border: 'none'}}>toast</button>
-                        <button onClick={() => error('Error mssage')} style={{background:colors.red, color: '#fff', border: 'none'}}>toast</button>
+                        <button onClick={() => success('Success mssage')} style={{background: colors.green, color: 'black', border: 'none'}}>toast</button>
+                        <button onClick={() => error('Error mssage')} style={{background: colors.red, color: '#fff', border: 'none'}}>toast</button>
                     </div>
                     <div className="mb-24">
                         <Switch on={demo.switch} onChange={change('switch')} />
@@ -347,6 +349,12 @@ export default function Home() {
                     style={{ background: colors[k], padding: '20px 40px' }}
                     children={k}
                 />)}
+            </div>
+            <div className="container">
+                <div className="flex-center p-24 mb-24" style={{background: colors.primary, width: '25%'}}><Bars/></div>
+                <div className="flex-center p-24 mb-24" style={{background: colors.primary, width: '50%'}}><Bars/></div>
+                <div className="flex-center p-24 mb-24" style={{background: colors.primary, width: '75%'}}><Bars/></div>
+                <div className="flex-center p-24 mb-24" style={{background: colors.primary, width: '100%'}}><Bars/></div>
             </div>
         </Layout>
     )

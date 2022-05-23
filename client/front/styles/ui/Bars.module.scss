@@ -1,0 +1,40 @@
+.wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right:0;
+    bottom:0;
+    overflow: hidden;
+    cursor: default;
+    z-index: 100;
+    div {
+        position: absolute;
+        top: 0;
+        left: -20px;
+        right:0;
+        bottom:0;
+        animation-name: move;
+        animation-duration: .4s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        animation-fill-mode: backwards;
+        display: flex;
+    }
+    span {
+        border-left: 10px solid #fff;
+        width: 20px;
+        margin-right: 10px;
+        height: 100%;
+        display: block;
+        transform: skew(-25deg);
+    }
+
+    @keyframes move {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(20px);
+        }
+    }
+}
