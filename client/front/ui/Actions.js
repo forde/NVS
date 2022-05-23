@@ -96,6 +96,8 @@ export default function Actions ({
                     align === 'left' && styles.alignLeft,
                     align === 'right' && styles.alignRight,
                     align === 'center' && styles.alignCenter,
+                    ['top','bottom','center'].includes(align) && styles.roundHorisontal,
+                    ['right','left'].includes(align) && styles.roundVertical,
                     fixed && styles.fixed,
                 ].filter(x=>x).join(' ')}
             >
