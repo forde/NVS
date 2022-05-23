@@ -130,6 +130,16 @@ const InputWrapper = styled.div`
             padding-top: 6px;
             padding-bottom: 6px;
         }
+        &.with-icon {
+            input, textarea {
+                padding-left: 30px;
+            }
+            .icon {
+                width:20px;
+                height:20px;
+                left: 8px;
+            }
+        }
     }
 
     &.small {

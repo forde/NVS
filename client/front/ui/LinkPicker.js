@@ -39,15 +39,15 @@ export default function LinkPicker ({ onLink, onClose, url:_url, title:_title, t
     }
 
     return <Modal
-        className="modal"
         onClose={onClose}
         width="500px"
+        title="Link editor"
     >
-        <h3>Insert link</h3>
         <div className="relative mb-24">
             <Input
                 placeholder="Link to existing page"
                 icon={MdSearch}
+                medium
                 value={query}
                 onChange={setQuery}
                 style={{zIndex:'40'}}
@@ -66,18 +66,20 @@ export default function LinkPicker ({ onLink, onClose, url:_url, title:_title, t
             value={title}
             onChange={setTitle}
             className="mb-24"
+            medium
         />
         <Input
             placeholder="Link URL"
             value={url}
             onChange={setUrl}
             className="mb-24"
+            medium
         />
         <div className="flex-center-y-row mb-24">
             <Switch on={target==='_blank'} onChange={val => val ? setTarget('_blank') : setTarget('_self')} style={{marginRight: '8px'}}/> Open link in new tab
         </div>
         <Button
-            small
+            medium
             disabled={!title || !url}
             onClick={() => onLink({ url, title, target, type, id })}
         >Insert link</Button>
@@ -88,27 +90,26 @@ const Results = styled.div`
     top: calc(100% - 10px);
     width:100%;
     z-index: 30;
-    background: #fff;
-    ${shadow};
+    background: #5D5E5E;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     padding-top: 10px;
+    overflow: hidden;
     .result {
-        padding: 8px 16px;
-        font-size: 18px;
+        padding: 8px 12px;
+        font-size: 16px;
         cursor: pointer;
         display: flex;
         align-items: center;
         span {
             text-transform: uppercase;
             color: ${colors.darkGray};
-            font-size: 16px;
-            margin-right: 16px;
+            font-size: 14px;
+            margin-right: 14px;
         }
         &:hover {
             @media(pointer: fine) {
-                background: ${colors.lightGray};
-                color: ${colors.primary};
+                background: #7A7B7C;
             }
         }
     }
