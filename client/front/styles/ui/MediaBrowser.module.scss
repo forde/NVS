@@ -1,0 +1,118 @@
+@use './../colors.module';
+
+.wrapper {
+    position: relative;
+    height: calc(100% - 36px - 16px);
+}
+
+.imageGrid {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding:0;
+    width: calc(100% + 16px);
+    margin-left: -8px;
+    margin-right: -8px;
+    li {
+        list-style: none;
+        margin: 0 8px 16px 8px;
+        width: calc(16.66% - 16px);
+        position: relative;
+        transition: border .2s ease-in-out;
+        height: 140px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @media(max-width: 767px) {
+            width: calc(33.33% - 16px);
+        }
+        img {
+            display: block;
+            margin: 0;
+            max-width: 100%;
+            max-height: 100%;
+            border: 3px solid transparent;
+            cursor: pointer;
+            &:hover {
+                border: 3px solid colors.$primary;
+            }
+        }
+    }
+}
+
+.gridItemBusy {
+    background: colors.$uiTab;
+}
+
+.imageDetails {
+    display: flex;
+    height: 100%;
+}
+
+.imageContainer {
+    width: calc(100% - 300px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:100%;
+    position:relative;
+    background-color: #e6e8ec;
+    background-image: linear-gradient(45deg, #fafafa 25%, transparent 25%),
+                      linear-gradient(-45deg, #fafafa 25%, transparent 25%),
+                      linear-gradient(45deg, transparent 75%, #fafafa 75%),
+                      linear-gradient(-45deg, transparent 75%, #fafafa 75%);
+    background-size: 16px 16px;
+    background-position: 0 0,0 8px,8px -8px,-8px 0;
+}
+
+.detailsContainer {
+    width: 300px;
+    padding-left:16px;
+    height: 100%;
+    > div {
+        background: colors.$uiDark;
+        border-radius: 10px;
+        padding: 16px;
+        > span {
+            font-size: 16px;
+            color: gray;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            display: block;
+            -webkit-font-smoothing: antialiased;
+        }
+    }
+}
+
+:global(.front-image-editor) {
+    position: relative;
+    display: flex;
+    margin: auto;
+    max-height: 100%;
+}
+:global(.front-image-editor .ReactCrop) {
+    max-height:100%;
+    > div {
+        height: 100%;
+        width: fit-content;
+        img {
+            max-height: 100%;
+        }
+    }
+}
+:global(.front-image-editor .ReactCrop__drag-elements),
+:global(.front-image-editor .ReactCrop__rule-of-thirds-hz),
+:global(.front-image-editor .ReactCrop__rule-of-thirds-vt) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+:global(.front-image-editor canvas) {
+    position: fixed;
+    top: 0;
+    left: -99999px;
+    border: 1px solid black;
+    z-index: -1;
+}

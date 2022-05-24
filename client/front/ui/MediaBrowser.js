@@ -18,6 +18,8 @@ import { colors } from '/styles'
 import Loader from './Loader'
 import ConfirmButton from './ConfirmButton'
 
+import styles from '/front/styles/ui/MediaBrowser.module.scss'
+
 /*
 Props:
     onClose: Function (required) - responsible for changing parent state & hiding media browser
@@ -270,16 +272,15 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
                 )}
             </>}
         >
-            <Wrapper>
+            <div className={styles.wrapper}>
                 {!_selectedImage && loading && 'Loading...'}
-
                 {!selectedImage ?
-                    <ul className="image-grid">
+                    <ul className={styles.imageGrid}>
                         {[...uploads, ...images].map((image, i) => {
                             return(
                                 <li
                                     key={i}
-                                    className={!image._id ? 'upload' : ''}
+                                    className={!image._id ? styles.gridItemBusy : ''}
                                     onClick={() => onImageClick(image)}
                                 >
                                     {image._id && <img src={imageUrl(image).width(300).url()} />}
@@ -289,9 +290,9 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
                         })}
                     </ul>
                     :
-                    <div className="image-details">
-                        <div className="image-container" ref={imageContainerRef}>
-                            <ImageEditor debug={debug} style={{maxWidth:imageEditorMaxWidth}}>
+                    <div className={styles.imageDetails}>
+                        <div className={styles.imageContainer} ref={imageContainerRef}>
+                            <div debug={debug} className="front-image-editor" style={{maxWidth:imageEditorMaxWidth}}>
                                 <ReactCrop
                                     src={imageUrl({
                                         ...selectedImage,
@@ -306,12 +307,13 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
                                     crossorigin="Anonymous"
                                     ruleOfThirds={true}
                                 />
-                            </ImageEditor>
+                                <canvas/>
+                            </div>
                         </div>
-                        <div className="details-container">
+                        <div className={styles.detailsContainer}>
                             <div>
                                 <span>
-                                    {truncate(selectedImage.originalFilename, 35)}<br/>
+                                    {truncate(selectedImage.originalFilename, 30)}<br/>
                                     {selectedImage.metadata?.dimensions?.width} / {selectedImage.metadata?.dimensions?.height} px<br/>
                                     {bytesToSize(selectedImage.size || 0)}
                                 </span>
@@ -331,14 +333,14 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
                                     ]}
                                 />
                                 <Input
-                                    small
+                                    medium
                                     className="mb-24"
                                     label="Image title"
                                     value={selectedImageTitle}
                                     onChange={val => setSelectedImageTitle(val)}
                                 />
                                 <Input
-                                    small
+                                    medium
                                     className="mb-24"
                                     label="Image alt text"
                                     value={selectedImageAlt}
@@ -357,12 +359,12 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
                                     </div>
                                 }
                                 <Button
-                                    small
+                                    medium
                                     onClick={useImage}
                                     className="w-100 mb-24"
                                 >Use image</Button>
                                 <ConfirmButton
-                                    small
+                                    medium
                                     secondary
                                     onConfirm={deleteImage}
                                     fullWidth
@@ -372,121 +374,7 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
                         </div>
                     </div>
                 }
-
-            </Wrapper>
+            </div>
         </Modal>
     )
 }
-
-const Wrapper = styled.div`
-    position: relative;
-    height: calc(100% - 36px - 16px);
-    .image-grid {
-        display: flex;
-        flex-wrap: wrap;
-        margin: 0;
-        padding:0;
-        width: calc(100% + 16px);
-        margin-left: -8px;
-        margin-right: -8px;
-        li {
-            list-style: none;
-            margin: 0 8px 16px 8px;
-            width: calc(16.66% - 16px);
-            position: relative;
-            transition: border .2s ease-in-out;
-            height: 140px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            @media(max-width: 767px) {
-                width: calc(33.33% - 16px);
-            }
-            &.upload {
-                background: ${colors.lightGray}
-            }
-            img {
-                display: block;
-                margin: 0;
-                max-width: 100%;
-                max-height: 100%;
-                border: 3px solid transparent;
-                cursor: pointer;
-                &:hover {
-                    border: 3px solid ${colors.primary};
-                }
-            }
-        }
-    }
-    .image-details {
-        display: flex;
-        height: 100%;
-        .image-container {
-            width: calc(100% - 300px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height:100%;
-            position:relative;
-            background-color: #e6e8ec;
-            background-image: linear-gradient(45deg, #fafafa 25%, transparent 25%),
-                              linear-gradient(-45deg, #fafafa 25%, transparent 25%),
-                              linear-gradient(45deg, transparent 75%, #fafafa 75%),
-                              linear-gradient(-45deg, transparent 75%, #fafafa 75%);
-            background-size: 16px 16px;
-            background-position: 0 0,0 8px,8px -8px,-8px 0;
-        }
-        .details-container {
-            width: 300px;
-            padding-left:16px;
-            height: 100%;
-            > div {
-                background: ${colors.lighterGray};
-                border-radius: 10px;
-                border: 1px solid ${colors.lightGray};
-                padding: 16px;
-                > span {
-                    font-size: 16px;
-                    color: gray;
-                    line-height: 1.3;
-                    margin-bottom: 20px;
-                    display: block;
-                    -webkit-font-smoothing: antialiased;
-                }
-            }
-        }
-    }
-`
-
-const ImageEditor = styled.div`
-    position: relative;
-    display: flex;
-    margin: auto;
-    max-height: 100%;
-    .ReactCrop {
-        max-height:100%;
-        > div {
-            height: 100%;
-            width: fit-content;
-            img {
-                max-height: 100%;
-            }
-        }
-    }
-    .ReactCrop__drag-elements,
-    .ReactCrop__rule-of-thirds-hz,
-    .ReactCrop__rule-of-thirds-vt {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-    }
-    canvas {
-        position: fixed;
-        top: 0;
-        left: ${props => props.debug ? '0px' : '-99999px'};
-        border: 1px solid black;
-        z-index: -1;
-    }
-`
