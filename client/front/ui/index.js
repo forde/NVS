@@ -1,10 +1,11 @@
 import { useMemo } from 'react'
 import dynamic from 'next/dynamic'
-import { useUser } from '@auth0/nextjs-auth0'
+
+import config from '/front.config'
 
 export default function importer () {
 
-    const { user } = useUser()
+    const { user } = config.userExtractor()
 
     const _ = _ => null
 

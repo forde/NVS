@@ -1,5 +1,4 @@
-import { useState, useRef } from 'react'
-import { useUser } from '@auth0/nextjs-auth0'
+import { useState, useRef, useEffect } from 'react'
 import { MdVpnKey, MdHandyman, MdSettings, MdCreate, MdList, MdInsights, MdMoreVert, MdTranslate } from 'react-icons/md'
 
 import ModuleBrowser from './ModuleBrowser'
@@ -10,13 +9,21 @@ import HorisontalScroller from '/front/ui/HorisontalScroller'
 
 import styles from '/front/styles/AdminBar/AdminBar.module.scss'
 
+import config from '/front.config'
+
 export default function AdminBar () {
 
     const [ siteControllsVisible, setSiteControllsVisible ] = useState(false)
 
-    const { user } = useUser()
+    const { user } = config.userExtractor()
 
     const siteControllsRef = useRef(null)
+
+    useEffect(() => {
+        const bodyClass = document.body.classList
+        if(user && !bodyClass.contains('admin-bar')) bodyClass.add('admin-bar')
+        if(!user && bodyClass.contains('admin-bar')) bodyClass.remove('admin-bar')
+    }, [user])
 
     onClickOutside(siteControllsRef, () => {
         setSiteControllsVisible(false)

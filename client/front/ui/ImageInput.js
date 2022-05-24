@@ -39,7 +39,6 @@ export default function ImageInput ({ id: _id, alt='', title='', hotspot=null, c
                 <MediaBrowser
                     onClose={() => setMediaBrowserVisible(false)}
                     selectedImage={!_id ? null : { _id, alt, title, hotspot, crop }}
-                    withSizeSettings
                     onUse={onUse}
                 />
             }

@@ -221,6 +221,10 @@ css`
             margin: 0;
         }
 
+        .admin-bar {
+            padding-bottom: 42px!important;
+        }
+
         .container {
             width: 100%;
             max-width: 1180px;
