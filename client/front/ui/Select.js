@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from 'react'
-import { styled } from 'linaria/react'
 import { MdCancel, MdArrowDropDown } from 'react-icons/md'
 
-import { colors, shadow, shadowHover } from '/styles'
 import { onClickOutside, isObject } from '/front/lib/helpers'
 import Label from './Label'
+
+import styles from '/front/styles/ui/Select.module.scss'
+
+import { colors } from '/front/styles'
 
 export default function Select ({
     value,
@@ -76,7 +78,7 @@ export default function Select ({
                 placeholder="Search"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="search"
+                className={styles.search}
                 ref={searchInputRef}
             />
         }
@@ -86,11 +88,15 @@ export default function Select ({
         if(Array.isArray(value) && multiple) {
             return value.map((item, i) => {
                 return(
-                    <div key={i} className="value-item">
+                    <div key={i} className={[
+                        styles.valueItem,
+                        small && styles.smallValueItem,
+                        optionsVisible && styles.optionsVisibleValueItem,
+                    ].filter(c=>c).join(' ')}>
                         <span>
                             {item.name || item.label || item}
                         </span>
-                        <MdCancel className="empty" onClick={e => removeFromSelected(e, item)} />
+                        <MdCancel className={styles.empty} onClick={e => removeFromSelected(e, item)} />
                     </div>
                 )
             })
@@ -116,204 +122,45 @@ export default function Select ({
         <>
             {label && <Label style={{marginBottom: '4px'}}>{label}</Label>}
 
-            <Wrapper
+            <div
                 ref={selectWrapperRef}
                 className={[
                     className,
-                    invalid && 'invalid',
-                    disabled && 'disabled',
-                    small && 'small',
-                    optionsVisible && 'options-visible'
+                    styles.wrapper,
                 ].filter(c=>c).join(' ')}
                 {...rest}
             >
-
                 <div
-                    className={[`select`, `value-${value}`, (!isEmpty(value) && multiple) ? 'multiple' : null].join(' ')}
+                    className={[
+                        styles.select,
+                        (!isEmpty(value) && multiple) && styles.multiple,
+                        invalid && styles.invalid,
+                        disabled && styles.disabled,
+                        small && styles.small,
+                        optionsVisible && styles.optionsVisible,
+                        small && multiple && styles.smallMultiple
+                    ].filter(c=>c).join(' ')}
                     value={value}
                     onClick={() => !disabled ? setOptionsVisible(!optionsVisible) : null}
                 >
-                    <MdArrowDropDown className="arrow-icon" fill={disabled ? colors.gray : null} />
+                    <MdArrowDropDown fill={colors.uiWhite} />
                     {selectedValue()}
                 </div>
 
                 {optionsVisible &&
-                    <div className="options">
+                    <div className={styles.options}>
                         {options && options.filter(search).map((option, i) => <div
                             key={i}
                             value={isObject(option) ? option.value : option}
-                            className={['option', isSelected(option) ? 'selected' : null].join(' ')}
+                            className={[
+                                isSelected(option) && styles.selected
+                            ].filter(c=>c).join(' ')}
                             onClick={() => onSelect(option)}
                             >{isObject(option) ? option.name : option}</div>
                         )}
                     </div>
                 }
-            </Wrapper>
+            </div>
         </>
     )
 }
-
-const Wrapper = styled.div`
-    position:relative;
-    min-width: 240px;
-    max-width: 100%;
-    display: inline-block;
-
-    .select {
-        min-height: 50px;
-        border: 3px solid transparent;
-        ${shadow};
-        background: #fff;
-        outline:none;
-        border-radius: 10px;
-        padding: 12px 34px 14px 16px;
-        font-size: 18px;
-        line-height: 1;
-        color: ${colors.black};
-        transition: border .2s ease-in-out, box-shadow .2s ease-in-out;
-        position: relative;
-        background-image: none;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        opacity: 1;
-        @media(pointer: fine) { &:hover {
-            box-shadow: none;
-            border: 3px solid ${colors.black};
-        }}
-
-        .arrow-icon {
-            position: absolute;
-            top: 50%;
-            z-index: 1;
-            width:30px;
-            height:30px;
-            transform: translateY(-50%);
-            right: 6px;
-            pointer-events: none;
-        }
-
-        &.multiple {
-            padding-left: 6px;
-            padding-bottom: 0px;
-            padding-top: 6px;
-            flex-wrap:wrap;
-        }
-
-        .value-item {
-            border-radius: 10px;
-            padding: 2px 10px 2px 12px;
-            margin: 0 6px 6px 0;
-            height: 32px;
-            border-radius: 10px;
-            background: ${colors.lightGray};
-            font-size: 16px;
-            line-height:1;
-            display: inline-flex;
-            align-items: center;
-            span {
-                position:relative;
-                top:-1px;
-            }
-            .empty {
-                cursor:pointer;
-                margin-left: 8px;
-                &:hover {
-                    @media(pointer: fine) {
-                        path:last-child {
-                            fill: ${colors.red};
-                        }
-                    }
-                }
-            }
-        }
-
-        .search {
-            padding:0;
-            font-size:16px;
-            line-height: 1;
-            height:auto;
-            border: 0;
-            background: transparent;
-        }
-    }
-    .options {
-        position: absolute;
-        top: calc(100% + 8px);
-        width:100%;
-        min-width:240px;
-        left:0;
-        z-index: 120;
-        background: #fff;
-        ${shadow};
-        border-radius: 12px;
-        transition:all .2s ease-in-out;
-        max-height: 396px;
-        overflow: auto;
-        &:hover {
-            @media(pointer: fine) {
-                ${shadowHover};
-            }
-        }
-        > .option {
-            font-size: 17px;
-            min-height: 36px;
-            padding: 6px 16px 7px;
-            cursor:pointer;
-            transition:all .2s ease-in-out;
-            text-align: left;
-            &:hover {
-                @media(pointer: fine) {
-                    background: ${colors.lightGray};
-                }
-            }
-            &.selected {
-                color: ${colors.primary}!important;
-            }
-        }
-    }
-
-    &.invalid {
-        .select{
-            border: 3px solid ${colors.red};
-            box-shadow: none;
-        }
-    }
-
-    &.small {
-        .select {
-            min-height: 36px;
-            padding: 3px 34px 5px 12px;
-            font-size: 16px;
-            &.multiple {
-                padding-left: 4px;
-                padding-top: 4px;
-                padding-bottom: 0px;
-            }
-            .value-item {
-                margin: 0 4px 4px 0;
-                height: 24px;
-                font-size: 14px;
-            }
-        }
-    }
-
-    &.disabled {
-        .select {
-            cursor: default;
-            opacity: .6;
-            @media(pointer: fine) { &:hover {
-                ${shadow};
-                border: 3px solid transparent;
-            }}
-        }
-    }
-
-    &.optionsVisible {
-        .select {
-            .arrow-icon {
-                transform: translateY(-50%) rotate(180deg);
-            }
-        }
-    }
-`

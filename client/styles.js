@@ -267,6 +267,18 @@ css`
             }
         }
 
+        .fs-16 {
+            font-size: 16px;
+        }
+
+        .fs-14 {
+            font-size: 16px;
+        }
+
+        .fs-18 {
+            font-size: 18px;
+        }
+
         .h-100 {
             height:100%;
         }

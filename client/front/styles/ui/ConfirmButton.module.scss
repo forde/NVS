@@ -1,0 +1,54 @@
+@use './../colors.module';
+
+.wrapper {
+    position: relative;
+    width:100%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.smallWrapper {
+    border-radius: 6px;
+    height: 28px;
+}
+
+.stepWrapper {
+    position:relative;
+    display: flex;
+    align-items: flex-start;
+    width:200%;
+    transition: all .4s ease-in-out;
+}
+
+.step {
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+    transition: all .4s ease-in-out;
+    width:50%;
+}
+
+.step2 {
+    opacity:0;
+    visibility: hidden;
+    flex-wrap: initial;
+}
+
+.step2In {
+    transform: translateX(-50%);
+    > div:last-child {
+        opacity:1;
+        visibility: visible;
+    }
+    > div:first-child {
+        opacity:0;
+        visibility: hidden;
+    }
+}
+
+.delete {
+    color: #fff;
+    background: #f03434!important;
+}

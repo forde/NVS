@@ -7,7 +7,8 @@ import Button from './Button'
 import Input from './Input'
 import Switch from './Switch'
 import { findPageByTitle } from '/api'
-import { shadow, colors } from '/styles'
+
+import styles from '/front/styles/ui/LinkPicker.module.scss'
 
 export default function LinkPicker ({ onLink, onClose, url:_url, title:_title, target:_target, type:_type, id:_id }) {
 
@@ -52,14 +53,14 @@ export default function LinkPicker ({ onLink, onClose, url:_url, title:_title, t
                 onChange={setQuery}
                 style={{zIndex:'40'}}
             />
-            <Results>
+            <div className={styles.results}>
                 {results.map(res => (
-                    <div className="result" key={res._id} onClick={() => onResultClick(res)}>
+                    <div className={styles.result} key={res._id} onClick={() => onResultClick(res)}>
                         <span>{res._type}</span>
                         {res.title}
                     </div>
                 ))}
-            </Results>
+            </div>
         </div>
         <Input
             placeholder="Link title"
@@ -75,7 +76,7 @@ export default function LinkPicker ({ onLink, onClose, url:_url, title:_title, t
             className="mb-24"
             medium
         />
-        <div className="flex-center-y-row mb-24">
+        <div className="flex-center-y-row mb-24 fs-16" >
             <Switch on={target==='_blank'} onChange={val => val ? setTarget('_blank') : setTarget('_self')} style={{marginRight: '8px'}}/> Open link in new tab
         </div>
         <Button
@@ -85,32 +86,3 @@ export default function LinkPicker ({ onLink, onClose, url:_url, title:_title, t
         >Insert link</Button>
     </Modal>
 }
-const Results = styled.div`
-    position: absolute;
-    top: calc(100% - 10px);
-    width:100%;
-    z-index: 30;
-    background: #5D5E5E;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    padding-top: 10px;
-    overflow: hidden;
-    .result {
-        padding: 8px 12px;
-        font-size: 16px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        span {
-            text-transform: uppercase;
-            color: ${colors.darkGray};
-            font-size: 14px;
-            margin-right: 14px;
-        }
-        &:hover {
-            @media(pointer: fine) {
-                background: #7A7B7C;
-            }
-        }
-    }
-`

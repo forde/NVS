@@ -43,7 +43,7 @@ export default function Button ({
                 }
                 if(Icon && children) {
                     return <>
-                        <Icon style={{transform: `scale(${medium || small ? 1.2 : 1.4})`, marginRight: '6px'}}/>
+                        <Icon style={{transform: `scale(${medium || small ? 1.2 : 1.4})`, marginRight: '8px'}}/>
                         {children}
                     </>
                 }

@@ -1,16 +1,7 @@
-import { styled } from 'linaria/react'
-
-import { colors } from '/styles'
+import styles from '/front/styles/ui/Label.module.scss'
 
 export default function Label ({ className, children, ...rest }) {
     return (
-        <StyledLabel className={className} {...rest}>{children}</StyledLabel>
+        <div className={[styles.label, className].filter(c=>c).join(' ')} {...rest}>{children}</div>
     )
 }
-
-const StyledLabel = styled.label`
-    font-size:16px;
-    font-weight: 400;
-    display:block;
-    color: #EAEBEB;
-`

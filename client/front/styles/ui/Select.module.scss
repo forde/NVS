@@ -1,0 +1,170 @@
+@use './../colors.module';
+
+.wrapper {
+    position:relative;
+    min-width: 240px;
+    max-width: 100%;
+    display: inline-block;
+}
+
+.select {
+    min-height: 50px;
+    border: 3px solid transparent;
+    background: colors.$uiTab;
+    outline:none;
+    border-radius: 10px;
+    padding: 13px 34px 13px 16px;
+    font-size: 18px;
+    line-height: 1;
+    color: colors.$uiWhite;
+    transition: border .2s ease-in-out, box-shadow .2s ease-in-out;
+    position: relative;
+    background-image: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    opacity: 1;
+    @media(pointer: fine) { &:hover {
+        box-shadow: none;
+    }}
+    > svg {
+        position: absolute;
+        top: 50%;
+        z-index: 1;
+        width:30px;
+        height:30px;
+        transform: translateY(-50%);
+        right: 6px;
+        pointer-events: none;
+    }
+    input {
+        color: colors.$uiWhite;
+        &::placeholder {
+            color: colors.$darkGray;
+            opacity: 1;
+        }
+    }
+}
+
+.multiple {
+    padding-left: 6px;
+    padding-bottom: 0px;
+    padding-top: 6px;
+    flex-wrap:wrap;
+}
+
+.valueItem {
+    border-radius: 10px;
+    padding: 2px 10px 0px 12px;
+    margin: 0 6px 6px 0;
+    height: 32px;
+    border-radius: 10px;
+    background: colors.$uiTabActive;
+    font-size: 16px;
+    line-height:1;
+    display: inline-flex;
+    align-items: center;
+    span {
+        position:relative;
+        top:-1px;
+    }
+}
+
+.empty {
+    cursor:pointer;
+    margin-left: 8px;
+    &:hover {
+        @media(pointer: fine) {
+            path:last-child {
+                fill: colors.$red;
+            }
+        }
+    }
+}
+
+.search {
+    padding:0;
+    font-size:16px;
+    line-height: 1;
+    height:auto;
+    border: 0;
+    background: transparent;
+}
+
+.options {
+    position: absolute;
+    top: calc(100% + 8px);
+    width:100%;
+    min-width: 240px;
+    left:0;
+    z-index: 120;
+    background: colors.$uiTabActive;
+    border-radius: 12px;
+    transition: all .2s ease-in-out;
+    max-height: 396px;
+    overflow: auto;
+    &:hover {
+        @media(pointer: fine) {
+            //${shadowHover};
+        }
+    }
+    > div {
+        font-size: 17px;
+        min-height: 36px;
+        padding: 6px 16px 7px;
+        cursor:pointer;
+        transition:all .2s ease-in-out;
+        text-align: left;
+        color: colors.$uiWhite;
+        &:hover {
+            @media(pointer: fine) {
+                background: colors.$uiGray;
+            }
+        }
+    }
+}
+.optionsVisibleValueItem {
+    background: colors.$uiTab;
+}
+
+.selected {
+    color: colors.$primary!important;
+}
+
+.invalid{
+    border: 3px solid colors.$red;
+    box-shadow: none;
+}
+
+.small {
+    min-height: 36px;
+    padding: 3px 34px 5px 12px;
+    font-size: 16px;
+}
+.smallMultiple {
+    padding-left: 4px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.smallValueItem {
+    margin: 4px 4px 4px 0;
+    height: 24px;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+
+.disabled {
+    cursor: default;
+    opacity: .6;
+    @media(pointer: fine) { &:hover {
+        border: 3px solid transparent;
+    }}
+}
+
+.optionsVisible {
+    background: colors.$uiTabActive;
+    > svg {
+        transform: translateY(-50%) rotate(180deg);
+    }
+}

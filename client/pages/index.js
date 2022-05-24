@@ -10,13 +10,11 @@ import { success, error } from '/front/lib/message'
 import { client } from '/api'
 import ui from '/front/ui'
 
-import colorsModule from '/front/styles/colors.module.scss'
+import { colors } from '/front/styles'
 
 const imageUrl = source => imageUrlBuilder(client).image(source)
 
 export default function Home() {
-
-    const colors = colorsModule?.locals || colorsModule
 
     const {
         editMode,
@@ -37,6 +35,7 @@ export default function Home() {
         Select,
         Switch,
         Tabs,
+        TagInput,
     } = ui()
 
     const [ demo, setDemo ] = useState({
@@ -53,6 +52,9 @@ export default function Home() {
         tab: 'one',
         radio: 'one',
         checkbox: [],
+        pickerVisible: false,
+        link: {},
+        tags: [],
     })
 
     const change = curry((key, val) => {
@@ -97,8 +99,10 @@ export default function Home() {
                     <div className="mb-24">
                         <Select {...selectProps} />
                         <Select {...selectProps} small />
-                        <Select {...selectProps} disabled label="Label"/>
-                        <Select {...selectProps} disabled small label="Label"/>
+                    </div>
+                    <div className="mb-24 flex">
+                        <div><Select {...selectProps} disabled label="Label"/></div>
+                        <div><Select {...selectProps} disabled small label="Label"/></div>
                     </div>
                     <div className="mb-24">
                         <Select {...multiselectProps} multiple />
@@ -118,6 +122,35 @@ export default function Home() {
                     </div>
                     <div className="mb-24">
                         <Switch on={demo.switch} onChange={change('switch')} />
+                    </div>
+                    <div className="mb-24">
+                        <TagInput
+                            placeholder="Add tag"
+                            label="Tag input"
+                            value={demo.tags}
+                            style={{width: '600px'}}
+                            onChange={change('tags')}
+                        />
+                    </div>
+                    <div className="mb-24">
+                        <TagInput
+                            placeholder="Add tag"
+                            label="Tag input disabled"
+                            value={demo.tags}
+                            disabled
+                            style={{width: '600px'}}
+                            onChange={change('tags')}
+                        />
+                    </div>
+                    <div className="mb-24">
+                        <TagInput
+                            placeholder="Add tag"
+                            label="Tag input small"
+                            value={demo.tags}
+                            small
+                            style={{width: '600px'}}
+                            onChange={change('tags')}
+                        />
                     </div>
                     <div className="mb-24">
                         <Button className="mr-16" onClick={() => console.log('click')}>button</Button>
@@ -184,28 +217,40 @@ export default function Home() {
                         />
                     </div>
                     <Row className="mb-24">
-                        <Col width={3}>
+                        <Col width={4}>
                             <Input value={demo.input} placeholder="Type something" onChange={change('input')} />
                         </Col>
-                        <Col width={3}>
+                        <Col width={4}>
+                            <Input value={demo.input} placeholder="Type something" medium onChange={change('input')} />
+                        </Col>
+                        <Col width={4}>
                             <Input value={demo.input} placeholder="Type something" onChange={change('input')} small />
                         </Col>
-                        <Col width={3}>
+                        <Col width={4}>
                             <Input value={demo.input} onChange={change('input')} disabled label="Label" placeholder="Disabled" />
                         </Col>
-                        <Col width={3}>
+                        <Col width={4}>
+                            <Input value={demo.input} medium placeholder="Type something" label="Label" onChange={change('input')} />
+                        </Col>
+                        <Col width={4}>
                             <Input value={demo.input} onChange={change('input')} small disabled label="Label" placeholder="Disabled" />
                         </Col>
-                        <Col width={3}>
+                        <Col width={4}>
                             <Input value={demo.input} onChange={change('input')} icon={MdSearch} placeholder="Search"/>
                         </Col>
-                        <Col width={3}>
+                        <Col width={4}>
+                            <Input value={demo.input} onChange={change('input')} medium icon={MdSearch} placeholder="Search"/>
+                        </Col>
+                        <Col width={4}>
                             <Input value={demo.input} onChange={change('input')} small icon={MdSearch} placeholder="Search" />
                         </Col>
-                        <Col width={3}>
+                        <Col width={4}>
                             <Input value={demo.input} placeholder="Type something" onChange={change('input')} multiline/>
                         </Col>
-                        <Col width={3}>
+                        <Col width={4}>
+                            <Input value={demo.input} placeholder="Type something" medium onChange={change('input')} multiline/>
+                        </Col>
+                        <Col width={4}>
                             <Input value={demo.input} placeholder="Type something" onChange={change('input')} small multiline/>
                         </Col>
                     </Row>
@@ -277,6 +322,10 @@ export default function Home() {
                             style={{width: '200px'}}
                         />
                     </div>
+                    <div className="container flex">
+                        <ConfirmButton children="confirm button" style={{ width:' 400px', marginRight: '20px'}} />
+                        <ConfirmButton children="confirm button"  style={{ width:' 400px'}} small  />
+                    </div>
                 </div>
                 <div className="mb-24">
                     <Editable
@@ -311,6 +360,17 @@ export default function Home() {
                         src={imageUrl(demo.usedImage).width(400).auto('format').url()}
                         title={demo.usedImage.title}
                         alt={demo.usedImage.alt}
+                    />}
+                </div>
+                <div className="mb-24">
+                    <Button small secondary onClick={() => setDemo({...demo, pickerVisible: true})}>Link picker</Button>
+                    {demo.pickerVisible && <LinkPicker
+                        onLink={l => {
+                            console.log(l)
+                            setDemo({...demo, pickerVisible: false, link: l })
+                        }}
+                        onClose={() => setDemo({...demo, pickerVisible: false })}
+                        {...demo.link}
                     />}
                 </div>
                 <div className="mb-24 flex mt-48">
