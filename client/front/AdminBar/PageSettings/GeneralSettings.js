@@ -4,11 +4,11 @@ import SlugSettings from './SlugSettings'
 
 export default function GeneralSettings ({ page, onChange }) {
 
-    const { Input } = ui()
+    const { Input, Select } = ui()
 
     return (
         <Row>
-            <Col width={12}>
+            <Col width={8}>
                 <Input
                     placeholder="Title"
                     label="Title"
@@ -21,6 +21,16 @@ export default function GeneralSettings ({ page, onChange }) {
                     title={page.title}
                     id={page._id}
                     onChange={val => onChange({ slug: val })}
+                />
+            </Col>
+            <Col width={4}>
+                <Select
+                    label="Type"
+                    value={page._type}
+                    onChange={val => onChange({ _type: val })}
+                    options={['page','post']}
+                    style={{ minWidth:'100%'}}
+                    small
                 />
             </Col>
             <Col width={12}>

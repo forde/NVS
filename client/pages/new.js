@@ -1,13 +1,14 @@
 import { useState, useCallback } from 'react'
 
 import Layout from '/components/Layout'
-import Modules from '/components/modules'
 import { PageContext } from '/context'
+import Modules from '/front/presentation/Modules'
 
 export default function New () {
 
     const [ pageContext, setPageContext ] = useState({
         page: {
+            _type: 'page',
             title: '',
             slug: '',
             modules: [],

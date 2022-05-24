@@ -2,7 +2,7 @@
 
 .wrapper {
     position:relative;
-    min-width: 240px;
+    min-width: 160px;
     max-width: 100%;
     display: inline-block;
 }
@@ -12,7 +12,7 @@
     border: 3px solid transparent;
     background: colors.$uiTab;
     outline:none;
-    border-radius: 10px;
+    border-radius: 8px;
     padding: 13px 34px 13px 16px;
     font-size: 18px;
     line-height: 1;
@@ -54,11 +54,10 @@
 }
 
 .valueItem {
-    border-radius: 10px;
+    border-radius: 8px;
     padding: 2px 10px 0px 12px;
     margin: 0 6px 6px 0;
     height: 32px;
-    border-radius: 10px;
     background: colors.$uiTabActive;
     font-size: 16px;
     line-height:1;
@@ -95,11 +94,11 @@
     position: absolute;
     top: calc(100% + 8px);
     width:100%;
-    min-width: 240px;
+    min-width: 160px;
     left:0;
     z-index: 120;
     background: colors.$uiTabActive;
-    border-radius: 12px;
+    border-radius: 8px;
     transition: all .2s ease-in-out;
     max-height: 396px;
     overflow: auto;
