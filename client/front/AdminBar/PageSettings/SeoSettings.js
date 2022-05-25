@@ -1,4 +1,4 @@
-import { Row, Col } from '/styles'
+import { Row, Col } from '/front/styles'
 import ui from '/front/ui'
 
 export default function SeoSettings ({ page, onChange }) {

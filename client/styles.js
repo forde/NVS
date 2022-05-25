@@ -106,7 +106,7 @@ const headingClasses = () => headingSizes.map(size => `
 |  Grid
 |--------------------------------------------------------------------------
 */
-const colNum = 12
+/*const colNum = 12
 
 const colGap = 16 // px
 
@@ -136,7 +136,7 @@ export const Col = styled.div`
     @media(max-width: 767px) {
         width: calc(${props => getWidth(props.width, 2)}% - 16px);
     }
-`
+`*/
 
 /**
  * Example:
@@ -397,44 +397,7 @@ css`
             }
         }
 
-        input, textarea {
-            width: 100%;
-            padding: 8px 12px;
-            height: 36px;
-            font-size:14px;
-            background: rgba(255,255,255,.6);
-            outline: none;
-            box-shadow: none;
-            border: 1px solid #D8DCE2;
-            color: ${colors.black};
-            border-radius: 5px;
-            line-height: 1;
-            transition: all .2s ease-in-out;
-            font-family: "Arial", sans-serif;
 
-            background-image:-webkit-linear-gradient(hsla(0,0%,100%,0), hsla(0,0%,100%,0))!important;
-
-            @media(pointer: fine) {
-                &:hover {
-                    border-color: ${colors.gray};
-                }
-            }
-
-            &:-webkit-autofill, &:-webkit-autofill:hover, &:-webkit-autofill:focus, &:-webkit-autofill, &:-webkit-autofill-strong-password, &:-webkit-autofill-strong-password-viewable {
-                box-shadow: 0 6px 24px rgba(0,0,0,.06), 0 2px 6px rgba(31,26,34,.06), 0 0 0 50px white inset!important;
-                background-image:-webkit-linear-gradient(hsla(0,0%,100%,0), hsla(0,0%,100%,0))!important;
-            }
-        }
-
-        input[type="text"], textarea {
-            &:read-only {
-                opacity: .6;
-            }
-        }
-
-        textarea {
-            min-height: 100px;
-        }
 
         .modal {
             padding: 20px;

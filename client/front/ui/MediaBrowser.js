@@ -1,8 +1,6 @@
 import { useRef, useState, useCallback, useEffect } from 'react'
-import { styled } from 'linaria/react'
 import imageUrlBuilder from '@sanity/image-url'
 import { MdSearch, MdKeyboardBackspace, MdDesktopMac, MdPhoneIphone } from 'react-icons/md'
-import { curry } from 'ramda'
 import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 
@@ -14,7 +12,6 @@ import Select from './Select'
 import { percentOfPrecise, percentToNumPrecise, truncate, bytesToSize, trim2 } from '/front/lib/helpers'
 import useWindowWidth from '/front/lib/hooks/useWindowWidth'
 import useFirstRender from '/front/lib/hooks/useFirstRender'
-import { colors } from '/styles'
 import Loader from './Loader'
 import ConfirmButton from './ConfirmButton'
 

@@ -1,8 +1,6 @@
 import { useState } from 'react'
-import { styled } from 'linaria/react'
 import { MdCancel } from 'react-icons/md'
 
-import { shadow, colors } from '/styles'
 import Label from './Label'
 import Button from './Button'
 

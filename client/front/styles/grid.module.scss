@@ -1,0 +1,40 @@
+@use 'sass:math';
+
+$colGap: 16;
+$colNum: 12;
+$colGapPx: $colGap + px;
+
+@function trim2($val) {
+    @return calc(math.floor($val * 100) / 100);
+}
+
+@function colWidth($col) {
+    $colWidthPerc: trim2(calc(calc(100 / $colNum) * $col)) * 1%;
+    @return calc($colWidthPerc - $colGapPx);
+}
+
+$rowMarginPx: (-1 * trim2(calc($colGap / 2))) + px;
+$colMargin: trim2(calc($colGap / 2)) + px;
+
+.row {
+    display: flex;
+    width: calc(100% + $colGapPx);
+    margin-left: $rowMarginPx;
+    margin-right: $rowMarginPx;
+    flex-wrap: wrap;
+}
+
+.col {
+    margin-left: $colMargin;
+    margin-right: $colMargin;
+}
+
+$cols: (1,2,3,4,5,6,7,8,9,10,11,12);
+
+@each $c in $cols {
+    .col-#{$c} { width: colWidth($c); }
+    .col-#{$c}-m { @media (min-width: 768px) and (max-width: 1024px) { width: colWidth($c); } }
+    .col-#{$c}-s { @media(max-width: 767px) { width: colWidth($c); } }
+}
+
+

@@ -1,6 +1,6 @@
-import { Row, Col } from '/styles'
 import ui from '/front/ui'
 import SlugSettings from './SlugSettings'
+import { Row, Col } from '/front/styles'
 
 export default function GeneralSettings ({ page, onChange }) {
 

@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import { MdOutlineAddBox } from 'react-icons/md'
 
-import { Row, Col } from '/styles'
 import { PageContext } from '/context'
 import ui from '/front/ui'
 import id from '/front/lib/id'
 
 import styles from '/front/styles/AdminBar/ModuleBrowser.module.scss'
+import { Row, Col } from '/front/styles'
 
 export default function ModuleBrowser () {
 

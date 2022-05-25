@@ -1,7 +1,6 @@
 {
     "presets": ["next/babel", "linaria/babel"],
     "plugins": [
-        ["ramda"],
         ["babel-plugin-root-import", {
             "paths": [
                 {

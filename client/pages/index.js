@@ -4,13 +4,12 @@ import { MdAddCircle, MdSearch } from 'react-icons/md'
 import imageUrlBuilder from '@sanity/image-url'
 import xor from 'lodash.xor'
 
-import { Row, Col } from '/styles'
 import Layout from '/components/Layout'
 import { success, error } from '/front/lib/message'
 import { client } from '/api'
 import ui from '/front/ui'
 
-import { colors } from '/front/styles'
+import { colors, Row, Col } from '/front/styles'
 
 const imageUrl = source => imageUrlBuilder(client).image(source)
 
@@ -80,11 +79,16 @@ export default function Home() {
     return(
         <Layout>
             <div className="container">
+                <Row>
+                    <Col width={6}>col 6</Col>
+                    <Col width={[3,6]}>col 3,6</Col>
+                    <Col width={[3,6,12]}>col 3,6,12</Col>
+                </Row>
                 <h1 className="mb-24">Heading 1</h1>
                 <h2 className="mb-24">Heading 2</h2>
                 <h3 className="mb-24">Heading 3</h3>
                 <div className="mb-24">
-                    <Button tertiary small onClick={() => change('modal')(true)}>Open modal</Button>
+                    <Button small onClick={() => change('modal')(true)}>Open modal</Button>
                     {demo.modal && <Modal onClose={() => change('modal')(false)} title="Modal">Modal content...</Modal>}
                 </div>
                 <Row>
