@@ -10,7 +10,7 @@ export default function Layout({ style={}, children, page }) {
                 {children}
             </div>
             <Footer/>
-            <AdminBar/>
+            <AdminBar />
         </>
     )
 }

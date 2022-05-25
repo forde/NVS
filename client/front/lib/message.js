@@ -6,6 +6,7 @@ const appendMessage = (className='', text='', onStage=3000) => {
 
     const container = document.createElement('div')
     container.classList.add('container')
+    container.classList.add('message-inner')
     container.innerHTML = text
 
     message.appendChild(container)
