@@ -11,6 +11,8 @@ import useFirstRender from '/front/lib/hooks/useFirstRender'
 import blockContentToDraft from '/front/lib/blockContentToDraft'
 import draftToBlockContent from '/front/lib/draftToBlockContent'
 
+import styles from '/front/styles/ui/RichTextEditor.module.scss'
+
 const Editor = dynamic(
     () => import('react-draft-wysiwyg').then(mod => mod.Editor),
     { ssr: false }
@@ -95,51 +97,8 @@ export default function RichTextEditor({
     }
 
     return(
-        <div ref={wrapperRef}>
-            <style jsx global>{`
-                .draft-wrapper {
-                    padding-top:36px;
-                }
-                .draft-wrapper:hover .draft-toolbar  {
-                    display: flex;
-                }
-                .draft-toolbar {
-                    display: none;
-                    border: none;
-                    padding: 0;
-                    margin-left: -3px;
-                    top: 3px;
-                    position: absolute;
-                }
-                .draft-toolbar.fixed {
-                    visibility: visible;
-                    position: fixed;
-                    background: rgba(255,255,255,.8);
-                    z-index: 100;
-                }
-                .rdw-option-wrapper, .rdw-dropdown-wrapper {
-                    height: 30px;
-                    min-width: 30px;
-                    border: 2px solid #efeff1;
-                    border-radius: 5px;
-                    box-shadow: none;
-                }
-                .rdw-option-wrapper:hover, .rdw-dropdown-wrapper:hover, .rdw-option-active {
-                    box-shadow: none;
-                    border: 2px solid #141414;
-                }
-                .rdw-dropdown-wrapper {
-                    min-width:50px;
-                }
-                .rdw-dropdown-carettoopen {
-                    top: 42%;
-                }
-                .draft-editor .public-DraftStyleDefault-block {
-                    margin: 0;
-                }
-            `}</style>
+        <div ref={wrapperRef} className={styles.wrapper}>
             <Editor
-
                 editorState={editorState}
                 toolbarClassName="draft-toolbar"
                 wrapperClassName="draft-wrapper"

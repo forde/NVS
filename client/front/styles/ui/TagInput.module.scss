@@ -23,7 +23,7 @@
     margin: 0 6px 6px 0;
     height: 32px;
     border-radius: 8px;
-    background: colors.$lightGray;
+    background: colors.$uiTabActive;
     color: colors.$black;
     font-size: 16px;
     line-height:1;
@@ -32,10 +32,14 @@
     span {
         position:relative;
         top:-1px;
+        color: colors.$uiWhite;
     }
     > svg {
         cursor:pointer;
         margin-left: 8px;
+        path:last-child {
+            fill: colors.$uiWhite;
+        }
         &:hover {
             @media(pointer: fine) {
                 path:last-child {
@@ -109,6 +113,10 @@
 .focused {
     box-shadow: none;
     background: colors.$uiTabActive;
+}
+
+.valueItemFocused {
+    background: colors.$uiTab;
 }
 
 .disabled {

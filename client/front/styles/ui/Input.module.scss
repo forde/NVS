@@ -16,6 +16,9 @@
         -webkit-font-smoothing: antialiased;
         background-color: colors.$uiTab;
         color: colors.$uiWhite;
+        -moz-osx-font-smoothing: grayscale;
+        font-family: "Arial", sans-serif;
+        font-size: 18px;
         &::placeholder {
             color: colors.$darkGray;
             opacity: 1;

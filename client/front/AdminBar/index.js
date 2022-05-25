@@ -8,6 +8,7 @@ import { onClickOutside, goTo } from '/front/lib/helpers'
 import HorisontalScroller from '/front/ui/HorisontalScroller'
 
 import styles from '/front/styles/AdminBar/AdminBar.module.scss'
+import global from '/front/styles/global.module.scss'
 
 import config from '/front.config'
 
@@ -32,7 +33,7 @@ export default function AdminBar () {
     if(!user) return null
 
     return (
-        <div className={styles.wrapper}>
+        <div className={[global, styles.wrapper].filter(c=>c).join(' ')}>
             <HorisontalScroller WrapperTag="ul">
                 <li
                     onClick={() => setSiteControllsVisible(!siteControllsVisible)}

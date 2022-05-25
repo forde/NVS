@@ -182,7 +182,7 @@ css`
             justify-content: space-between;
         }
 
-        ${distanceClasses()}
+        //${distanceClasses()}
 
         ${headingClasses()}
 
@@ -391,32 +391,6 @@ css`
             outline: 1px dashed transparent;
             &:hover {
                 outline: 1px dashed #95939F;
-            }
-        }
-
-        .message {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 99999;
-            font-size: 18px;
-            transform: translateY(-100%);
-            transition: all .3s ease-in-out;
-            > div {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                height: 64px;
-            }
-            &.success {
-                background: ${colors.green};
-            }
-            &.error {
-                background: ${colors.red};
-            }
-            &.visible {
-                transform: translateY(0%);
             }
         }
 

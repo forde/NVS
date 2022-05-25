@@ -51,6 +51,7 @@ export default function TagInput ({
                     <div key={i} className={[
                         styles.valueItem,
                         small && styles.smallValueItem,
+                        focused && styles.valueItemFocused,
                     ].filter(c=>c).join(' ')}>
                         <span> {item}</span>
                         <MdCancel onClick={e => removeItem(e, item)} />

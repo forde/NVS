@@ -221,40 +221,40 @@ export default function Home() {
                         />
                     </div>
                     <Row className="mb-24">
-                        <Col width={4}>
+                        <Col width={4} className="mb-24">
                             <Input value={demo.input} placeholder="Type something" onChange={change('input')} />
                         </Col>
-                        <Col width={4}>
+                        <Col width={4} className="mb-24">
                             <Input value={demo.input} placeholder="Type something" medium onChange={change('input')} />
                         </Col>
-                        <Col width={4}>
+                        <Col width={4} className="mb-24">
                             <Input value={demo.input} placeholder="Type something" onChange={change('input')} small />
                         </Col>
-                        <Col width={4}>
+                        <Col width={4} className="mb-24">
                             <Input value={demo.input} onChange={change('input')} disabled label="Label" placeholder="Disabled" />
                         </Col>
-                        <Col width={4}>
+                        <Col width={4} className="mb-24">
                             <Input value={demo.input} medium placeholder="Type something" label="Label" onChange={change('input')} />
                         </Col>
-                        <Col width={4}>
+                        <Col width={4} className="mb-24">
                             <Input value={demo.input} onChange={change('input')} small disabled label="Label" placeholder="Disabled" />
                         </Col>
-                        <Col width={4}>
+                        <Col width={4} className="mb-24">
                             <Input value={demo.input} onChange={change('input')} icon={MdSearch} placeholder="Search"/>
                         </Col>
-                        <Col width={4}>
+                        <Col width={4} className="mb-24">
                             <Input value={demo.input} onChange={change('input')} medium icon={MdSearch} placeholder="Search"/>
                         </Col>
-                        <Col width={4}>
+                        <Col width={4} className="mb-24">
                             <Input value={demo.input} onChange={change('input')} small icon={MdSearch} placeholder="Search" />
                         </Col>
-                        <Col width={4}>
+                        <Col width={4} className="mb-24">
                             <Input value={demo.input} placeholder="Type something" onChange={change('input')} multiline/>
                         </Col>
-                        <Col width={4}>
+                        <Col width={4} className="mb-24">
                             <Input value={demo.input} placeholder="Type something" medium onChange={change('input')} multiline/>
                         </Col>
-                        <Col width={4}>
+                        <Col width={4} className="mb-24">
                             <Input value={demo.input} placeholder="Type something" onChange={change('input')} small multiline/>
                         </Col>
                     </Row>

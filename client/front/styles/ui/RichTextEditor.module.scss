@@ -1,0 +1,45 @@
+.wrapper {
+    position:relative;
+}
+:global(.draft-wrapper) {
+    padding-top:36px;
+}
+:global(.draft-wrapper:hover .draft-toolbar) {
+    display: flex;
+}
+:global(.draft-toolbar) {
+    display: none;
+    border: none;
+    padding: 0;
+    margin-left: -3px;
+    top: 3px;
+    position: absolute;
+}
+:global(.draft-toolbar.fixed) {
+    visibility: visible;
+    position: fixed;
+    background: rgba(255,255,255,.8);
+    z-index: 100;
+}
+:global(.rdw-option-wrapper), :global(.rdw-dropdown-wrapper) {
+    height: 30px;
+    min-width: 30px;
+    border: 2px solid #efeff1;
+    border-radius: 5px;
+    box-shadow: none;
+}
+:global(.rdw-option-wrapper:hover),
+:global(.rdw-dropdown-wrapper:hover),
+:global(.rdw-option-active) {
+    box-shadow: none;
+    border: 2px solid #141414;
+}
+:global(.rdw-dropdown-wrapper) {
+    min-width:50px;
+}
+:global(.rdw-dropdown-carettoopen) {
+    top: 42%;
+}
+:global(.draft-editor .public-DraftStyleDefault-block) {
+    margin: 0;
+}
