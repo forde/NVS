@@ -92,13 +92,13 @@
 }
 :global(.front-image-editor .ReactCrop) {
     max-height:100%;
-    > div {
-        height: 100%;
-        width: fit-content;
-        img {
-            max-height: 100%;
-        }
-    }
+}
+:global(.front-image-editor .ReactCrop > div) {
+    height: 100%;
+    width: fit-content;
+}
+:global(.front-image-editor .ReactCrop > div img) {
+    max-height: 100%;
 }
 :global(.front-image-editor .ReactCrop__drag-elements),
 :global(.front-image-editor .ReactCrop__rule-of-thirds-hz),

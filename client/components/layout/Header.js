@@ -1,7 +1,6 @@
 import { css } from 'linaria'
 import Link from 'next/link'
 
-import { colors } from '/styles'
 import AuthStatus from '/components/AuthStatus'
 import Menu from './Menu'
 
@@ -27,5 +26,5 @@ export default function Header () {
 
 const header = css`
     height: 64px;
-    background: ${colors.lightGray};
+    background: #F1F1F3;
 `

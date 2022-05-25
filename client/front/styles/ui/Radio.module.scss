@@ -3,6 +3,8 @@
 .radio {
     min-height:28px;
     position: relative;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
     input {
         position:absolute;
         z-index:-1;
@@ -37,13 +39,13 @@
 }
 
 .label {
-    font-size: 18px;
+    font-size: 16px;
     display: block;
     line-height: 1;
 }
 
 .description {
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1;
     padding-top: 6px;
     color: colors.$darkGray;

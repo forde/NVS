@@ -1,5 +1,4 @@
 import { css } from 'linaria'
-import { colors } from '/styles'
 
 export default function Footer () {
 
@@ -12,5 +11,5 @@ export default function Footer () {
 
 const footer = css`
     height: 64px;
-    background: ${colors.lightGray};
+    background: #F1F1F3;
 `

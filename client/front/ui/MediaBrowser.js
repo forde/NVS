@@ -59,8 +59,6 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
 
     const firstRender = useFirstRender()
 
-    const debug = false
-
     useEffect(() => {
         if(!selectedImage || !selectedImage.crop || !croppedImageRef.current) return
 
@@ -90,7 +88,7 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
             if(!_selectedImage?.metadata) {
                 (async () => {
                     const metadata = await getImageMeta(_selectedImage?._id)
-                    console.log('Image metadata fetched', metadata);
+                    //console.log('Image metadata fetched', metadata);
                     setSelectedImage({ ..._selectedImage, ...(metadata || {}) })
                 })()
             } else {
@@ -128,9 +126,9 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
         setCrop({ ...crop, aspect: ratioLock })
     }, [ratioLock])
 
-    const onImageReadyToCrop = useCallback(img => {
-        img.crossOrigin = 'Anonymous'
-        croppedImageRef.current = img
+    const onImageReadyToCrop = useCallback(e => {
+        e.target.crossOrigin = 'Anonymous'
+        croppedImageRef.current = e.target
     }, [])
 
     const imageUrl = source => imageUrlBuilder(client).image(source)
@@ -289,21 +287,25 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
                     :
                     <div className={styles.imageDetails}>
                         <div className={styles.imageContainer} ref={imageContainerRef}>
-                            <div debug={debug} className="front-image-editor" style={{maxWidth:imageEditorMaxWidth}}>
+                            <div className="front-image-editor" style={{maxWidth:imageEditorMaxWidth}}>
                                 <ReactCrop
-                                    src={imageUrl({
-                                        ...selectedImage,
-                                        crop: null, // we always show full image here so discard crop/hotspot if any
-                                        hotspot: null, // we always show full image here so discard crop/hotspot if any
-                                    }).width(1000).url()}
                                     crop={crop}
                                     onChange={setCrop}
-                                    onImageLoaded={onImageReadyToCrop}
                                     onComplete={setCompletedCrop}
                                     units="%"
                                     crossorigin="Anonymous"
                                     ruleOfThirds={true}
-                                />
+                                    aspect={ratioLock}
+                                >
+                                    <img
+                                        src={imageUrl({
+                                            ...selectedImage,
+                                            crop: null, // we always show full image here so discard crop/hotspot if any
+                                            hotspot: null, // we always show full image here so discard crop/hotspot if any
+                                        }).width(1200).url()}
+                                        onLoad={onImageReadyToCrop}
+                                    />
+                                </ReactCrop>
                                 <canvas/>
                             </div>
                         </div>

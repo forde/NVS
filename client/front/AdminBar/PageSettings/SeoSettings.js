@@ -7,7 +7,7 @@ export default function SeoSettings ({ page, onChange }) {
 
     return (
         <Row>
-            <Col width={12}>
+            <Col width={12} className="mb-24">
                 <Input
                     placeholder="Title"
                     label="Title"
@@ -16,7 +16,7 @@ export default function SeoSettings ({ page, onChange }) {
                     onChange={val => onChange({ seo: { ...page.seo, title: val } })}
                 />
             </Col>
-            <Col width={12}>
+            <Col width={12} className="mb-24">
                 <Input
                     placeholder="Description"
                     label="Description"
@@ -26,7 +26,7 @@ export default function SeoSettings ({ page, onChange }) {
                     onChange={val => onChange({ seo: { ...page.seo, description: val } })}
                 />
             </Col>
-            <Col width={12}>
+            <Col width={12} className="mb-24">
                 <TagInput
                     placeholder="Add keyword"
                     label="Keywords"

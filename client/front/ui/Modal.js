@@ -33,7 +33,7 @@ export default function Modal ({
     const Wrapper = usePortal ? Portal : 'div'
 
     return (
-        <Wrapper>
+        <Wrapper className="front">
             <div id="modal" className={styles.overlay} onClick={e => onClose && e.target.id === 'modal' ? onClose() : null}>
                 <div>
                     <div

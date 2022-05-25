@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 
 import { PageContext } from '/context'
 import ui from '/front/ui'
-import { classes, truncate } from '/front/lib/helpers'
+import { truncate } from '/front/lib/helpers'
 import GeneralSettings from './GeneralSettings'
 import SeoSettings from './SeoSettings'
 
@@ -57,7 +57,7 @@ export default function PageSettings () {
                         >
                             {tab === 'general' && <GeneralSettings page={page} onChange={changePage} />}
                             {tab === 'seo' && <SeoSettings page={page} onChange={changePage} />}
-                            {tab === 'data' && <pre>{JSON.stringify(page, null, 4)}</pre>}
+                            {tab === 'data' && <pre className={styles.pre}>{JSON.stringify(page, null, 4)}</pre>}
                         </Modal>
                     }
                 </>

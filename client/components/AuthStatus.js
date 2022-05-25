@@ -22,7 +22,7 @@ export default function AuthStatus () {
 
 const Wrapper = styled.div`
     line-height: 1;
-    font-size:16px;
+    font-size:18px;
     display: flex;
     align-items: center;
     svg {

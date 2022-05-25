@@ -1,6 +1,8 @@
 import { useRef, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
+import styles from '/front/styles/ui/Editable.module.scss'
+
 export default function Editable({ value, placeholder, onChange, style, className, tag, ref, multiline=false, ...rest }) {
 
     const state = useRef({ value, prevValue: null, key: null })
@@ -63,9 +65,9 @@ export default function Editable({ value, placeholder, onChange, style, classNam
                 onInput={onInput}
                 onPaste={onPaste}
                 style={editableStyle}
-                className={`editable ${className}`}
+                className={[styles.editable, className].filter(c=>c).join(' ')}
                 onKeyDown={e => {
-                    if(!multiline && e.keyCode === 13) e.preventDefault()
+                    if(!multiline && (e.key || e.keyCode) === 13) e.preventDefault()
                 }}
                 {...rest}
             />

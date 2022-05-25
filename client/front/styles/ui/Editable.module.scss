@@ -1,0 +1,7 @@
+.editable {
+    transition: outline .2s ease-in-out;
+    outline: 1px dashed transparent;
+    @media (pointer: fine) { &:hover {
+        outline: 1px dashed #95939F;
+    }}
+}

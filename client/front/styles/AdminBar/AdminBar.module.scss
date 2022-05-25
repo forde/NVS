@@ -8,6 +8,7 @@
     left: 0;
     width: 100%;
     z-index: 9999;
+    font-family: 'Arial', sans-serif;
     > div > ul {
         display: flex;
         li {
@@ -19,6 +20,7 @@
             align-items: center;
             position: relative;
             color: #E7E7E7;
+            font-family: 'Arial', sans-serif;
             font-size: 16px;
             cursor: pointer;
             -webkit-font-smoothing: antialiased;

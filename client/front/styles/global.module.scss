@@ -19,6 +19,11 @@ $distances:
     }
 }
 
+:global(.front) {
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+}
+
 :global(.message) {
     position: fixed;
     top: 0;
@@ -33,6 +38,8 @@ $distances:
         flex-direction: column;
         justify-content: center;
         height: 64px;
+        font-family: 'Arial', sans-serif;
+        color: colors.$black;
     }
 }
 :global(.message.success) {
@@ -43,4 +50,130 @@ $distances:
 }
 :global(.message.visible) {
     transform: translateY(0%);
+}
+
+:global(.admin-bar) {
+    padding-bottom: 42px!important;
+}
+
+:global(.container) {
+    width: 100%;
+    max-width: 1180px;
+    margin-left: auto;
+    margin-right: auto;
+    @media (max-width: 1180px) {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+:global(.block) {
+    display: block;
+}
+
+:global(.oh) {
+    overflow: hidden;
+    padding-right: 22px;
+}
+
+:global(.square) {
+    &:after {
+        content: "";
+        display: block;
+        padding-bottom: 100%;
+    }
+    > div {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+}
+
+:global(.fs-16) {
+    font-size: 16px;
+}
+
+:global(.fs-14) {
+    font-size: 16px;
+}
+
+:global(.fs-18) {
+    font-size: 18px;
+}
+
+:global(.h-100) {
+    height:100%;
+}
+
+:global(.h-100i) {
+    height:100%!important;
+}
+
+:global(.w-100) {
+    width: 100%;
+}
+
+:global(.w-100i) {
+    width: 100%!important;
+}
+
+:global(.relative) {
+    position: relative;
+}
+
+:global(.absolute) {
+    position: absolute;
+}
+
+:global(.clickable) {
+    cursor:pointer;
+}
+
+:global(.center-y) {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+:global(.flex) {
+    display: flex;
+}
+
+:global(.wrap) {
+    flex-wrap: wrap;
+}
+
+:global(.flex-center) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+:global(.flex-center-y) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+:global(.flex-spread-x) {
+    display: flex;
+    justify-content: space-between;
+}
+
+:global(.flex-center-x) {
+    display: flex;
+    justify-content: center;
+}
+
+:global(.flex-center-y-row) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+:global(.align-center) {
+    display: flex;
+    align-items: center;
 }
