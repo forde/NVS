@@ -20,7 +20,7 @@ export default memo(function Heading ({ module, onChange }) {
     //console.log('Module', module)
 
     return(
-        <div className="container mb-60">
+        <div className="container ft-mb-60">
             {editMode ? <Editable
                 value={content || ''}
                 onChange={val => onChange(_key, { content: val })}

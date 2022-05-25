@@ -22,8 +22,8 @@ export default function AdminBar () {
 
     useEffect(() => {
         const bodyClass = document.body.classList
-        if(user && !bodyClass.contains('admin-bar')) bodyClass.add('admin-bar')
-        if(!user && bodyClass.contains('admin-bar')) bodyClass.remove('admin-bar')
+        if(user && !bodyClass.contains('ft-admin-bar')) bodyClass.add('ft-admin-bar')
+        if(!user && bodyClass.contains('ft-admin-bar')) bodyClass.remove('ft-admin-bar')
     }, [user])
 
     onClickOutside(siteControllsRef, () => {

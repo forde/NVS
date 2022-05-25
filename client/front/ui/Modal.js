@@ -23,10 +23,10 @@ export default function Modal ({
     useEffect(() => {
         const onKeyup = e => e.key === 'Escape' ? onClose() : null
         window.addEventListener('keyup', onKeyup)
-        document.getElementsByTagName('html')[0].classList.add('oh')
+        document.getElementsByTagName('html')[0].classList.add('ft-oh')
         return () => {
             window.removeEventListener('keyup', onKeyup)
-            document.getElementsByTagName('html')[0].classList.remove('oh')
+            document.getElementsByTagName('html')[0].classList.remove('ft-oh')
         }
     }, [])
 

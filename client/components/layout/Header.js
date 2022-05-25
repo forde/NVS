@@ -6,9 +6,9 @@ import Menu from './Menu'
 
 export default function Header () {
     return(
-        <div className={`${header} flex-center-y`}>
-            <div className="container flex-spread-x align-center">
-                <div className="flex-center-y-row">
+        <div className={`${header}`}>
+            <div className="container">
+                <div className="">
                     <Link href="/">
                         <a>
                             <img src="/logo.svg" alt="logo" style={{height: '24px', display: 'block', marginRight: '24px'}}/>
@@ -27,4 +27,18 @@ export default function Header () {
 const header = css`
     height: 64px;
     background: #F1F1F3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    > div {
+        display: flex;
+        justify-content: space-between;
+        display: flex;
+        align-items: center;
+        > div {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+    }
 `

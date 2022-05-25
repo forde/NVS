@@ -245,7 +245,7 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
                         <Input
                             icon={MdSearch}
                             small
-                            className="search-input mr-16"
+                            className="search-input ft-mr-16"
                             placeholder="Search"
                             value={search}
                             onChange={setSearch}
@@ -318,7 +318,7 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
                                 </span>
                                 <Select
                                     small
-                                    className="mb-24"
+                                    className="ft-mb-24"
                                     label="Crop ratio"
                                     value={ratioLock}
                                     onChange={onCropRatioChange}
@@ -333,25 +333,25 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
                                 />
                                 <Input
                                     medium
-                                    className="mb-24"
+                                    className="ft-mb-24"
                                     label="Image title"
                                     value={selectedImageTitle}
                                     onChange={val => setSelectedImageTitle(val)}
                                 />
                                 <Input
                                     medium
-                                    className="mb-24"
+                                    className="ft-mb-24"
                                     label="Image alt text"
                                     value={selectedImageAlt}
                                     onChange={val => setSelectedImageAlt(val)}
                                 />
                                 {withSizeSettings &&
-                                    <div className="size-settings mb-24 flex">
-                                        <div className="flex align-center">
+                                    <div className="ft-mb-24 ft-flex">
+                                        <div className="ft-flex ft-align-center">
                                             <MdDesktopMac style={{minWidth:'24px', marginRight: '4px'}}/>
                                             <Input small suffix="px" value={desktopWidth} onChange={setDesktopWidth} />
                                         </div>
-                                        <div className="flex align-center">
+                                        <div className="ft-flex ft-align-center">
                                             <MdPhoneIphone style={{minWidth:'24px', marginLeft: '4px'}}/>
                                             <Input small suffix="px" value={mobileWidth} onChange={setMobileWidth} />
                                         </div>
@@ -360,7 +360,7 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
                                 <Button
                                     medium
                                     onClick={useImage}
-                                    className="w-100i mb-24"
+                                    className="ft-w-100i ft-mb-24"
                                 >Use image</Button>
                                 <ConfirmButton
                                     medium

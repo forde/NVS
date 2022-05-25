@@ -44,7 +44,7 @@ export default function LinkPicker ({ onLink, onClose, url:_url, title:_title, t
         width="500px"
         title="Link editor"
     >
-        <div className="relative mb-24">
+        <div className="ft-relative ft-mb-24">
             <Input
                 placeholder="Link to existing page"
                 icon={MdSearch}
@@ -66,17 +66,17 @@ export default function LinkPicker ({ onLink, onClose, url:_url, title:_title, t
             placeholder="Link title"
             value={title}
             onChange={setTitle}
-            className="mb-24"
+            className="ft-mb-24"
             medium
         />
         <Input
             placeholder="Link URL"
             value={url}
             onChange={setUrl}
-            className="mb-24"
+            className="ft-mb-24"
             medium
         />
-        <div className="flex-center-y-row mb-24 fs-16" >
+        <div className="ft-flex-center-y-row ft-mb-24 ft-fs-16" >
             <Switch on={target==='_blank'} onChange={val => val ? setTarget('_blank') : setTarget('_self')} style={{marginRight: '8px'}}/> Open link in new tab
         </div>
         <Button

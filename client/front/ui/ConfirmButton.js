@@ -19,10 +19,10 @@ export default function ConfirmButton({ className, style, small, medium, childre
         >
             <div className={[step === 2 && styles.step2In, styles.stepWrapper].filter(c=>c).join(' ')}>
                 <div className={styles.step}>
-                    <Button tertiary small={small} medium={medium} onClick={() => setStep(2)} className={`${fullWidth ? 'w-100i' : ''}`}>{children}</Button>
+                    <Button tertiary small={small} medium={medium} onClick={() => setStep(2)} className={`${fullWidth ? 'ft-w-100i' : ''}`}>{children}</Button>
                 </div>
                 <div className={[styles.step, styles.step2].join(' ')}>
-                    <Button tertiary small={small} medium={medium} disabled={busy} className="mr-24" onClick={() => setStep(1)}>Cancel</Button>
+                    <Button tertiary small={small} medium={medium} disabled={busy} className="ft-mr-24" onClick={() => setStep(1)}>Cancel</Button>
                     <Button small={small} medium={medium} busy={busy} onClick={async () => {
                         await onConfirm()
                         if(step) setStep(1)

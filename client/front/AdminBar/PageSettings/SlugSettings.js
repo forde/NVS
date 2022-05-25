@@ -57,18 +57,18 @@ export default function SlugSettings ({ slug, title, id, onChange }) {
                 {process.env.NEXT_PUBLIC_APP_URL}/<span onClick={edit}>{slug || toSlug(title)}</span>
             </Label>}
             {editedSlug !== null &&
-                <div className="flex">
+                <div className="ft-flex">
                     <Input
                         small
                         value={editedSlug}
                         onChange={setEditedSlug}
-                        className="mr-8"
+                        className="ft-mr-8"
                     />
                     <Button
                         small
                         disabled={editedSlug === '' || !editedSlugValid}
                         onClick={set}
-                        className="mr-8"
+                        className="ft-mr-8"
                     >Set</Button>
                     <Button
                         small

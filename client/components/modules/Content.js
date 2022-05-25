@@ -8,7 +8,7 @@ export default memo(function Content ({ module, onChange }) {
     const { editMode, RichTextEditor } = ui()
 
     return(
-        <div className="container mb-60">
+        <div className="container ft-mb-60">
             {editMode ?
                 <RichTextEditor
                     content={module.content}

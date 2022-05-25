@@ -24,16 +24,16 @@ const distances = [
 
 const distanceClasses = () => distanceProps.map(set =>
     distances.map(dist => `
-        .${set.class}-${dist.desktop} {
+        .ft-${set.class}-${dist.desktop} {
             ${set.prop}: ${dist.desktop}px;
         }
         @media (min-width: 768px) and (max-width: 1024px) {
-            .${set.class}-${dist.desktop} {
+            .ft-${set.class}-${dist.desktop} {
                 ${set.prop}: ${dist.tablet}px;
             }
         }
         @media(max-width: 767px) {
-            .${set.class}-${dist.desktop} {
+            .ft-${set.class}-${dist.desktop} {
                 ${set.prop}: ${dist.mobile}px;
             }
         }
@@ -49,7 +49,7 @@ export default `
         font-size: 18px;
     }
 
-    .message {
+    .ft-message {
         position: fixed;
         top: 0;
         left: 0;
@@ -59,7 +59,7 @@ export default `
         transform: translateY(-100%);
         transition: all .3s ease-in-out;
     }
-    .message-inner {
+    .ft-message-inner {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -67,48 +67,48 @@ export default `
         font-family: 'Arial', sans-serif;
         color: ${colors.black};
     }
-    .message.success {
+    .ft-message.ft-success {
         background: ${colors.green};
     }
-    .message.error {
+    .ft-message.ft-error {
         background: ${colors.red};
     }
-    .message.visible {
+    .ft-message.ft-visible {
         transform: translateY(0%);
     }
 
-    .admin-bar {
+    .ft-admin-bar {
         padding-bottom: 42px!important;
     }
 
-    .container {
+    .ft-container {
         width: 100%;
         max-width: ${containerWidth};
         margin-left: auto;
         margin-right: auto;
     }
     @media (max-width: ${containerWidth}) {
-        .container {
+        .ft-container {
             padding-left: 20px;
             padding-right: 20px;
         }
     }
 
-    .block {
+    .ft-block {
         display: block;
     }
 
-    .oh {
+    .ft-oh {
         overflow: hidden;
         padding-right: 22px;
     }
 
-    .square:after {
+    .ft-square:after {
         content: "";
         display: block;
         padding-bottom: 100%;
     }
-    .square > div {
+    .ft-square > div {
         position: absolute;
         top: 0;
         left: 0;
@@ -116,89 +116,89 @@ export default `
         bottom: 0;
     }
 
-    .fs-16 {
+    .ft-fs-16 {
         font-size: 16px;
     }
 
-    .fs-14 {
+    .ft-fs-14 {
         font-size: 16px;
     }
 
-    .fs-18 {
+    .ft-fs-18 {
         font-size: 18px;
     }
 
-    .h-100 {
+    .ft-h-100 {
         height:100%;
     }
 
-    .h-100i {
+    .ft-h-100i {
         height:100%!important;
     }
 
-    .w-100 {
+    .ft-w-100 {
         width: 100%;
     }
 
-    .w-100i {
+    .ft-w-100i {
         width: 100%!important;
     }
 
-    .relative {
+    .ft-relative {
         position: relative;
     }
 
-    .absolute {
+    .ft-absolute {
         position: absolute;
     }
 
-    .clickable {
+    .ft-clickable {
         cursor:pointer;
     }
 
-    .center-y {
+    .ft-center-y {
         top: 50%;
         transform: translateY(-50%);
     }
 
-    .flex {
+    .ft-flex {
         display: flex;
     }
 
-    .wrap {
+    .ft-wrap {
         flex-wrap: wrap;
     }
 
-    .flex-center {
+    .ft-flex-center {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
     }
 
-    .flex-center-y {
+    .ft-flex-center-y {
         display: flex;
         flex-direction: column;
         justify-content: center;
     }
 
-    .flex-spread-x {
+    .ft-flex-spread-x {
         display: flex;
         justify-content: space-between;
     }
 
-    .flex-center-x {
+    .ft-flex-center-x {
         display: flex;
         justify-content: center;
     }
 
-    .flex-center-y-row {
+    .ft-flex-center-y-row {
         display: flex;
         flex-direction: row;
         align-items: center;
     }
 
-    .align-center {
+    .ft-align-center {
         display: flex;
         align-items: center;
     }

@@ -27,7 +27,7 @@ export default function ImageInput ({ id: _id, alt='', title='', hotspot=null, c
     return (
         <div className="">
             <img
-                className="block"
+                className="ft-block"
                 src={src}
             />
             <Actions

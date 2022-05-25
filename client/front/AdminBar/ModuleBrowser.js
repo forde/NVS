@@ -54,11 +54,11 @@ export default function ModuleBrowser () {
                                     return (
                                         <Col
                                             width={3}
-                                            className={`${styles.module} square`}
+                                            className={`${styles.module} ft-square`}
                                             key={key}
                                         >
                                             <div
-                                                className="card flex-center"
+                                                className="ft-flex-center"
                                                 onClick={() => addModule(module, pageContext)}
                                             >
                                                 {title}
