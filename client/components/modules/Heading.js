@@ -40,8 +40,9 @@ export const Settings = ({ module, onChange }) => {
     const { tag, _key } = module
 
     return (
-        <div>
+        <div style={{minHeight:'200px'}}>
             <Select
+                small
                 value={tag || 'h1'}
                 onChange={val => onChange(_key, { tag: val })}
                 options={['h1','h2','h3']}

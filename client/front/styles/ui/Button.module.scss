@@ -41,7 +41,7 @@
     background: colors.$black;
     color: colors.$uiWhite;
     @media(pointer: fine) { &:hover, &:active {
-        background: colors.$uiDark;
+        background: colors.$uiBackground;
     }}
 }
 
