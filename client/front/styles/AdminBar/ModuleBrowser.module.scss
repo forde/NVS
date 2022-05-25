@@ -8,7 +8,7 @@
 .module {
     position: relative;
     > div {
-        border: 3px solid transparent;
+        border: 3px solid colors.$uiTab;
         cursor: pointer;
         font-weight: 600;
         font-size: 1.6em;

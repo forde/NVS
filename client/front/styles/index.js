@@ -6,18 +6,22 @@ export const colors = colorsModule?.locals || colorsModule
 
 const gridStyles = gridStylesModule?.locals || gridStylesModule
 
-export const Row = ({ children }) => {
+export const Row = ({ children, className }) => {
     return (
-        <div className={gridStyles.row}>{children}</div>
+        <div className={[
+            className,
+            gridStyles.row,
+        ].filter(c=>c).join(' ')}>{children}</div>
     )
 }
 
-export const Col= ({ children, width }) => {
+export const Col= ({ children, width, className }) => {
 
     const cols = index => Array.isArray(width) ? (width[index] || width[index -1] || null ) : [width][index] || null
 
     return (
         <div className={[
+            className,
             gridStyles.col,
             cols(0) && gridStyles[`col-${cols(0)}`],
             cols(1) && gridStyles[`col-${cols(1)}-m`],

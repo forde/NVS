@@ -236,10 +236,6 @@ css`
             }
         }
 
-        .box-shadow {
-            box-shadow: 0 6px 24px rgba(0,0,0,.06), 0 2px 6px rgba(31,26,34,.06);
-        }
-
         .block {
             display: block;
         }
@@ -247,13 +243,6 @@ css`
         .oh {
             overflow: hidden;
             padding-right: 22px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 10px;
-            padding: 32px 32px;
-            box-shadow: 0 6px 24px rgba(0,0,0,.06), 0 2px 6px rgba(31,26,34,.06);
         }
 
         .square {
@@ -287,7 +276,15 @@ css`
             height:100%;
         }
 
+        .h-100i {
+            height:100%!important;
+        }
+
         .w-100 {
+            width: 100%;
+        }
+
+        .w-100i {
             width: 100%!important;
         }
 
@@ -394,17 +391,6 @@ css`
             outline: 1px dashed transparent;
             &:hover {
                 outline: 1px dashed #95939F;
-            }
-        }
-
-
-
-        .modal {
-            padding: 20px;
-            > h3 {
-                font-size: 26px;
-                line-height: 1;
-                margin-bottom: 20px;
             }
         }
 

@@ -358,7 +358,7 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
                                 <Button
                                     medium
                                     onClick={useImage}
-                                    className="w-100 mb-24"
+                                    className="w-100i mb-24"
                                 >Use image</Button>
                                 <ConfirmButton
                                     medium
