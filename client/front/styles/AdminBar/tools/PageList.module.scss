@@ -1,0 +1,24 @@
+@use './../../colors.module';
+
+.pageItem {
+    padding: 6px 0;
+    border-bottom: 1px solid colors.$uiTab;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 42px;
+    > a {
+        cursor: pointer;
+        @media (pointer: fine) { &:hover {
+            color: colors.$primary;
+        }}
+    }
+    > div {
+        display: none;
+    }
+    @media (pointer: fine) { &:hover {
+        > div {
+            display: block;
+        }
+    }}
+}

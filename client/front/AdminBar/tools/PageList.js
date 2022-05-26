@@ -1,0 +1,104 @@
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { MdSearch } from 'react-icons/md'
+import Link from 'next/link'
+
+import ui from '/front/ui'
+import { getSlugsForTypes } from '/api'
+import { Row, Col } from '/front/styles'
+import { success, error } from '/front/lib/message'
+
+import styles from '/front/styles/AdminBar/tools/PageList.module.scss'
+
+import config from '/front.config'
+
+export default function PageList ({ onClose }) {
+
+    const [ search, setSearch ] = useState('')
+    const [ type, setType ] = useState('page')
+    const [ pages, setpages ] = useState([])
+    const [ deletingPage, setDeletingPage ] = useState('')
+
+    const { Modal, Input, Select, ConfirmButton } = ui()
+
+    useEffect(() => {
+        fetchPages()
+    }, [type])
+
+    const fetchPages = async () => {
+        const data = await getSlugsForTypes([type])
+        setpages(data)
+    }
+
+    const searchFilter = page => [page.title]
+        .join(' ')
+        .toLowerCase()
+        .includes(search.toLowerCase())
+
+    const deletePage = async id => {
+
+        if(deletingPage === id) return
+
+        setDeletingPage(id)
+
+        return fetch('/api/sanity/page', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ _id: id })
+        }).then(response => response.json()).then(data => {
+            if(data?.results?.find(res => res.id === id)) {
+                success('Page deleted')
+            } else {
+                error('Page could not be deleted')
+            }
+            fetchPages()
+        })
+    }
+
+    return <Modal
+        onClose={onClose}
+        title="Page list"
+        width="60vw"
+        height="60vh"
+    >
+        <Row>
+            <Col width={8}>
+                <Input
+                    value={search}
+                    onChange={setSearch}
+                    placeholder="Search"
+                    icon={MdSearch}
+                    medium
+                    className="ft-mb-24"
+                />
+            </Col>
+            <Col width={4}>
+                <Select
+                    value={type}
+                    onChange={setType}
+                    options={['page','post']}
+                    style={{ minWidth:'100%'}}
+                    small
+                />
+            </Col>
+        </Row>
+        {pages.filter(searchFilter).map(p => {
+            const { href, as } = config.pageUrl(p)
+            return (
+                <div className={styles.pageItem} key={p._id}>
+                    <Link href={href} as={as}>
+                        <a>{p.title || '-'}</a>
+                    </Link>
+                    <ConfirmButton
+                        children="Delete"
+                        style={{ width:' 160px'}}
+                        buttonSpacing={'12px'}
+                        small
+                        onConfirm={() => deletePage(p._id)}
+                        busy={deletingPage === p._id}
+                    />
+                </div>
+            )
+        })}
+    </Modal>
+}

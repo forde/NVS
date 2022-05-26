@@ -4,7 +4,7 @@ import Button from './Button'
 
 import styles from '/front/styles/ui/ConfirmButton.module.scss'
 
-export default function ConfirmButton({ className, style, small, medium, children, onConfirm = () => {}, fullWidth=true, busy }) {
+export default function ConfirmButton({ className, style, small, medium, children, onConfirm = () => {}, fullWidth=true, busy, buttonSpacing }) {
 
     const [ step, setStep ] = useState(1)
 
@@ -22,7 +22,7 @@ export default function ConfirmButton({ className, style, small, medium, childre
                     <Button tertiary small={small} medium={medium} onClick={() => setStep(2)} className={`${fullWidth ? 'ft-w-100i' : ''}`}>{children}</Button>
                 </div>
                 <div className={[styles.step, styles.step2].join(' ')}>
-                    <Button tertiary small={small} medium={medium} disabled={busy} className="ft-mr-24" onClick={() => setStep(1)}>Cancel</Button>
+                    <Button tertiary small={small} medium={medium} disabled={busy} style={{marginRight: buttonSpacing || '20px'}} onClick={() => setStep(1)}>Cancel</Button>
                     <Button small={small} medium={medium} busy={busy} onClick={async () => {
                         await onConfirm()
                         if(step) setStep(1)

@@ -99,7 +99,10 @@ export const getBySlug = slug => {
 
 export const getSlugsForTypes = types => {
     const query = `*[_type in [${types.map(t => `"${t}"`).join(',')}]]{
-        "slug": slug.current
+        "slug": slug.current,
+        _type,
+        title,
+        _id,
     }`
     return client.fetch(query)
 }

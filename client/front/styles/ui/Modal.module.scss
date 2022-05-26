@@ -69,4 +69,5 @@
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: -ms-autohiding-scrollbar;
     &::-webkit-scrollbar { display: none; }
+    -webkit-font-smoothing: antialiased;
 }

@@ -4,6 +4,7 @@ import { MdVpnKey, MdHandyman, MdSettings, MdCreate, MdList, MdInsights, MdMoreV
 import ModuleBrowser from './ModuleBrowser'
 import PublishButton from './PublishButton'
 import PageSettings from './PageSettings'
+import PageList from './tools/PageList'
 import { onClickOutside, goTo } from '/front/lib/helpers'
 import HorisontalScroller from '/front/ui/HorisontalScroller'
 
@@ -15,6 +16,7 @@ import config from '/front.config'
 export default function AdminBar () {
 
     const [ siteControllsVisible, setSiteControllsVisible ] = useState(false)
+    const [ pageListVisible, setPageListVisisble ] = useState(false)
 
     const { user } = config.useUser()
 
@@ -45,22 +47,25 @@ export default function AdminBar () {
                     <div className={styles.dotToggle}>
                         <MdMoreVert />
                     </div>
-                    {siteControllsVisible &&
-                        <ul className={styles.submenu}>
-                            <li onClick={() => goTo('/new')}><MdCreate/>New page</li>
-                            <li><MdList/>Page list</li>
-                            <li><MdVpnKey/>Users</li>
-                            <li><MdHandyman/>Tools</li>
-                            <li><MdTranslate/>Languages</li>
-                            <li><MdInsights/>SEO</li>
-                            <li><MdSettings/>Settings</li>
-                        </ul>
-                    }
+                    <ul className={styles.submenu} style={{display: siteControllsVisible ? 'block' : 'none'}}>
+                        <li onClick={() => goTo('/new')}><MdCreate/>New page</li>
+                        <li onClick={() => setPageListVisisble(true)}><MdList/>Page list</li>
+                        {/*<li><MdVpnKey/>Users</li>
+                        <li><MdHandyman/>Tools</li>
+                        <li><MdTranslate/>Languages</li>
+                        <li><MdInsights/>SEO</li>
+                        <li><MdSettings/>Settings</li>*/}
+                    </ul>
                 </li>
                 <li><PageSettings/></li>
                 <li><ModuleBrowser/></li>
                 <li style={{ marginLeft: 'auto'}}><PublishButton/></li>
             </HorisontalScroller>
+
+            {pageListVisible &&
+                <PageList onClose={() => setPageListVisisble(false)} />
+            }
+
         </div>
     )
 }
