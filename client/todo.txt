@@ -1,0 +1,3 @@
+ - when after saving page changes slug changed redirect to new slug
+ - wchen switching pages change page context value
+ - add carousel ui module

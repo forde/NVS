@@ -24,10 +24,11 @@ export default function Modules({ modules: _modules=[], moduleMap={}, onChange: 
         if(!firstRender) _onChange(modules)
     }, [modules])
 
-    // when new module is added we need to update local state
+    const moduleKeys = _modules.map(m => m._key).join('-')
+
     useEffect(() => {
-        if(_modules.length > modules.length) setModules(_modules)
-    }, [_modules])
+        setModules(_modules)
+    }, [moduleKeys])
 
     const onChange = useCallback((key, data) => {
         setModules(prevModules => prevModules.map(m => m._key === key ? { ...m, ...data } : m))

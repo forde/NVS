@@ -87,7 +87,7 @@ export default function PageList ({ onClose }) {
             return (
                 <div className={styles.pageItem} key={p._id}>
                     <Link href={href} as={as}>
-                        <a>{p.title || '-'}</a>
+                        <a onClick={onClose}>{p.title}</a>
                     </Link>
                     <ConfirmButton
                         children="Delete"
