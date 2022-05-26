@@ -5,6 +5,7 @@ import id from '/front/lib/id'
 
 import styles from '/front/styles/AdminBar/ModuleBrowser.module.scss'
 import { Row, Col } from '/front/styles'
+import { isInView } from '/front/lib/helpers'
 
 import config from '/front.config'
 
@@ -33,7 +34,8 @@ export default function ModuleBrowser () {
         })
 
         setTimeout(() => {
-            document.querySelector('.ft-modules')?.lastChild?.scrollIntoView({ behavior: 'smooth', block: 'start'})
+            const lastModule = document.querySelector('.ft-modules')?.lastChild
+            if(lastModule && !isInView(lastModule)) lastModule.scrollIntoView({ behavior: 'smooth', block: 'start'})
         }, 300)
 
         setModalVisible(false)

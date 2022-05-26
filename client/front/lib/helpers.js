@@ -127,3 +127,17 @@ export const classes = _names => {
         .join(' ')
     }
 }
+
+export const isInView = (el, mustBeCompletelyInView=true) => {
+
+    if(!el) return false
+
+    const bcr = el.getBoundingClientRect()
+    const elTop = bcr.top
+    const elBottom = bcr.bottom
+
+    return mustBeCompletelyInView ?
+        (elTop >= 0) && (elBottom <= window.innerHeight)
+        :
+        (elTop < window.innerHeight && elBottom >= 0)
+}
