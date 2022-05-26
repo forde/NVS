@@ -16,7 +16,7 @@ export default function AdminBar () {
 
     const [ siteControllsVisible, setSiteControllsVisible ] = useState(false)
 
-    const { user } = config.userExtractor()
+    const { user } = config.useUser()
 
     const siteControllsRef = useRef(null)
 

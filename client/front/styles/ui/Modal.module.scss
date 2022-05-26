@@ -29,13 +29,13 @@
 }
 .modal {
     background: colors.$uiBackground;
-    border: 1px solid #666666;
-    outline: 1px solid #484949;
+    border: 1px solid #444;
+    //outline: 1px solid #484949;
     max-width: 90vw;
     max-height: 90vh;
     cursor: default;
     position: relative;
-    border-radius: 10px;
+    border-radius: 12px;
     color: colors.$uiWhite;
 }
 

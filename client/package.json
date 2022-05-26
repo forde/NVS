@@ -42,6 +42,7 @@
     "react-draft-wysiwyg": "^1.14.7",
     "react-icons": "^4.3.1",
     "react-image-crop": "^10.0.1",
+    "react-json-view": "^1.21.3",
     "shortid": "^2.2.16",
     "slugify": "^1.6.5",
     "uuid": "^8.3.2"

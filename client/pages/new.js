@@ -3,6 +3,7 @@ import { useState, useCallback } from 'react'
 import Layout from '/components/Layout'
 import { PageContext } from '/context'
 import Modules from '/front/presentation/Modules'
+import moduleMap from '/components/modules/modules'
 
 export default function New () {
 
@@ -41,6 +42,7 @@ export default function New () {
                 <Modules
                     modules={pageContext.page.modules || []}
                     onChange={onModulesChange}
+                    moduleMap={moduleMap}
                 />
             </Layout>
         </PageContext.Provider>

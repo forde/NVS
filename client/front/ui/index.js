@@ -5,7 +5,7 @@ import config from '/front.config'
 
 export default function importer () {
 
-    const { user } = config.userExtractor()
+    const { user } = config.useUser()
 
     const _ = _ => null
 

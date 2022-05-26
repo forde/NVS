@@ -60,7 +60,7 @@ export default function Modules({ modules: _modules=[], moduleMap={}, onChange: 
     }, [])
 
     return (
-        <div>
+        <div className="ft-modules">
             {modules.map((module, index) => {
 
                 if(!moduleMap[module._type]) {
@@ -75,7 +75,7 @@ export default function Modules({ modules: _modules=[], moduleMap={}, onChange: 
                 return (
                     <Module
                         key={module._key+'-'+index}
-                        className={`module module-${module._type}`}
+                        className={`ft-module module-${module._type}`}
                     >
                         <Component module={module} onChange={onChange} />
 

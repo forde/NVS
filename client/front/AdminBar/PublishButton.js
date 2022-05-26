@@ -1,25 +1,27 @@
 import { useState } from 'react'
 import { nanoid } from 'nanoid'
-import { MdSave } from 'react-icons/md'
 
-import { PageContext } from '/context'
 import ui from '/front/ui'
 import { success, error } from '/front/lib/message'
+import { goTo } from '/front/lib/helpers'
 
 import { publishButton } from '/front/styles/AdminBar/PublishButton.module.scss'
+
+import config from '/front.config'
 
 export default function PublishButton  () {
 
     const [ publishing, setPublishing ] = useState(false)
 
+    const { page, changed } = config.usePage()
+
     const { Bars } = ui()
 
-    const publish = async page => {
+    const publish = async () => {
 
         if(publishing) return
 
         setPublishing(true)
-
 
         let method = 'PATCH'
         let data = {}
@@ -42,11 +44,8 @@ export default function PublishButton  () {
         if(!page._id) {
             const key = nanoid(36)
             data._id = key
-            data.title = key
-            data.slug.current = key
             method = 'POST'
         }
-
 
         fetch('/api/sanity/page', {
             method: method,
@@ -55,21 +54,22 @@ export default function PublishButton  () {
         })
             .then(response => response.json())
             .then(data => {
-                console.log('data',data);
                 setPublishing(false)
                 success('Page published')
+
+                if(method === 'POST') {
+                    const { href, as } = config.pageUrl(data)
+                    goTo(href, as)
+                }
             })
     }
 
-    return (
-        <PageContext.Consumer>
-            {({ page, changed }) => !changed ? null : <div
-                className={publishButton}
-                onClick={() => publish(page)}
-            >
-                {publishing && <Bars /> }
-                Publish
-            </div>}
-        </PageContext.Consumer>
-    )
+    return !changed ? null :
+        <div
+            className={publishButton}
+            onClick={publish}
+        >
+            {publishing && <Bars /> }
+            Publish
+        </div>
 }
