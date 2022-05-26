@@ -19,6 +19,8 @@ export default function PublishButton  () {
 
     const publish = async () => {
 
+        if(!page.title) return error('Page title is required')
+
         if(publishing) return
 
         setPublishing(true)

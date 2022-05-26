@@ -47,15 +47,17 @@ export default function AdminBar () {
                     <div className={styles.dotToggle}>
                         <MdMoreVert />
                     </div>
-                    <ul className={styles.submenu} style={{display: siteControllsVisible ? 'block' : 'none'}}>
-                        <li onClick={() => goTo('/new')}><MdCreate/>New page</li>
-                        <li onClick={() => setPageListVisisble(true)}><MdList/>Page list</li>
-                        {/*<li><MdVpnKey/>Users</li>
-                        <li><MdHandyman/>Tools</li>
-                        <li><MdTranslate/>Languages</li>
-                        <li><MdInsights/>SEO</li>
-                        <li><MdSettings/>Settings</li>*/}
-                    </ul>
+                    {siteControllsVisible &&
+                        <ul className={styles.submenu}>
+                            <li onClick={() => goTo('/new')}><MdCreate/>New page</li>
+                            <li onClick={() => setPageListVisisble(true)}><MdList/>Page list</li>
+                            {/*<li><MdVpnKey/>Users</li>
+                            <li><MdHandyman/>Tools</li>
+                            <li><MdTranslate/>Languages</li>
+                            <li><MdInsights/>SEO</li>
+                            <li><MdSettings/>Settings</li>*/}
+                        </ul>
+                    }
                 </li>
                 <li><PageSettings/></li>
                 <li><ModuleBrowser/></li>
