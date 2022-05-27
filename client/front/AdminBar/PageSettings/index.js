@@ -23,7 +23,6 @@ export default function PageSettings () {
     const _tabs = [
         { name: 'General', value: 'general' },
         { name: 'SEO', value: 'seo' },
-        { name: 'Misc', value: 'misc' },
         { name: 'Data', value: 'data' },
     ]
 
