@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { nanoid } from 'nanoid'
+import { useRouter } from 'next/router'
 
 import ui from '/front/ui'
 import { success, error } from '/front/lib/message'
 import { goTo } from '/front/lib/helpers'
+import id from '/front/lib/id'
 
 import { publishButton } from '/front/styles/AdminBar/PublishButton.module.scss'
 
@@ -12,6 +13,8 @@ import config from '/front.config'
 export default function PublishButton  () {
 
     const [ publishing, setPublishing ] = useState(false)
+
+    const router = useRouter()
 
     const { page, changed } = config.usePage()
 
@@ -25,45 +28,34 @@ export default function PublishButton  () {
 
         setPublishing(true)
 
-        let method = 'PATCH'
-        let data = {}
+        // update page
+        if(page._id) {
+            const resp = await config.api.page.patch(page)
+            setPublishing(false)
 
-        data = {
-            _id: page._id,
-            _type: 'page',
-            title: page.title,
-            slug: {
-                _type: 'slug',
-                current: page.slug
-            },
-            modules: page.modules,
-            seo: {
-                _type: 'seo',
-                ...page.seo
-            }
+            if(resp?.error) return error(resp.error)
+
+            success('Page updated')
+
+            const { href, as } = config.pageUrl(resp)
+            if(router.asPath !== as) goTo(href, as)
         }
 
+        // create new page
         if(!page._id) {
-            const key = nanoid(36)
-            data._id = key
-            method = 'POST'
-        }
-
-        fetch('/api/sanity/page', {
-            method: method,
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        })
-            .then(response => response.json())
-            .then(data => {
-                setPublishing(false)
-                success('Page published')
-
-                if(method === 'POST') {
-                    const { href, as } = config.pageUrl(data)
-                    goTo(href, as)
-                }
+            const resp = await config.api.page.post({
+                ...page,
+                _id: id(36)
             })
+            setPublishing(false)
+
+            if(resp?.error) return error(resp.error)
+
+            success('Page created')
+
+            const { href, as } = config.pageUrl(resp)
+            goTo(href, as)
+        }
     }
 
     return !changed ? null :

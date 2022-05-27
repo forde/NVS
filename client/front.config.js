@@ -12,6 +12,58 @@ const config = {
             as: `/${page?.slug?.current || page?.slug}`
         }
     },
+    api: {
+        page: {
+            get: async ({ id, slug, title, query, type }) => null,
+            post: async page => {
+                const resp = await fetch('/api/sanity/page', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(page)
+                }).then(resp => resp.json())
+
+                // return error object on error
+                //return { error: 'POST error' }
+
+                // return page object on success
+                return resp
+            },
+            patch: async page => {
+                const resp = await fetch('/api/sanity/page', {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(page)
+                }).then(resp => resp.json())
+
+                // return error object on error
+                //return { error: 'PATCH error' }
+
+                // return page object on success
+                return resp
+            },
+            delete: async page => {
+                const resp = await fetch('/api/sanity/page', {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(page)
+                }).then(response => response.json())
+
+                if(resp?.results?.find(res => res.id === page._id)) {
+                    // return whatever on success
+                    return null
+                } else {
+                    // return error object on error
+                    return { error: 'DELETE error' }
+                }
+            }
+        },
+        media: {
+            get: async ({ id }) => null,
+            put: async ({ file, data }) => null,
+            patch: async ({ id, data }) => null,
+            delete: async ({ id }) => null
+        }
+    }
 }
 
 module.exports = config

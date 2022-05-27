@@ -7,6 +7,7 @@ import ui from '/front/ui'
 import { getSlugsForTypes } from '/api'
 import { Row, Col } from '/front/styles'
 import { success, error } from '/front/lib/message'
+import { goTo } from '/front/lib/helpers'
 
 import styles from '/front/styles/AdminBar/tools/PageList.module.scss'
 
@@ -20,6 +21,8 @@ export default function PageList ({ onClose }) {
     const [ deletingPage, setDeletingPage ] = useState('')
 
     const { Modal, Input, Select, ConfirmButton } = ui()
+
+    const router = useRouter()
 
     useEffect(() => {
         fetchPages()
@@ -35,24 +38,23 @@ export default function PageList ({ onClose }) {
         .toLowerCase()
         .includes(search.toLowerCase())
 
-    const deletePage = async id => {
+    const deletePage = async page => {
 
-        if(deletingPage === id) return
+        if(deletingPage === page._id) return
 
-        setDeletingPage(id)
+        setDeletingPage(page._id)
 
-        return fetch('/api/sanity/page', {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ _id: id })
-        }).then(response => response.json()).then(data => {
-            if(data?.results?.find(res => res.id === id)) {
-                success('Page deleted')
-            } else {
-                error('Page could not be deleted')
-            }
-            fetchPages()
-        })
+        const resp = await config.api.page.delete(page)
+        setDeletingPage('')
+
+        if(resp?.error) return error(resp.error)
+
+        success('Page deleted')
+
+        const { as } = config.pageUrl(page)
+        if(router.asPath === as) return goTo('/')
+
+        fetchPages()
     }
 
     return <Modal
@@ -94,7 +96,7 @@ export default function PageList ({ onClose }) {
                         style={{ width:' 160px'}}
                         buttonSpacing={'12px'}
                         small
-                        onConfirm={() => deletePage(p._id)}
+                        onConfirm={() => deletePage(p)}
                         busy={deletingPage === p._id}
                     />
                 </div>

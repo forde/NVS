@@ -19,8 +19,19 @@ export default withApiAuthRequired(async function page(req, res) {
         useCdn: process.env.NODE_ENV === 'production'
     })
 
+    const formatData = _data => {
+        const data = {
+            ..._data,
+            slug: {
+                _type: 'slug',
+                current: _data.slug?.current || _data.slug
+            }
+        }
+        return data
+    }
+
     if(req.method === 'POST') {
-        const resp = await client.createIfNotExists(req.body)
+        const resp = await client.createIfNotExists(formatData(req.body))
         res.status(200).json(resp)
     }
 
@@ -30,7 +41,7 @@ export default withApiAuthRequired(async function page(req, res) {
     }
 
     if(req.method === 'PATCH') {
-        const resp = await client.patch(req.body._id).set(req.body).commit()
+        const resp = await client.patch(req.body._id).set(formatData(req.body)).commit()
         res.status(200).json(resp)
     }
 
