@@ -55,15 +55,17 @@ export default function GeneralSettings ({ page, onChange }) {
                     small
                 />
             </Col>
-            <Col width={12} className="ft-pt-24">
-                <ConfirmButton
-                    children="Delete page"
-                    buttonSpacing={'16px'}
-                    medium
-                    onConfirm={deletePage}
-                    busy={deletingPage}
-                />
-            </Col>
+            {page._id &&
+                <Col width={12} className="ft-pt-24">
+                    <ConfirmButton
+                        children="Delete page"
+                        buttonSpacing={'16px'}
+                        medium
+                        onConfirm={deletePage}
+                        busy={deletingPage}
+                    />
+                </Col>
+            }
         </Row>
     )
 }

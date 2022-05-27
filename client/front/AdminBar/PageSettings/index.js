@@ -52,8 +52,8 @@ export default function PageSettings () {
                 <Modal
                     onClose={close}
                     title="Page settings"
-                    width="60vw"
-                    height="60vh"
+                   // width="60vw"
+                    //height="60vh"
                     toolbarChildren={<Tabs
                         tabs={_tabs}
                         active={tab}
