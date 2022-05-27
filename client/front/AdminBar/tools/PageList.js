@@ -4,7 +4,6 @@ import { MdSearch } from 'react-icons/md'
 import Link from 'next/link'
 
 import ui from '/front/ui'
-import { getSlugsForTypes } from '/api'
 import { Row, Col } from '/front/styles'
 import { success, error } from '/front/lib/message'
 import { goTo } from '/front/lib/helpers'
@@ -29,8 +28,8 @@ export default function PageList ({ onClose }) {
     }, [type])
 
     const fetchPages = async () => {
-        const data = await getSlugsForTypes([type])
-        setpages(data)
+        const resp = await config.api.page.get({ type })
+        setpages(resp)
     }
 
     const searchFilter = page => [page.title]

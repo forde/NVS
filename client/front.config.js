@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { useUser } from '@auth0/nextjs-auth0'
 
 import { PageContext } from '/context'
+import { getPage } from '/api'
 
 const config = {
     useUser: useUser, // when called should return { user: {} } or { user: null }
@@ -14,7 +15,10 @@ const config = {
     },
     api: {
         page: {
-            get: async ({ id, slug, title, query, type }) => null,
+            get: async ({ id, slug, title, query, type, from, to }) => {
+                // return array of pages
+                return getPage({ id, slug, title, query, type, from, to })
+            },
             post: async page => {
                 const resp = await fetch('/api/sanity/page', {
                     method: 'POST',

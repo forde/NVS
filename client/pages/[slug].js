@@ -1,11 +1,12 @@
 import { useState, useCallback, useEffect } from 'react'
 
-import { getSlugsForTypes, getBySlug, getPosts } from '/api'
 import Layout from '/components/Layout'
 import Modules from '/front/presentation/Modules'
 import { PageContext } from '/context'
 
 import moduleMap from '/components/modules/modules'
+
+import config from '/front.config'
 
 export default function Slug ({ page }) {
 
@@ -53,7 +54,8 @@ export default function Slug ({ page }) {
 }
 
 export async function getStaticPaths() {
-    const slugs = await getSlugsForTypes(['post','page'])
+
+    const slugs = await config.api.page.get({ type: ['page'] })
 
     const paths = slugs.map(slug => ({
         params: { slug: slug.slug },
@@ -64,15 +66,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 
-    const page = await getBySlug(params.slug)
-    //console.log('API', page);
-
-    // attach blog posts to "blogPosts" section if it't there
-    const sectionsRequireBlogPosts = (page.sections || []).reduce((acc, s) => s._type === 'blogPosts' ? true : acc, false)
-    if(sectionsRequireBlogPosts) {
-        const posts = await getPosts()
-        page.sections = page.sections.map(s => s._type === 'blogPosts' ? {...s, posts} : s)
-    }
+    const page = (await config.api.page.get({ slug: params.slug }))[0]
 
     return { props: { page } }
 }

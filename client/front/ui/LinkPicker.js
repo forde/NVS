@@ -6,7 +6,7 @@ import Modal from './Modal'
 import Button from './Button'
 import Input from './Input'
 import Switch from './Switch'
-import { findPageByTitle } from '/api'
+import config from '/front.config'
 
 import styles from '/front/styles/ui/LinkPicker.module.scss'
 
@@ -26,7 +26,7 @@ export default function LinkPicker ({ onLink, onClose, url:_url, title:_title, t
             return
         }
         (async () => {
-            const resp = await findPageByTitle(query)
+            const resp = await config.api.page.get({ title: query })
             setResults(resp)
         })()
     }, [query])

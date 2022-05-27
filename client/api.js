@@ -13,6 +13,11 @@ const sanityClientConfig = {
 
 export const client = sanityClient(sanityClientConfig)
 
+/*
+|--------------------------------------------------------------------------
+|  SETTINGS
+|--------------------------------------------------------------------------
+*/
 export const getSettings = async () => {
     return client.fetch(`
     *[_type == "settings"][0]{
@@ -38,6 +43,11 @@ export const getSettings = async () => {
     }`)
 }
 
+/*
+|--------------------------------------------------------------------------
+|  POSTS
+|--------------------------------------------------------------------------
+*/
 export const getPosts = async () => {
     const query = `*[_type == "post"]
     | order(_createdAt asc)
@@ -49,55 +59,96 @@ export const getPosts = async () => {
             "slug": slug.current,
             title
         },
-        "mainImage": meta.mainImage
+        "mainImage": meta.mainImage{
+            ...,
+            "meta": asset->metadata{ dimensions, lqip },
+        }
     }`
 
     return client.fetch(query)
 }
 
-export const getBySlug = slug => {
-    const query = `*[slug.current == "${slug}"][0]{
-        _id,
-        _type,
-        title,
+
+/*
+|--------------------------------------------------------------------------
+|  PAGES
+|--------------------------------------------------------------------------
+*/
+const pageFields = `
+    _id,
+    _type,
+    title,
+    "slug": slug.current,
+    "publishedAt": meta.publishedAt,
+    "categories": meta.categories[]->{
         "slug": slug.current,
-        "publishedAt": meta.publishedAt,
-        "categories": meta.categories[]->{
-            "slug": slug.current,
-            title
-        },
-        "mainImage": meta.mainImage{
+        title
+    },
+    "mainImage": meta.mainImage{
+        ...,
+        "meta": asset->metadata{ dimensions, lqip },
+    },
+    "modules": modules[]{
+        ...,
+        _type == "content" => {
             ...,
-            "meta": asset->metadata{ dimensions, lqip },
-        },
-        "modules": modules[]{
-            ...,
-            _type == "content" => {
+            content[]{
                 ...,
-                content[]{
+                markDefs[]{
                     ...,
-                    markDefs[]{
-                        ...,
-                        _type == "internalLink" => {
-                            "document": {
-                                "slug": @.reference->slug.current,
-                                "type": @.reference->_type
-                            }
+                    _type == "internalLink" => {
+                        "document": {
+                            "slug": @.reference->slug.current,
+                            "type": @.reference->_type
                         }
                     }
                 }
             }
-        },
-        "seo": seo{
-            title,
-            description,
-            keywords
         }
-    }`
-    return client.fetch(query)
+    },
+    "seo": seo{
+        title,
+        description,
+        keywords
+    }
+`
+
+export const getPage = ({ id, slug, title, query, type, from, to }) => {
+
+    const rangeQuery = (from && to) ? `[${from}..${to}]` : ``
+
+    const slugQuery = slug ? `[slug.current == "${slug}"]` : ``
+
+    const types = (Array.isArray(type) ? type : [type]).map(t=>`"${t}"`).join(',')
+    const typeQuery = type ? `[_type in [${types}]]` : ``
+
+    const titleQuery = title ? `[[title] match ["*${title}*"]]` : ``
+
+    const orderQuery = `| order(_createdAt desc)`
+
+    const idQuery = id ? `[_id == "${id}"]` : ``
+
+    return client.fetch(`*
+        ${typeQuery}
+        ${slugQuery}
+        ${titleQuery}
+        ${idQuery}
+        ${rangeQuery}
+        ${orderQuery}
+        {
+            ${pageFields}
+        }
+    `)
 }
 
-export const getSlugsForTypes = types => {
+/*export const getBySlug = slug => {
+    const query = `*[slug.current == "${slug}"][0]{
+        ${pageFields}
+    }`
+    return client.fetch(query)
+}*/
+
+/*export const getSlugsForTypes = types => {
     const query = `*[_type in [${types.map(t => `"${t}"`).join(',')}]]{
         "slug": slug.current,
         _type,
@@ -105,8 +156,39 @@ export const getSlugsForTypes = types => {
         _id,
     }`
     return client.fetch(query)
-}
+}*/
 
+/*export const findPageByTitle = search => {
+    const query = `*[_type in ['post','page']]
+    [[title] match ["*${search}*"]]
+    [0..5]
+    | order(_createdAt desc) {
+        _id,
+        _type,
+        title,
+        "slug": slug.current,
+    }`
+    return client.fetch(query)
+}*/
+
+/*export const findPageBySlug = search => {
+    const query = `*[_type in ['post','page']]
+    [[slug.current] match ["*${search}*"]]
+    [0..5]
+    | order(_createdAt desc) {
+        _id,
+        _type,
+        title,
+        "slug": slug.current,
+    }`
+    return client.fetch(query)
+}*/
+
+/*
+|--------------------------------------------------------------------------
+|  MEDIA
+|--------------------------------------------------------------------------
+*/
 export const getImages = ({ search, from=0, to=12 }) => {
     const query = `*[_type == 'sanity.imageAsset']
     ${search && `[[originalFilename] match ["*${search}*"]]`}
@@ -138,32 +220,6 @@ export const getImageMeta = (ref) => {
             dimensions,
             lqip
         }
-    }`
-    return client.fetch(query)
-}
-
-export const findPageByTitle = search => {
-    const query = `*[_type in ['post','page']]
-    [[title] match ["*${search}*"]]
-    [0..5]
-    | order(_createdAt desc) {
-        _id,
-        _type,
-        title,
-        "slug": slug.current,
-    }`
-    return client.fetch(query)
-}
-
-export const findPageBySlug = search => {
-    const query = `*[_type in ['post','page']]
-    [[slug.current] match ["*${search}*"]]
-    [0..5]
-    | order(_createdAt desc) {
-        _id,
-        _type,
-        title,
-        "slug": slug.current,
     }`
     return client.fetch(query)
 }

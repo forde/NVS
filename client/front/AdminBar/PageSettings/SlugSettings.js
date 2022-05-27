@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid'
 import slugify from 'slugify'
 
 import ui from '/front/ui'
-import { findPageBySlug } from '/api'
+import config from '/front.config'
 
 import styles from '/front/styles/AdminBar/PageSettings/SlugSettings.module.scss'
 
@@ -21,7 +21,7 @@ export default function SlugSettings ({ slug, title, id, onChange }) {
         setEditedSlugValid(null)
         if(editedSlug) {
             timeout  = setTimeout(async () => {
-                const check = await findPageBySlug(toSlug(editedSlug))
+                const check = await config.api.page.get({ slug: toSlug(editedSlug) })
                 setEditedSlugValid(!check.length)
             }, 500)
         }
@@ -31,7 +31,7 @@ export default function SlugSettings ({ slug, title, id, onChange }) {
         if(!title) return onChange(nanoid(6))
         if(!id) {
             timeout  = setTimeout(async () => {
-                const check = await findPageBySlug(toSlug(title))
+                const check = await config.api.page.get({ slug: toSlug(title) })
                 onChange(!check.length ? toSlug(title) : toSlug(title)+'-'+nanoid(6))
             }, 500)
         }
