@@ -4,7 +4,8 @@ import Link from 'next/link'
 export default function Menu () {
 
     const links = [
-        { name: 'Home', url: '/home' }
+        { name: 'Home', url: '/home' },
+        { name: 'Asztawakragita', url: '/asztawakragita' },
     ]
 
     return(
@@ -23,6 +24,8 @@ export default function Menu () {
 const Nav = styled.nav`
     position: relative;
     ul  {
+        display: flex;
+        align-items: center;
         li {
             margin-right: 16px;
         }

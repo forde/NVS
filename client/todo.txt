@@ -1,3 +1,6 @@
- - when after saving page changes slug changed redirect to new slug
- - wchen switching pages change page context value
+ + when after saving page changes slug changed redirect to new slug
+ + wchen switching pages change page context value
  - add carousel ui module
+ - add "button type" to link picker
+ - add possibility to restrict conytrolls of rich text editor
+ - add color picker ui element

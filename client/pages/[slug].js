@@ -68,5 +68,8 @@ export async function getStaticProps({ params }) {
 
     const page = (await config.api.page.get({ slug: params.slug }))[0]
 
-    return { props: { page } }
+    return {
+        props: { page },
+        revalidate: 10, // In seconds
+    }
 }

@@ -4,7 +4,7 @@
   "description": "NVS Client",
   "author": "Konrad Węgrzyniak <konrad@forde.pl>",
   "engines": {
-    "node": "12.x"
+    "node": "16.x"
   },
   "scripts": {
     "dev": "next dev -p 3001",
