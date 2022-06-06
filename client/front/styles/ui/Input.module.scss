@@ -9,7 +9,7 @@
         width: 100%;
         outline: none;
         line-height:1;
-        padding: 0 16px 2px;
+        padding: 0 16px;
         box-shadow: none;
         border: 3px solid transparent;
         border-radius: 10px;
@@ -19,7 +19,6 @@
         color: colors.$uiWhite;
         -moz-osx-font-smoothing: grayscale;
         font-family: "Arial", sans-serif;
-        font-size: 18px;
         &::placeholder {
             color: colors.$darkGray;
             opacity: 1;
@@ -95,7 +94,7 @@
 
 .medium {
     input, textarea {
-        padding: 0 10px 2px;
+        padding: 0 10px;
         height: 36px;
         min-height: 36px;
         font-size: 16px;

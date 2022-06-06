@@ -31,5 +31,6 @@ export default function importer () {
         Switch:         !user ? _ : dynamic(() => import('./Switch'),         { ssr: false }),
         Tabs:           !user ? _ : dynamic(() => import('./Tabs'),           { ssr: false }),
         Bars:           !user ? _ : dynamic(() => import('./Bars'),           { ssr: false }),
+        ColorPicker:    !user ? _ : dynamic(() => import('./ColorPicker'),    { ssr: false }),
     }), [user])
 }

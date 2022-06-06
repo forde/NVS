@@ -35,6 +35,7 @@ export default function Home() {
         Switch,
         Tabs,
         TagInput,
+        ColorPicker,
     } = ui()
 
     const [ demo, setDemo ] = useState({
@@ -54,6 +55,7 @@ export default function Home() {
         pickerVisible: false,
         link: {},
         tags: [],
+        color: '',
     })
 
     const change = curry((key, val) => {
@@ -126,6 +128,11 @@ export default function Home() {
                     </div>
                     <div className="ft-mb-24">
                         <Switch on={demo.switch} onChange={change('switch')} />
+                    </div>
+                    <div className="ft-mb-24">
+                        <ColorPicker value={demo.color} onChange={change('color')} style={{marginRight:'18px', display: 'inline-block'}}/>
+                        <ColorPicker medium value={demo.color} onChange={change('color')} style={{marginRight:'18px', display: 'inline-block'}}/>
+                        <ColorPicker small value={demo.color} onChange={change('color')} style={{marginRight:'18px', display: 'inline-block'}} />
                     </div>
                     <div className="ft-mb-24">
                         <TagInput
