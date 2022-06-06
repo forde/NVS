@@ -78,6 +78,17 @@ export default function Home() {
         style: {width:'240px',marginRight:'16px'}
     }
 
+    const customLinkPickerOptions = <>
+        <div className="ft-mb-24">
+            <Input
+                medium
+                value={demo.link.color || '#fff'}
+                onChange={v => setDemo({...demo, link: {...demo.link, color: v} })}
+            />
+        </div>
+    </>
+
+
     return(
         <Layout>
             <div className="container ft-pt-24">
@@ -376,13 +387,15 @@ export default function Home() {
                 <div className="ft-mb-24">
                     <Button small secondary onClick={() => setDemo({...demo, pickerVisible: true})}>Link picker</Button>
                     {demo.pickerVisible && <LinkPicker
+                        serchableTypes={['page','post']}
                         onLink={l => {
-                            console.log(l)
-                            setDemo({...demo, pickerVisible: false, link: l })
+                            const newLinkValue = {...demo.link, ...l}
+                            console.log('link values', l, 'link values with custom options', newLinkValue)
+                            setDemo({...demo, pickerVisible: false, link: newLinkValue })
                         }}
                         onClose={() => setDemo({...demo, pickerVisible: false })}
                         {...demo.link}
-                    />}
+                    >{customLinkPickerOptions}</LinkPicker>}
                 </div>
                 <div className="ft-mb-24 ft-flex ft-mt-48">
                     <div className="ft-flex-center ft-p-24" style={{background: '#EFEFF1', width: '100%'}}>

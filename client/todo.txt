@@ -2,5 +2,5 @@
  + wchen switching pages change page context value
  - add carousel ui module
  - add "button type" to link picker
- - add possibility to restrict conytrolls of rich text editor
- - add color picker ui element
+ - add possibility to restrict controlls of rich text editor
+ + add color picker ui element

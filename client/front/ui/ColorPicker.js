@@ -20,7 +20,7 @@ export default function ColorPicker ({
 
     const wrapperRef = useRef(null)
 
-    const [ colorOptionsVisible, setColorOptionsVisible ] = useState(true)
+    const [ colorOptionsVisible, setColorOptionsVisible ] = useState(false)
 
     onClickOutside(wrapperRef, () => {
         setColorOptionsVisible(false)

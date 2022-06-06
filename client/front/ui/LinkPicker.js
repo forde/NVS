@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { MdSearch } from 'react-icons/md'
-import { styled } from 'linaria/react'
 
 import Modal from './Modal'
 import Button from './Button'
@@ -10,7 +9,17 @@ import config from '/front.config'
 
 import styles from '/front/styles/ui/LinkPicker.module.scss'
 
-export default function LinkPicker ({ onLink, onClose, url:_url, title:_title, target:_target, type:_type, id:_id }) {
+export default function LinkPicker ({
+    onLink,
+    onClose,
+    url:_url,
+    title:_title,
+    target:_target,
+    type:_type,
+    id:_id,
+    serchableTypes=['page'],
+    children=null,
+}) {
 
     const [ query, setQuery ] = useState('')
     const [ results, setResults ] = useState([])
@@ -26,7 +35,7 @@ export default function LinkPicker ({ onLink, onClose, url:_url, title:_title, t
             return
         }
         (async () => {
-            const resp = await config.api.page.get({ title: query })
+            const resp = await config.api.page.get({ title: query, type: serchableTypes })
             setResults(resp)
         })()
     }, [query])
@@ -79,6 +88,7 @@ export default function LinkPicker ({ onLink, onClose, url:_url, title:_title, t
         <div className="ft-flex-center-y-row ft-mb-24 ft-fs-16" >
             <Switch on={target==='_blank'} onChange={val => val ? setTarget('_blank') : setTarget('_self')} style={{marginRight: '8px'}}/> Open link in new tab
         </div>
+        {children && <div className="ft-mb-24">{children}</div>}
         <Button
             medium
             disabled={!title || !url}
