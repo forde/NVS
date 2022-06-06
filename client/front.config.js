@@ -13,6 +13,11 @@ const config = {
             as: `/${page?.slug?.current || page?.slug}`
         }
     },
+    ui: {
+        ColorPicker: {
+            options: ['#182B3E', '#EE402F', '#558CF0', '#F1A42F', '#EE6B20']
+        }
+    },
     api: {
         page: {
             get: async ({ id, slug, title, query, type, from, to }) => {

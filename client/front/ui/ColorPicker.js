@@ -1,19 +1,21 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 import styles from '/front/styles/ui/ColorPicker.module.scss'
 
 import { onClickOutside } from '/front/lib/helpers'
 import Input from './Input'
 
+import config from '/front.config'
+
 export default function ColorPicker ({
-    colors=['red','green','blue'],
-    value='',
-    onChange=val=>null,
+    colors = config?.ui?.ColorPicker?.options || ['red','green','blue'],
+    value = '',
+    onChange = val=>null,
     style,
     className,
     medium,
     small,
-    allowCustomColors=true
+    allowCustomColors = false
 }) {
 
     const wrapperRef = useRef(null)
@@ -23,6 +25,11 @@ export default function ColorPicker ({
     onClickOutside(wrapperRef, () => {
         setColorOptionsVisible(false)
     })
+
+    useEffect(() => {
+        const inputEl = wrapperRef.current.querySelector('input')
+        colorOptionsVisible ? inputEl?.focus() : inputEl?.blur()
+    }, [colorOptionsVisible])
 
     return (
         <div ref={wrapperRef} style={style} className={[
@@ -50,7 +57,10 @@ export default function ColorPicker ({
                         key={i}
                         className="ft-square"
                         style={{ backgroundColor: c || 'tranmsparent' }}
-                        onClick={_ => onChange(c)}
+                        onClick={_ => {
+                            onChange(c)
+                            setColorOptionsVisible(false)
+                        }}
                     />)}
                 </div>
             }
