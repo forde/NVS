@@ -1,17 +1,15 @@
 import { useState } from 'react'
 import { curry } from 'ramda'
 import { MdAddCircle, MdSearch } from 'react-icons/md'
-import imageUrlBuilder from '@sanity/image-url'
 import xor from 'lodash.xor'
 
 import Layout from '/components/Layout'
 import { success, error } from '/front/lib/message'
-import { client } from '/api'
 import ui from '/front/ui'
 
 import { colors, Row, Col } from '/front/styles'
 
-const imageUrl = source => imageUrlBuilder(client).image(source)
+import config from '/front.config'
 
 export default function Home() {
 
@@ -376,13 +374,13 @@ export default function Home() {
                             // image url builder docs: https://www.sanity.io/docs/image-url
                         }
                     } />}
-                    {demo.usedImage && <img
+                    {demo.usedImage && <div><img
                         className="block ft-mt-24 ft-clickable"
                         onClick={() => setDemo({...demo, editedImage: demo.usedImage, mediaBrowser: true })}
-                        src={imageUrl(demo.usedImage).width(400).auto('format').url()}
+                        src={config.imageUrl(demo.usedImage).width(400).auto('format').url()}
                         title={demo.usedImage.title}
                         alt={demo.usedImage.alt}
-                    />}
+                    /></div>}
                 </div>
                 <div className="ft-mb-24">
                     <Button small secondary onClick={() => setDemo({...demo, pickerVisible: true})}>Link picker</Button>

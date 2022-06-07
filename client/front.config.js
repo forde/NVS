@@ -4,6 +4,9 @@ import { useUser } from '@auth0/nextjs-auth0'
 import { PageContext } from '/context'
 import { getPage } from '/api'
 
+import imageUrlBuilder from '@sanity/image-url'
+import { client } from '/api'
+
 const config = {
     useUser: useUser, // when called should return { user: {} } or { user: null }
     usePage: () => useContext(PageContext),
@@ -13,6 +16,7 @@ const config = {
             as: `/${page?.slug?.current || page?.slug}`
         }
     },
+    imageUrl: source => imageUrlBuilder(client).image(source),
     ui: {
         ColorPicker: {
             options: ['#182B3E', '#EE402F', '#558CF0', '#F1A42F', '#EE6B20']

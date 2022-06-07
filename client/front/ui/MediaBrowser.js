@@ -1,5 +1,4 @@
 import { useRef, useState, useCallback, useEffect } from 'react'
-import imageUrlBuilder from '@sanity/image-url'
 import { MdSearch, MdKeyboardBackspace, MdDesktopMac, MdPhoneIphone } from 'react-icons/md'
 import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
@@ -16,6 +15,8 @@ import Loader from './Loader'
 import ConfirmButton from './ConfirmButton'
 
 import styles from '/front/styles/ui/MediaBrowser.module.scss'
+
+import config from '/front.config'
 
 /*
 Props:
@@ -130,8 +131,6 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
         e.target.crossOrigin = 'Anonymous'
         croppedImageRef.current = e.target
     }, [])
-
-    const imageUrl = source => imageUrlBuilder(client).image(source)
 
     const fetchImages = async () => {
         const resp = await getImages({ search })
@@ -278,7 +277,7 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
                                     className={!image._id ? styles.gridItemBusy : ''}
                                     onClick={() => onImageClick(image)}
                                 >
-                                    {image._id && <img src={imageUrl(image).width(300).url()} />}
+                                    {image._id && <img src={config.imageUrl(image).width(300).url()} />}
                                     {!image._id && <Loader color="black"/>}
                                 </li>
                             )
@@ -298,7 +297,7 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
                                     aspect={ratioLock}
                                 >
                                     <img
-                                        src={imageUrl({
+                                        src={config.imageUrl({
                                             ...selectedImage,
                                             crop: null, // we always show full image here so discard crop/hotspot if any
                                             hotspot: null, // we always show full image here so discard crop/hotspot if any

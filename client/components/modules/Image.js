@@ -1,9 +1,8 @@
 import { memo } from 'react'
 
 import ui from '/front/ui'
-import imageUrlBuilder from '@sanity/image-url'
-import { client } from '/api'
-const imageUrl = source => imageUrlBuilder(client).image(source)
+
+import config from '/front.config'
 
 export default memo(function Image ({ module, onChange }) {
 
@@ -13,7 +12,7 @@ export default memo(function Image ({ module, onChange }) {
 
     //console.log('Module', module)
 
-    const src = image.asset ? imageUrl(image.asset).auto('format').url() : 'https://via.placeholder.com/1600x900'
+    const src = image.asset ? config.imageUrl(image.asset).auto('format').url() : 'https://via.placeholder.com/1600x900'
 
     return(
         <div className="container ft-mb-60">

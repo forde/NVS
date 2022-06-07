@@ -1,11 +1,8 @@
 import { useState } from 'react'
 
 import ui from '/front/ui'
-import imageUrlBuilder from '@sanity/image-url'
 
-import { client } from '/api'
-
-const imageUrl = source => imageUrlBuilder(client).image(source)
+import config from '/front.config'
 
 export default function ImageInput ({ id: _id, alt='', title='', hotspot=null, crop=null, placeholder, onChange }) {
 
@@ -13,7 +10,7 @@ export default function ImageInput ({ id: _id, alt='', title='', hotspot=null, c
 
     const { MediaBrowser, Actions } = ui()
 
-    const src = _id ? imageUrl({
+    const src = _id ? config.imageUrl({
         _type: 'reference',
         _ref: _id,
         crop, hotspot

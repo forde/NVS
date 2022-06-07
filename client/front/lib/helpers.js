@@ -1,8 +1,5 @@
 import { useEffect } from "react"
 import Router from 'next/router'
-import imageUrlBuilder from '@sanity/image-url'
-
-import { client } from '/api'
 
 export const isObject = v => v && v.constructor !== Array && v === Object(v) && typeof v !== 'function' && v instanceof Promise === false && v instanceof Date === false;
 
@@ -106,8 +103,6 @@ export const getPixelRatio = () => {
 
     return dpr / bsr
 }
-
-export const imageUrl = source => imageUrlBuilder(client).image(source)
 
 export const clone = object => JSON.parse(JSON.stringify(object))
 
