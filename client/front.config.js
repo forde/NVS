@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { useUser } from '@auth0/nextjs-auth0'
 
 import { PageContext } from '/context'
-import { getPage } from '/api'
+import { getPage, getImage } from '/api'
 
 import imageUrlBuilder from '@sanity/image-url'
 import { client } from '/api'
@@ -71,10 +71,50 @@ const config = {
             }
         },
         media: {
-            get: async ({ id }) => null,
-            put: async ({ file, data }) => null,
-            patch: async ({ id, data }) => null,
-            delete: async ({ id }) => null
+            get: async ({ id, search, from, to }) => {
+                // return array of images
+                return getImage({ id, search, from, to })
+            },
+            put: async ({ file }) => {
+
+                const formData = data => {
+                    const formData = new FormData()
+                    Object.keys(data).forEach(key => formData.append(key, data[key]))
+                    return formData
+                }
+
+                const resp = await fetch('/api/sanity/image', {
+                    method: 'PUT',
+                    body: formData({ file, filename: file.name })
+                }).then(response => response.json())
+
+                // return error object on error
+                //return { error: 'PUT error' }
+
+                // return page object on success
+                return resp
+            },
+            patch: async ({ id, data }) => {
+
+            },
+            delete: async ({ id }) => {
+
+                const formData = data => {
+                    const formData = new FormData()
+                    Object.keys(data).forEach(key => formData.append(key, data[key]))
+                    return formData
+                }
+
+                const resp = await fetch('/api/sanity/image', {
+                    method: 'DELETE',
+                    body: formData({ id })
+                }).then(response => response.json())
+
+                // return error object on error
+                //return { error: 'DELETE error' }
+
+                return resp
+            }
         }
     }
 }

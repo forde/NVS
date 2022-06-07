@@ -4,7 +4,6 @@ import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 
 import Modal from './Modal'
-import { getImages, getImageMeta, client } from '/api'
 import Input from './Input'
 import Button from './Button'
 import Select from './Select'
@@ -13,6 +12,7 @@ import useWindowWidth from '/front/lib/hooks/useWindowWidth'
 import useFirstRender from '/front/lib/hooks/useFirstRender'
 import Loader from './Loader'
 import ConfirmButton from './ConfirmButton'
+import { success, error } from '/front/lib/message'
 
 import styles from '/front/styles/ui/MediaBrowser.module.scss'
 
@@ -88,9 +88,12 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
 
             if(!_selectedImage?.metadata) {
                 (async () => {
-                    const metadata = await getImageMeta(_selectedImage?._id)
-                    //console.log('Image metadata fetched', metadata);
-                    setSelectedImage({ ..._selectedImage, ...(metadata || {}) })
+                    const metadata = await config.api.media.get({ id: _selectedImage?._id })
+
+                    if(metadata.error) return error(metadata.error)
+
+                    //console.log('Image metadata fetched', metadata[0]);
+                    setSelectedImage({ ..._selectedImage, ...(metadata[0] || {}) })
                 })()
             } else {
                 setSelectedImage(_selectedImage)
@@ -133,7 +136,10 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
     }, [])
 
     const fetchImages = async () => {
-        const resp = await getImages({ search })
+        const resp = await config.api.media.get({ search })
+
+        if(resp.error) return error(resp.error)
+
         setLoading(false)
         if(Array.isArray(resp)) setImages(resp)
     }
@@ -153,12 +159,6 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
         fetchImages()
     }
 
-    const formData = data => {
-        const formData = new FormData()
-        Object.keys(data).forEach(key => formData.append(key, data[key]))
-        return formData
-    }
-
     const onFileSelected = async e => {
 
         if(!e.target.files.length) return
@@ -167,16 +167,13 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
 
         setUploads(files)
 
-        files.forEach((file, i) => {
-            fetch('/api/sanity/image', {
-                method: 'PUT',
-                body: formData({ file, filename: file.name })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    const replaceUploaded = upload => upload.name === data?.originalFilename ? data : upload
-                    setUploads(uploadsStateRef.current.map(replaceUploaded))
-                })
+        files.forEach(async (file, i) => {
+            const resp = await config.api.media.put({ file })
+
+            if(resp.error) return error(resp.error)
+
+            const replaceUploaded = upload => upload.name === resp?.originalFilename ? resp : upload
+            setUploads(uploadsStateRef.current.map(replaceUploaded))
         })
     }
 
@@ -219,14 +216,14 @@ export default function MediaBrowser ({ onClose, onUse, selectedImage: _selected
 
         setDeleting(true)
 
-        await (await fetch('/api/sanity/image', {
-            method: 'DELETE',
-            body: formData({ id:  selectedImage._id })
-        })).json()
+        const resp = await config.api.media.delete({ id: selectedImage._id })
+
+        setDeleting(false)
+
+        if(resp.error) return error(resp.error)
 
         await fetchImages()
 
-        setDeleting(false)
         backToImageGrid()
     }
 
